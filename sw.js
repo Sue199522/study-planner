@@ -1,4 +1,4 @@
-const CACHE_NAME = 'daily-planner-v3';
+const CACHE_NAME = 'daily-planner-v4';
 
 // Install - skip caching, just activate immediately
 self.addEventListener('install', event => {
