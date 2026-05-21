@@ -5,14 +5,24 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Sue学习打卡">
+<meta name="apple-mobile-web-app-title" content="学习打卡">
 <meta name="theme-color" content="#FF6B9D">
 <link rel="manifest" href="./manifest.json">
-<title>Sue · 学习打卡</title>
+<title>学习打卡</title>
 <style>
 :root{--pri:#FF6B9D;--pri-l:#FFA8C5;--pri-d:#E85587;--suc:#00D2A0;--wrn:#FFD93D;--dng:#FF6B6B;--bg:#1A0A12;--card:#2A1520;--card2:#351E2C;--text:#F5E6EE;--muted:#AA8899;--border:#3D2535;--radius:14px}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:16px;padding-bottom:90px;padding-bottom:calc(90px + env(safe-area-inset-bottom,0px));-webkit-tap-highlight-color:transparent;line-height:1.6}
+
+/* Decorative patterns */
+body.pattern-stars{background-image:radial-gradient(circle,var(--pri) 1px,transparent 1px),radial-gradient(circle,var(--pri-l) 1px,transparent 1px);background-size:50px 50px,30px 30px;background-position:0 0,25px 25px}
+body.pattern-hearts{background-image:radial-gradient(circle,var(--pri) 1.5px,transparent 1.5px);background-size:40px 40px;background-position:10px 10px}
+body.pattern-dots{background-image:radial-gradient(circle,var(--border) 1px,transparent 1px);background-size:20px 20px}
+body.pattern-waves{background-image:url("data:image/svg+xml,%3Csvg width='100' height='20' viewBox='0 0 100 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 10 Q25 0 50 10 Q75 20 100 10' fill='none' stroke='%233D2535' stroke-width='1'/%3E%3C/svg%3E");background-size:100px 20px}
+body.pattern-bubbles{background-image:radial-gradient(circle 8px,var(--card) 1px,transparent 2px),radial-gradient(circle 5px,var(--card2) 1px,transparent 2px);background-size:60px 60px,40px 40px;background-position:0 0,20px 20px}
+body.pattern-flower{background-image:radial-gradient(circle,var(--pri) 2px,transparent 2px),radial-gradient(circle,var(--pri-l) 1.5px,transparent 1.5px),radial-gradient(circle,var(--pri-d) 1px,transparent 1px);background-size:60px 60px,40px 40px,80px 80px;background-position:0 0,30px 30px,15px 15px}
+body.pattern-clouds{background-image:url("data:image/svg+xml,%3Csvg width='80' height='40' viewBox='0 0 80 40' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='30' cy='20' r='10' fill='%233D2535' opacity='0.3'/%3E%3Ccircle cx='40' cy='18' r='12' fill='%233D2535' opacity='0.3'/%3E%3Ccircle cx='50' cy='20' r='10' fill='%233D2535' opacity='0.3'/%3E%3C/svg%3E");background-size:80px 40px}
+body.pattern-none{background-image:none}
 
 /* Tab Bar */
 .tab-bar{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--border);display:flex;z-index:100;padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -24,7 +34,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .page{display:none;padding:0 16px 20px}.page.active{display:block}
 
 /* Header */
-.hdr{background:linear-gradient(135deg,#FF6B9D,#FFA8C5);padding:20px 16px 24px;margin:-0 0 0;position:sticky;top:0;z-index:50;box-shadow:0 4px 20px rgba(255,107,157,.3)}
+.hdr{background:linear-gradient(135deg,var(--pri),var(--pri-l));padding:20px 16px 24px;margin:-0 0 0;position:sticky;top:0;z-index:50;box-shadow:0 4px 20px rgba(255,107,157,.3)}
 .hdr-top{display:flex;justify-content:space-between;align-items:center}
 .hdr h1{font-size:24px;font-weight:700}
 .hdr .date-line{font-size:15px;opacity:.9;margin-top:4px}
@@ -97,10 +107,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .jta::placeholder{color:var(--muted)}
 .jfoot{display:flex;justify-content:space-between;align-items:center;margin-top:8px;padding-top:8px;border-top:1px solid var(--border)}
 .jsaved{font-size:10px;color:var(--muted)}
-.moods{display:flex;gap:6px}
-.mbtn{font-size:26px;background:none;border:none;cursor:pointer;padding:4px;border-radius:6px;opacity:.45;transition:all .2s}
-.mbtn:hover{opacity:.7}
-.mbtn.sel{opacity:1;background:rgba(255,107,157,.2);transform:scale(1.15)}
+.moods-row{display:flex;gap:6px}
+.mbtn2{font-size:26px;background:none;border:none;cursor:pointer;padding:4px;border-radius:6px;opacity:.45;transition:all .2s}
+.mbtn2:hover{opacity:.7}
+.mbtn2.sel{opacity:1;background:rgba(255,107,157,.2);transform:scale(1.15)}
 .jhist-toggle{background:none;border:none;color:var(--muted);font-size:11px;cursor:pointer;margin-top:6px}
 .jhist-toggle:hover{color:var(--pri-l)}
 .jentry{background:var(--card);border-radius:8px;padding:10px;margin-top:8px;border-left:3px solid var(--pri)}
@@ -194,7 +204,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .fg textarea{resize:vertical;min-height:50px}
 .frow{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .mactions{display:flex;gap:10px;margin-top:16px}
-.mbtn{flex:1;padding:11px;border-radius:12px;border:none;font-size:13px;font-weight:600;cursor:pointer}
+.mbtn-action{flex:1;padding:11px;border-radius:12px;border:none;font-size:13px;font-weight:600;cursor:pointer}
 .mbtn-p{background:var(--pri);color:white}.mbtn-p:hover{background:var(--pri-d)}
 .mbtn-d{background:var(--dng);color:white}
 .mbtn-s{background:var(--border);color:var(--text)}
@@ -213,17 +223,140 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .setting-row:last-child{border:none}
 .setting-label{font-size:13px}.setting-label small{display:block;font-size:11px;color:var(--muted);margin-top:2px}
 .setting-row input[type="date"]{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:6px 10px;color:var(--text);font-size:12px}
+
+/* ============ SETUP WIZARD ============ */
+.wizard-ov{position:fixed;inset:0;background:var(--bg);z-index:500;display:flex;flex-direction:column;align-items:center;overflow-y:auto}
+.wizard-ov.hidden{display:none}
+.wizard-box{width:100%;max-width:420px;padding:30px 20px 60px}
+.wizard-box h2{font-size:22px;text-align:center;margin-bottom:6px}
+.wizard-box .wsub{text-align:center;color:var(--muted);font-size:14px;margin-bottom:24px}
+.wizard-step{display:none}.wizard-step.active{display:block}
+.wizard-step h3{font-size:18px;margin-bottom:6px}
+.wizard-step .wsdesc{font-size:13px;color:var(--muted);margin-bottom:16px}
+
+.wstep-dots{display:flex;gap:8px;justify-content:center;margin-bottom:24px}
+.wdot{width:10px;height:10px;border-radius:50%;background:var(--border);transition:all .3s}
+.wdot.active{background:var(--pri);transform:scale(1.3)}
+.wdot.done{background:var(--suc)}
+
+/* Scene cards */
+.scene-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.scene-card{background:var(--card);border:2px solid var(--border);border-radius:14px;padding:16px 12px;cursor:pointer;text-align:center;transition:all .2s}
+.scene-card:hover{border-color:var(--pri-l);background:var(--card2)}
+.scene-card.selected{border-color:var(--pri);background:rgba(255,107,157,.1)}
+.scene-card .sc-icon{font-size:36px;display:block;margin-bottom:6px}
+.scene-card .sc-name{font-size:14px;font-weight:700}
+.scene-card .sc-desc{font-size:11px;color:var(--muted);margin-top:3px}
+
+/* Color picker area */
+.color-section{margin-bottom:16px}
+.color-section label{font-size:12px;color:var(--muted);display:block;margin-bottom:8px}
+.color-grid{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.color-swatch{width:40px;height:40px;border-radius:50%;cursor:pointer;border:3px solid transparent;transition:all .2s}
+.color-swatch:hover{transform:scale(1.15)}
+.color-swatch.selected{border-color:white;transform:scale(1.2);box-shadow:0 0 12px var(--pri)}
+.color-custom{position:relative;width:40px;height:40px;border-radius:50%;overflow:hidden;border:2px dashed var(--muted);cursor:pointer}
+.color-custom input[type="color"]{position:absolute;inset:-10px;width:60px;height:60px;cursor:pointer;opacity:0}
+.color-custom-label{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:18px;pointer-events:none}
+
+/* Pattern selection */
+.pattern-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pattern-card{background:var(--card);border:2px solid var(--border);border-radius:14px;padding:16px 12px;cursor:pointer;text-align:center;transition:all .2s}
+.pattern-card:hover{border-color:var(--pri-l)}
+.pattern-card.selected{border-color:var(--pri);background:rgba(255,107,157,.1)}
+.pattern-card .pt-icon{font-size:28px;display:block;margin-bottom:4px}
+.pattern-card .pt-name{font-size:13px;font-weight:600}
+
+.wizard-nav{display:flex;gap:10px;margin-top:24px}
+.wizard-nav button{flex:1;padding:12px;border-radius:12px;border:none;font-size:14px;font-weight:700;cursor:pointer}
+.w-prev{background:var(--card2);color:var(--text)}
+.w-next{background:var(--pri);color:white}
+
+/* Template management */
+.tpl-manage-btn{font-size:12px;color:var(--pri-l);background:none;border:none;cursor:pointer;padding:2px 8px}
+.tpl-manage-btn:hover{text-decoration:underline}
+.tpl-manage-area{margin-top:8px;padding:12px;background:var(--card2);border-radius:10px;display:none}
+.tpl-manage-area.show{display:block}
+.tpl-edit-row{display:flex;align-items:center;gap:6px;margin-bottom:6px}
+.tpl-edit-row input{flex:1;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:6px 10px;color:var(--text);font-size:12px}
+.tpl-edit-row button{background:none;border:none;cursor:pointer;font-size:16px;padding:4px}
 </style>
 </head>
-<body>
+<body class="pattern-none">
 
 <div class="toast" id="toast"></div>
+
+<!-- ============ SETUP WIZARD ============ -->
+<div class="wizard-ov" id="wizardOv">
+<div class="wizard-box">
+  <h2>✨ 欢迎创建你的专属打卡</h2>
+  <div class="wsub">3步设置，1分钟搞定</div>
+  <div class="wstep-dots" id="wDots"></div>
+
+  <!-- Step 1: Scene -->
+  <div class="wizard-step active" id="ws1">
+    <h3>📋 选择场景模板</h3>
+    <div class="wsdesc">选一个最贴近你需求的，之后可以随意修改</div>
+    <div class="scene-grid" id="sceneGrid"></div>
+  </div>
+
+  <!-- Step 2: Theme + Pattern -->
+  <div class="wizard-step" id="ws2">
+    <h3>🎨 选主题色和图案</h3>
+    <div class="wsdesc">选你喜欢的颜色和背景装饰</div>
+    <div class="color-section">
+      <label>主题色</label>
+      <div class="color-grid" id="colorGrid"></div>
+    </div>
+    <div class="color-section">
+      <label>装饰图案</label>
+      <div class="pattern-grid" id="patternGrid"></div>
+    </div>
+  </div>
+
+  <!-- Step 3: Personal info -->
+  <div class="wizard-step" id="ws3">
+    <h3>👤 个性化设置</h3>
+    <div class="wsdesc">给你的打卡起个名字，填上关键日期</div>
+    <div class="fg"><label>App名称</label><input id="wName" placeholder="比如：Sue学习打卡" value="我的打卡"></div>
+    <div class="fg"><label>城市（用于天气）</label><select id="wCity">
+      <option value="Quanzhou">泉州</option><option value="Beijing">北京</option><option value="Shanghai">上海</option>
+      <option value="Guangzhou">广州</option><option value="Shenzhen">深圳</option><option value="Chengdu">成都</option>
+      <option value="Hangzhou">杭州</option><option value="Nanjing">南京</option><option value="Wuhan">武汉</option>
+      <option value="Xiamen">厦门</option><option value="Fuzhou">福州</option><option value="Changsha">长沙</option>
+      <option value="Zhengzhou">郑州</option><option value="Jinan">济南</option><option value="Qingdao">青岛</option>
+      <option value="Dalian">大连</option><option value="Shenyang">沈阳</option><option value="Harbin">哈尔滨</option>
+      <option value="Xian">西安</option><option value="Chongqing">重庆</option><option value="Kunming">昆明</option>
+      <option value="Guiyang">贵阳</option><option value="Nanning">南宁</option><option value="Hefei">合肥</option>
+      <option value="Nanchang">南昌</option><option value="Taiyuan">太原</option><option value="Shijiazhuang">石家庄</option>
+      <option value="Lanzhou">兰州</option><option value="Urumqi">乌鲁木齐</option><option value="Lhasa">拉萨</option>
+      <option value="Hohhot">呼和浩特</option><option value="Yinchuan">银川</option><option value="Xining">西宁</option>
+      <option value="Haikou">海口</option><option value="Sanya">三亚</option><option value="Suzhou">苏州</option>
+      <option value="Wuxi">无锡</option><option value="Ningbo">宁波</option><option value="Dongguan">东莞</option>
+      <option value="Foshan">佛山</option><option value="Zhuhai">珠海</option><option value="Tianjin">天津</option>
+    </select></div>
+    <div class="frow">
+      <div class="fg"><label>开始日期</label><input type="date" id="wStart"></div>
+      <div class="fg"><label>结束日期</label><input type="date" id="wEnd"></div>
+    </div>
+    <div class="frow">
+      <div class="fg"><label>重要考试日</label><input type="date" id="wExam"></div>
+      <div class="fg"><label>报名截止日</label><input type="date" id="wReg"></div>
+    </div>
+  </div>
+
+  <div class="wizard-nav" id="wNav">
+    <button class="w-prev" id="wPrev" onclick="wizardPrev()" style="display:none">上一步</button>
+    <button class="w-next" id="wNext" onclick="wizardNext()">下一步</button>
+  </div>
+</div>
+</div>
 
 <!-- Header (shared) -->
 <div class="hdr">
   <div class="hdr-top">
     <div>
-      <h1>📋 Sue学习打卡</h1>
+      <h1 id="hdrTitle">📋 我的打卡</h1>
       <div class="date-line" id="hdrDate"></div>
       <div class="lunar-line" id="hdrLunar"></div>
     </div>
@@ -253,7 +386,14 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
     <div class="sec-title">📝 今日计划<span class="badge" id="taskBadge">0/0</span></div>
     <div class="task-list" id="taskList"></div>
     <button class="add-btn" onclick="openAddTask()">＋ 添加任务</button>
-    <div style="margin-top:12px"><div style="font-size:11px;color:var(--muted);margin-bottom:6px">⚡ 快速模板：</div><div class="templates" id="tplList"></div></div>
+    <div style="margin-top:12px">
+      <div style="display:flex;align-items:center;justify-content:space-between">
+        <div style="font-size:11px;color:var(--muted)">⚡ 快速模板</div>
+        <button class="tpl-manage-btn" onclick="toggleTplManage()">✏️ 管理模板</button>
+      </div>
+      <div class="templates" id="tplList"></div>
+      <div class="tpl-manage-area" id="tplManage"></div>
+    </div>
   </div>
   <div class="sec">
     <div class="sec-title">💧 喝水打卡<span class="badge" id="waterBadge">0/8杯</span></div>
@@ -267,7 +407,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
       <textarea class="jta" id="jText" placeholder="今天学了什么？有什么收获？随便写写..."></textarea>
       <div class="jfoot">
         <span class="jsaved" id="jSaved"></span>
-        <div class="moods" id="jMoods"></div>
+        <div class="moods-row" id="jMoods"></div>
       </div>
     </div>
     <button class="jhist-toggle" onclick="toggleJHist()">📖 历史心得 ▾</button>
@@ -283,7 +423,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
   </div>
   <div class="cal-weekdays"><span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span></div>
   <div class="cal-days" id="calDays"></div>
-  <div class="heatmap-title">📅 80天打卡热力图</div>
+  <div class="heatmap-title" id="heatmapTitle">📅 打卡热力图</div>
   <div class="heatmap" id="heatmap"></div>
 </div>
 
@@ -341,7 +481,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
     <div class="fg"><label>任务名称</label><input id="tName" placeholder="比如：背CFA词汇30分钟"></div>
     <div class="frow"><div class="fg"><label>开始时间</label><input type="time" id="tStart"></div><div class="fg"><label>结束时间</label><input type="time" id="tEnd"></div></div>
     <div class="fg"><label>备注</label><textarea id="tNote" placeholder="可选"></textarea></div>
-    <div class="mactions"><button class="mbtn mbtn-s" onclick="closeModal('taskModal')">取消</button><button class="mbtn mbtn-p" onclick="saveTask()">保存</button></div>
+    <div class="mactions"><button class="mbtn-action mbtn-s" onclick="closeModal('taskModal')">取消</button><button class="mbtn-action mbtn-p" onclick="saveTask()">保存</button></div>
   </div>
 </div>
 
@@ -350,7 +490,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
   <div class="modal"><h3>添加习惯</h3>
     <div class="fg"><label>习惯名称</label><input id="hName" placeholder="比如：早起"></div>
     <div class="fg"><label>图标（emoji）</label><input id="hIcon" placeholder="🌅" maxlength="4"></div>
-    <div class="mactions"><button class="mbtn mbtn-s" onclick="closeModal('habitModal')">取消</button><button class="mbtn mbtn-p" onclick="saveHabit()">保存</button></div>
+    <div class="mactions"><button class="mbtn-action mbtn-s" onclick="closeModal('habitModal')">取消</button><button class="mbtn-action mbtn-p" onclick="saveHabit()">保存</button></div>
   </div>
 </div>
 
@@ -359,18 +499,28 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
   <div class="modal"><h3 id="noteModalTitle">新建便签</h3>
     <div class="fg"><label>内容</label><textarea id="nText" placeholder="写点什么..." style="min-height:100px"></textarea></div>
     <div class="fg"><label>分类</label><select id="nCat"><option>学习</option><option>炒股</option><option>生活</option><option>其他</option></select></div>
-    <div class="mactions"><button class="mbtn mbtn-s" onclick="closeModal('noteModal')">取消</button><button class="mbtn mbtn-p" onclick="saveNote()">保存</button></div>
+    <div class="mactions"><button class="mbtn-action mbtn-s" onclick="closeModal('noteModal')">取消</button><button class="mbtn-action mbtn-p" onclick="saveNote()">保存</button></div>
   </div>
 </div>
 
 <!-- Settings Modal -->
 <div class="modal-ov" id="settingsModal" onclick="if(event.target===this)closeModal('settingsModal')">
   <div class="modal"><h3>⚙️ 设置</h3>
+    <div class="fg"><label>App名称</label><input id="sName" placeholder="你的打卡名称" oninput="saveSettings()"></div>
+    <div class="fg"><label>城市</label><select id="sCity" onchange="saveSettings()"></select></div>
+    <div class="color-section">
+      <label>主题色</label>
+      <div class="color-grid" id="sColorGrid"></div>
+    </div>
+    <div class="color-section">
+      <label>装饰图案</label>
+      <div class="pattern-grid" id="sPatternGrid"></div>
+    </div>
     <div class="setting-row"><div class="setting-label">开始日期<small>学习期起始日</small></div><input type="date" id="sStart" onchange="saveSettings()"></div>
-    <div class="setting-row"><div class="setting-label">结束日期<small>学习期截止日（如立秋）</small></div><input type="date" id="sEnd" onchange="saveSettings()"></div>
-    <div class="setting-row"><div class="setting-label">基金从业考试<small>统考日期</small></div><input type="date" id="sExam" onchange="saveSettings()"></div>
-    <div class="setting-row"><div class="setting-label">报名截止日<small>基金从业报名截止</small></div><input type="date" id="sReg" onchange="saveSettings()"></div>
-    <div class="mactions"><button class="mbtn mbtn-p" onclick="closeModal('settingsModal')">完成</button></div>
+    <div class="setting-row"><div class="setting-label">结束日期<small>学习期截止日</small></div><input type="date" id="sEnd" onchange="saveSettings()"></div>
+    <div class="setting-row"><div class="setting-label">重要考试日<small>考试日期</small></div><input type="date" id="sExam" onchange="saveSettings()"></div>
+    <div class="setting-row"><div class="setting-label">报名截止日<small>报名截止</small></div><input type="date" id="sReg" onchange="saveSettings()"></div>
+    <div class="mactions"><button class="mbtn-action mbtn-p" onclick="closeModal('settingsModal')">完成</button></div>
   </div>
 </div>
 
@@ -378,54 +528,129 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 <div class="modal-ov" id="delModal" onclick="closeModal('delModal')">
   <div class="modal" style="text-align:center" onclick="event.stopPropagation()">
     <h3>🗑️ 确认删除？</h3><p style="color:var(--muted);margin:10px 0 16px;font-size:13px">删除后无法恢复</p>
-    <div class="mactions"><button class="mbtn mbtn-s" onclick="closeModal('delModal')">取消</button><button class="mbtn mbtn-d" id="delConfirm">删除</button></div>
+    <div class="mactions"><button class="mbtn-action mbtn-s" onclick="closeModal('delModal')">取消</button><button class="mbtn-action mbtn-d" id="delConfirm">删除</button></div>
   </div>
 </div>
 
 <script>
-// ============ CONFIG ============
-const DEFAULT_SETTINGS = { startDate:'2026-05-20', endDate:'2026-08-07', examDate:'2026-11-28', regDate:'2026-08-11' };
-const TEMPLATES = [
-  {name:'🌅 早读英语',start:'06:30',end:'07:00',note:'百词斩背高中词汇',color:'#FF6B9D'},
-  {name:'📉 看盘',start:'09:30',end:'11:30',note:'只看不交易，记录盘面',color:'#FFA8C5'},
-  {name:'📖 基金从业',start:'08:00',end:'10:00',note:'三色笔记+万题库刷题',color:'#00D2A0'},
-  {name:'☕ 休息',start:'10:00',end:'10:15',note:'起来走走喝口水',color:'#FFD93D'},
-  {name:'📊 财报分析',start:'10:15',end:'12:00',note:'《手把手教你读财报》+年报实操',color:'#FF6B6B'},
-  {name:'🍱 午饭+午休',start:'12:00',end:'13:30',note:'',color:'#FFD93D'},
-  {name:'📉 午盘',start:'13:00',end:'15:00',note:'下午盘面观察',color:'#FFA8C5'},
-  {name:'🎧 CFA英语',start:'14:00',end:'15:30',note:'Mark Meldrum视频+跟读',color:'#74B9FF'},
-  {name:'💰 CFA词汇',start:'21:00',end:'21:45',note:'金程词汇书+有道词典',color:'#74B9FF'},
-  {name:'📝 复盘总结',start:'22:00',end:'22:30',note:'今日学习总结+明日计划',color:'#FF6B9D'},
+// ============ SCENE TEMPLATES ============
+const SCENE_TEMPLATES = {
+  exam: {
+    name:'考证冲刺', icon:'📖', desc:'基金/CPA/法考/教资',
+    tasks:[
+      {name:'🌅 早起晨读',start:'06:30',end:'07:00',note:'背诵核心知识点',color:'#FF6B9D'},
+      {name:'📖 刷题训练',start:'08:00',end:'10:00',note:'重点章节刷题',color:'#00D2A0'},
+      {name:'☕ 休息',start:'10:00',end:'10:15',note:'起来走走喝口水',color:'#FFD93D'},
+      {name:'📝 错题复盘',start:'10:15',end:'12:00',note:'整理错题本',color:'#FF6B6B'},
+      {name:'🍱 午饭+午休',start:'12:00',end:'13:30',note:'',color:'#FFD93D'},
+      {name:'📚 知识点梳理',start:'14:00',end:'16:00',note:'三色笔记/思维导图',color:'#74B9FF'},
+      {name:'🎯 模拟考试',start:'16:00',end:'18:00',note:'限时模拟',color:'#FF6B9D'},
+      {name:'📝 当日复盘',start:'22:00',end:'22:30',note:'今日总结+明日计划',color:'#FF6B9D'},
+    ],
+    habits:[{name:'早起(6:30前)',icon:'🌅'},{name:'运动30分钟',icon:'🏃'},{name:'刷题100道',icon:'📖'},{name:'背知识点',icon:'🧠'},{name:'复盘总结',icon:'📝'}]
+  },
+  grad: {
+    name:'考研上岸', icon:'🎓', desc:'政治/英语/专业课',
+    tasks:[
+      {name:'🌅 英语晨读',start:'06:30',end:'07:30',note:'背单词+阅读',color:'#FF6B9D'},
+      {name:'📖 专业课',start:'08:00',end:'11:30',note:'核心教材',color:'#00D2A0'},
+      {name:'🍱 午饭+午休',start:'12:00',end:'13:30',note:'',color:'#FFD93D'},
+      {name:'🇨🇳 政治',start:'14:00',end:'16:00',note:'马原/毛概/史纲',color:'#FF6B6B'},
+      {name:'📝 英语真题',start:'16:30',end:'18:00',note:'阅读理解+翻译',color:'#74B9FF'},
+      {name:'📚 专业课刷题',start:'19:30',end:'21:30',note:'',color:'#00D2A0'},
+      {name:'📝 复盘总结',start:'22:00',end:'22:30',note:'今日总结+明日计划',color:'#FF6B9D'},
+    ],
+    habits:[{name:'早起(6:30前)',icon:'🌅'},{name:'背单词',icon:'📖'},{name:'刷真题',icon:'✏️'},{name:'运动30分钟',icon:'🏃'},{name:'复盘总结',icon:'📝'}]
+  },
+  fitness: {
+    name:'健身塑形', icon:'💪', desc:'增肌/减脂/塑形',
+    tasks:[
+      {name:'🌅 晨起拉伸',start:'06:30',end:'07:00',note:'全身拉伸15分钟',color:'#FF6B9D'},
+      {name:'🥗 早餐',start:'07:30',end:'08:00',note:'高蛋白低碳水',color:'#00D2A0'},
+      {name:'🏋️ 力量训练',start:'10:00',end:'11:30',note:'今日训练部位',color:'#FF6B6B'},
+      {name:'🥗 午餐',start:'12:00',end:'12:30',note:'蛋白质+蔬菜为主',color:'#00D2A0'},
+      {name:'🏃 有氧运动',start:'16:00',end:'17:00',note:'跑步/跳绳/游泳',color:'#74B9FF'},
+      {name:'🧘 瑜伽拉伸',start:'20:00',end:'20:30',note:'放松恢复',color:'#FFA8C5'},
+      {name:'📝 训练记录',start:'21:00',end:'21:15',note:'记录重量/组数/感受',color:'#FFD93D'},
+    ],
+    habits:[{name:'早起',icon:'🌅'},{name:'喝水8杯',icon:'💧'},{name:'运动1小时',icon:'🏋️'},{name:'控制饮食',icon:'🥗'},{name:'早睡(23:00前)',icon:'😴'}]
+  },
+  self: {
+    name:'自律生活', icon:'🌟', desc:'日常习惯养成',
+    tasks:[
+      {name:'🌅 晨间仪式',start:'06:30',end:'07:00',note:'冥想+计划今天',color:'#FF6B9D'},
+      {name:'📖 阅读',start:'08:00',end:'09:00',note:'至少30分钟',color:'#00D2A0'},
+      {name:'💻 深度工作',start:'09:30',end:'12:00',note:'最重要的事先做',color:'#FF6B6B'},
+      {name:'🍱 午饭',start:'12:00',end:'13:00',note:'',color:'#FFD93D'},
+      {name:'🎯 下午专注',start:'14:00',end:'17:00',note:'番茄钟交替',color:'#74B9FF'},
+      {name:'📝 晚间复盘',start:'21:30',end:'22:00',note:'今天完成了什么',color:'#FF6B9D'},
+    ],
+    habits:[{name:'早起',icon:'🌅'},{name:'运动30分钟',icon:'🏃'},{name:'阅读30分钟',icon:'📚'},{name:'喝水8杯',icon:'💧'},{name:'早睡',icon:'😴'}]
+  },
+  media: {
+    name:'自媒体日更', icon:'🎬', desc:'小红书/抖音/公众号',
+    tasks:[
+      {name:'🌅 热点浏览',start:'07:00',end:'07:30',note:'刷热点找灵感',color:'#FF6B9D'},
+      {name:'✏️ 选题策划',start:'08:30',end:'09:30',note:'确定今日选题',color:'#00D2A0'},
+      {name:'📝 写脚本',start:'09:30',end:'11:00',note:'',color:'#FF6B6B'},
+      {name:'🎬 拍摄/制作',start:'14:00',end:'16:00',note:'',color:'#74B9FF'},
+      {name:'✂️ 剪辑修图',start:'16:00',end:'18:00',note:'',color:'#FFA8C5'},
+      {name:'📤 发布+互动',start:'20:00',end:'21:00',note:'回复评论+互动',color:'#FFD93D'},
+      {name:'📊 数据复盘',start:'21:30',end:'22:00',note:'分析数据+优化',color:'#FF6B9D'},
+    ],
+    habits:[{name:'早起',icon:'🌅'},{name:'日更发布',icon:'📤'},{name:'互动30分钟',icon:'💬'},{name:'学习对标账号',icon:'👀'},{name:'复盘数据',icon:'📊'}]
+  },
+  custom: {
+    name:'自由定制', icon:'✨', desc:'从零开始自己设置',
+    tasks:[],
+    habits:[]
+  }
+};
+
+// ============ PRESET COLORS ============
+const PRESET_COLORS = [
+  {name:'樱粉',color:'#FF6B9D',light:'#FFA8C5',dark:'#E85587'},
+  {name:'薰衣草',color:'#A78BFA',light:'#C4B5FD',dark:'#8B5CF6'},
+  {name:'天空蓝',color:'#38BDF8',light:'#7DD3FC',dark:'#0EA5E9'},
+  {name:'薄荷绿',color:'#34D399',light:'#6EE7B7',dark:'#10B981'},
+  {name:'日落橙',color:'#FB923C',light:'#FDBA74',dark:'#F97316'},
+  {name:'柠檬黄',color:'#FBBF24',light:'#FDE68A',dark:'#F59E0B'},
+  {name:'玫瑰红',color:'#F43F5E',light:'#FDA4AF',dark:'#E11D48'},
+  {name:'深空灰',color:'#94A3B8',light:'#CBD5E1',dark:'#64748B'},
 ];
+
+// ============ PATTERNS ============
+const PATTERNS = [
+  {id:'none',name:'纯色',icon:'⬜'},
+  {id:'dots',name:'圆点',icon:'⚪'},
+  {id:'stars',name:'星星',icon:'⭐'},
+  {id:'hearts',name:'爱心',icon:'💗'},
+  {id:'bubbles',name:'气泡',icon:'🫧'},
+  {id:'waves',name:'波浪',icon:'🌊'},
+  {id:'clouds',name:'云朵',icon:'☁️'},
+  {id:'flower',name:'花瓣',icon:'🌸'},
+];
+
+// ============ CONFIG ============
 const JOURNAL_PROMPTS = ['💡 今天学到了什么新知识点？','🎯 今天最专注的是哪个任务？','🤔 遇到了什么难点？怎么解决的？','📈 跟昨天比，有什么进步？','🔮 明天最想突破什么？','💪 今天最坚持的一件事是什么？','🧠 有什么知识突然想通了？'];
-const DEFAULT_HABITS = [{name:'早起(6:30前)',icon:'🌅'},{name:'运动30分钟',icon:'🏃'},{name:'背单词',icon:'📖'},{name:'阅读',icon:'📚'},{name:'复盘总结',icon:'📝'}];
 const POMO_MODES = [{label:'15分钟',work:15,rest:5},{label:'25分钟',work:25,rest:5},{label:'30分钟',work:30,rest:5},{label:'45分钟',work:45,rest:10}];
 const MOODS = ['😊','😐','😤','😴','🔥'];
 const NOTE_CATS = ['全部','学习','炒股','生活','其他'];
 
+const DEFAULT_SETTINGS = {appName:'我的打卡',city:'Quanzhou',startDate:'2026-05-20',endDate:'2026-08-07',examDate:'2026-11-28',regDate:'2026-08-11',themeColor:'#FF6B9D',pattern:'none',setupDone:false};
+
 // ============ LUNAR CALENDAR ============
-// 2026 lunar data: month start (solar date) and days
 const LUNAR_MONTHS_2026 = [
-  {m:1, solar:'2026-02-17', days:30}, // 正月
-  {m:2, solar:'2026-03-19', days:29}, // 二月
-  {m:3, solar:'2026-04-17', days:30}, // 三月
-  {m:4, solar:'2026-05-17', days:29}, // 四月
-  {m:5, solar:'2026-06-15', days:30}, // 五月
-  {m:6, solar:'2026-07-15', days:29}, // 六月
-  {m:7, solar:'2026-08-13', days:30}, // 七月
-  {m:8, solar:'2026-09-12', days:29}, // 八月
-  {m:9, solar:'2026-10-11', days:30}, // 九月
-  {m:10,solar:'2026-11-10', days:29}, // 十月
-  {m:11,solar:'2026-12-09', days:30}, // 十一月
-  {m:12,solar:'2027-01-08', days:30}, // 十二月
+  {m:1, solar:'2026-02-17', days:30},{m:2, solar:'2026-03-19', days:29},
+  {m:3, solar:'2026-04-17', days:30},{m:4, solar:'2026-05-17', days:29},
+  {m:5, solar:'2026-06-15', days:30},{m:6, solar:'2026-07-15', days:29},
+  {m:7, solar:'2026-08-13', days:30},{m:8, solar:'2026-09-12', days:29},
+  {m:9, solar:'2026-10-11', days:30},{m:10,solar:'2026-11-10', days:29},
+  {m:11,solar:'2026-12-09', days:30},{m:12,solar:'2027-01-08', days:30},
 ];
 const LUNAR_NAMES = ['','正','二','三','四','五','六','七','八','九','十','冬','腊'];
 const LUNAR_DAY_NAMES = ['','初一','初二','初三','初四','初五','初六','初七','初八','初九','初十','十一','十二','十三','十四','十五','十六','十七','十八','十九','二十','廿一','廿二','廿三','廿四','廿五','廿六','廿七','廿八','廿九','三十'];
-
-// Solar terms 2026 (May-August)
 const SOLAR_TERMS = {'2026-05-21':'小满','2026-06-05':'芒种','2026-06-21':'夏至','2026-07-07':'小暑','2026-07-23':'大暑','2026-08-07':'立秋'};
-
-// Traditional festivals 2026
 const FESTIVALS = {'2026-05-31':'端午','2026-08-19':'七夕'};
 
 function getLunarDate(solarDate) {
@@ -436,13 +661,10 @@ function getLunarDate(solarDate) {
     const ms = new Date(lm.solar + 'T00:00:00');
     ms.setHours(0,0,0,0);
     const diff = Math.floor((d - ms) / 86400000);
-    if (diff >= 0 && diff < lm.days) {
-      return { month: lm.m, day: diff + 1, monthName: LUNAR_NAMES[lm.m] + '月', dayName: LUNAR_DAY_NAMES[diff + 1] };
-    }
+    if (diff >= 0 && diff < lm.days) return { month: lm.m, day: diff + 1, monthName: LUNAR_NAMES[lm.m] + '月', dayName: LUNAR_DAY_NAMES[diff + 1] };
   }
   return null;
 }
-
 function getLunarShort(solarDate) {
   const key = fmtDate(solarDate);
   if (SOLAR_TERMS[key]) return { text: SOLAR_TERMS[key], cls: 'term' };
@@ -455,20 +677,23 @@ function getLunarShort(solarDate) {
 
 // ============ STATE ============
 let editTaskId = null, editNoteId = null, delCallback = null;
-let pomoTimer = null, pomoSec = 0, pomoRunning = false, pomoMode = 1; // default 25min
+let pomoTimer = null, pomoSec = 0, pomoRunning = false, pomoMode = 1;
 let calYear, calMonth;
 let jSaveTimer = null;
 let noteCatFilter = 0;
+let wizardStep = 1;
+let selectedScene = 'exam';
+let selectedColor = '#FF6B9D';
+let selectedPattern = 'none';
+let tplManageOpen = false;
 
 // ============ UTILS ============
 function fmtDate(d) { const x = d instanceof Date ? d : new Date(d); return `${x.getFullYear()}-${String(x.getMonth()+1).padStart(2,'0')}-${String(x.getDate()).padStart(2,'0')}`; }
 function todayKey() { return fmtDate(new Date()); }
 function t2m(t) { const [h,m]=t.split(':').map(Number); return h*60+m; }
 function nowStr() { const n=new Date(); return `${String(n.getHours()).padStart(2,'0')}:${String(n.getMinutes()).padStart(2,'0')}`; }
-
 function S(k,v) { if(v!==undefined) localStorage.setItem(k,JSON.stringify(v)); else { const x=localStorage.getItem(k); return x?JSON.parse(x):undefined; } }
 function getS(k,def) { const v=S(k); return v!==undefined?v:def; }
-
 function getSettings() { return getS('settings', DEFAULT_SETTINGS); }
 function getStart() { return new Date(getSettings().startDate + 'T00:00:00'); }
 function getEnd() { return new Date(getSettings().endDate + 'T00:00:00'); }
@@ -476,13 +701,186 @@ function getTotalDays() { return Math.max(1, Math.round((getEnd() - getStart()) 
 function getDayNum() { const t=new Date();t.setHours(0,0,0,0); return Math.max(1, Math.floor((t - getStart()) / 86400000) + 1); }
 function daysLeft() { const t=new Date();t.setHours(0,0,0,0); return Math.max(0, Math.ceil((getEnd() - t) / 86400000)); }
 
+// ============ THEME ENGINE ============
+function hexToHSL(hex) {
+  let r = parseInt(hex.slice(1,3),16)/255, g = parseInt(hex.slice(3,5),16)/255, b = parseInt(hex.slice(5,7),16)/255;
+  let max = Math.max(r,g,b), min = Math.min(r,g,b), h, s, l = (max+min)/2;
+  if(max===min){h=s=0;}else{
+    let d=max-min; s=l>0.5?d/(2-max-min):d/(max+min);
+    switch(max){case r:h=((g-b)/d+(g<b?6:0))/6;break;case g:h=((b-r)/d+2)/6;break;case b:h=((r-g)/d+4)/6;break;}
+  }
+  return {h:Math.round(h*360),s:Math.round(s*100),l:Math.round(l*100)};
+}
+function applyTheme(priColor) {
+  const hsl = hexToHSL(priColor);
+  const h = hsl.h, s = hsl.s, l = hsl.l;
+  // Generate light/dark variants
+  const priL = `hsl(${h},${Math.min(s+10,100)}%,${Math.min(l+20,85)}%)`;
+  const priD = `hsl(${h},${s}%,${Math.max(l-10,25)}%)`;
+  // Generate background colors (dark theme based on primary)
+  const bg = `hsl(${h},${Math.max(s-50,8)}%,6%)`;
+  const card = `hsl(${h},${Math.max(s-40,10)}%,12%)`;
+  const card2 = `hsl(${h},${Math.max(s-35,12)}%,16%)`;
+  const border = `hsl(${h},${Math.max(s-45,10)}%,18%)`;
+  const muted = `hsl(${h},${Math.max(s-20,20)}%,55%)`;
+  const text = `hsl(${h},${Math.max(s-30,10)}%,92%)`;
+
+  document.documentElement.style.setProperty('--pri', priColor);
+  document.documentElement.style.setProperty('--pri-l', priL);
+  document.documentElement.style.setProperty('--pri-d', priD);
+  document.documentElement.style.setProperty('--bg', bg);
+  document.documentElement.style.setProperty('--card', card);
+  document.documentElement.style.setProperty('--card2', card2);
+  document.documentElement.style.setProperty('--border', border);
+  document.documentElement.style.setProperty('--muted', muted);
+  document.documentElement.style.setProperty('--text', text);
+
+  document.querySelector('meta[name="theme-color"]').content = priColor;
+  document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]').content = priColor;
+}
+
+function applyPattern(patternId) {
+  document.body.className = 'pattern-' + patternId;
+}
+
+function applyAllTheme() {
+  const s = getSettings();
+  applyTheme(s.themeColor || '#FF6B9D');
+  applyPattern(s.pattern || 'none');
+  document.getElementById('hdrTitle').textContent = '📋 ' + (s.appName || '我的打卡');
+  document.title = (s.appName || '我的打卡');
+}
+
+// ============ SETUP WIZARD ============
+function initWizard() {
+  if (getSettings().setupDone) { document.getElementById('wizardOv').classList.add('hidden'); return; }
+  renderWizardStep();
+  renderSceneGrid();
+  renderColorGrid('colorGrid');
+  renderPatternGrid('patternGrid');
+  // Set defaults for step 3
+  const today = fmtDate(new Date());
+  const end = new Date(); end.setDate(end.getDate() + 79);
+  document.getElementById('wStart').value = today;
+  document.getElementById('wEnd').value = fmtDate(end);
+  document.getElementById('wExam').value = '';
+  document.getElementById('wReg').value = '';
+}
+
+function renderWizardStep() {
+  const dots = document.getElementById('wDots');
+  dots.innerHTML = [1,2,3].map(i => `<div class="wdot${i===wizardStep?' active':''}${i<wizardStep?' done':''}"></div>`).join('');
+  document.querySelectorAll('.wizard-step').forEach((el,i) => el.classList.toggle('active', i+1===wizardStep));
+  document.getElementById('wPrev').style.display = wizardStep > 1 ? '' : 'none';
+  document.getElementById('wNext').textContent = wizardStep === 3 ? '✅ 开始使用' : '下一步';
+}
+
+function wizardNext() {
+  if (wizardStep === 3) { finishWizard(); return; }
+  wizardStep++;
+  renderWizardStep();
+}
+function wizardPrev() {
+  if (wizardStep <= 1) return;
+  wizardStep--;
+  renderWizardStep();
+}
+
+function renderSceneGrid() {
+  const grid = document.getElementById('sceneGrid');
+  grid.innerHTML = Object.keys(SCENE_TEMPLATES).map(key => {
+    const sc = SCENE_TEMPLATES[key];
+    return `<div class="scene-card${selectedScene===key?' selected':''}" onclick="selectScene('${key}')">
+      <span class="sc-icon">${sc.icon}</span>
+      <div class="sc-name">${sc.name}</div>
+      <div class="sc-desc">${sc.desc}</div>
+    </div>`;
+  }).join('');
+}
+function selectScene(key) {
+  selectedScene = key;
+  renderSceneGrid();
+}
+
+function renderColorGrid(containerId) {
+  const container = document.getElementById(containerId);
+  let h = PRESET_COLORS.map(c =>
+    `<div class="color-swatch${selectedColor===c.color?' selected':''}" style="background:${c.color}" onclick="selectColor('${c.color}','${containerId}')" title="${c.name}"></div>`
+  ).join('');
+  // Custom color picker
+  h += `<div class="color-custom" title="自定义颜色">
+    <span class="color-custom-label">🎨</span>
+    <input type="color" value="${selectedColor}" onchange="selectColor(this.value,'${containerId}')">
+  </div>`;
+  container.innerHTML = h;
+}
+function selectColor(color, containerId) {
+  selectedColor = color;
+  renderColorGrid(containerId);
+  applyTheme(color); // Live preview
+}
+
+function renderPatternGrid(containerId) {
+  const container = document.getElementById(containerId);
+  container.innerHTML = PATTERNS.map(p =>
+    `<div class="pattern-card${selectedPattern===p.id?' selected':''}" onclick="selectPattern('${p.id}','${containerId}')">
+      <span class="pt-icon">${p.icon}</span>
+      <div class="pt-name">${p.name}</div>
+    </div>`
+  ).join('');
+}
+function selectPattern(id, containerId) {
+  selectedPattern = id;
+  renderPatternGrid(containerId);
+  applyPattern(id); // Live preview
+}
+
+function finishWizard() {
+  const appName = document.getElementById('wName').value.trim() || '我的打卡';
+  const city = document.getElementById('wCity').value;
+  const startDate = document.getElementById('wStart').value || fmtDate(new Date());
+  const endDate = document.getElementById('wEnd').value;
+  const examDate = document.getElementById('wExam').value;
+  const regDate = document.getElementById('wReg').value;
+
+  const settings = {
+    appName, city, startDate, endDate,
+    examDate: examDate || endDate,
+    regDate: regDate || endDate,
+    themeColor: selectedColor,
+    pattern: selectedPattern,
+    setupDone: true
+  };
+  S('settings', settings);
+
+  // Apply scene template
+  const scene = SCENE_TEMPLATES[selectedScene];
+  if (scene) {
+    // Save custom templates (user can modify later)
+    const customTpls = scene.tasks.map(t => ({name:t.name,start:t.start,end:t.end,note:t.note,color:t.color}));
+    S('customTemplates', customTpls);
+    // Save default habits
+    if (scene.habits && scene.habits.length) {
+      S('habits', scene.habits);
+    } else {
+      S('habits', []);
+    }
+  }
+
+  applyAllTheme();
+  document.getElementById('wizardOv').classList.add('hidden');
+  renderAll();
+  toast('🎉 设置完成！开始你的打卡之旅');
+}
+
 // ============ WEATHER ============
 let weatherCache = null, weatherTime = 0;
 async function fetchWeather() {
   const now = Date.now();
   if (weatherCache && now - weatherTime < 3600000) return weatherCache;
+  const city = getSettings().city || 'Quanzhou';
   try {
-    const r = await fetch('https://wttr.in/Quanzhou?format=j1');
+    const r = await fetch(`https://wttr.in/${city}?format=j1`);
     const d = await r.json();
     const c = d.current_condition[0];
     const desc = c.lang_zh && c.lang_zh[0] ? c.lang_zh[0].value : c.weatherDesc[0].value;
@@ -522,13 +920,14 @@ function renderHeader() {
   document.getElementById('pFill').style.width = pct + '%';
   document.getElementById('pLeft').textContent = `第${dn}天 / 共${total}天`;
   document.getElementById('pRight').textContent = `剩余${left}天`;
+  document.getElementById('hdrTitle').textContent = '📋 ' + (getSettings().appName || '我的打卡');
   renderWeather();
 }
 
 // ============ STATS ============
 function renderStats() {
   const dk = todayKey(), tasks = getS('tasks_'+dk, []), done = tasks.filter(t=>t.completed).length;
-  const habits = getS('habits', DEFAULT_HABITS), hc = getS('hcheck_'+dk, {});
+  const habits = getS('habits', []), hc = getS('hcheck_'+dk, {});
   const hdone = Object.values(hc).filter(v=>v).length;
   let streak = 0;
   for (let i = 0; i < getTotalDays(); i++) {
@@ -547,12 +946,10 @@ function renderStats() {
 // ============ COUNTDOWN ============
 function renderCountdown() {
   const s = getSettings(), today = new Date(); today.setHours(0,0,0,0);
-  const items = [
-    { label:'报名截止', date: s.regDate, color:'var(--wrn)' },
-    { label:'学习期结束', date: s.endDate, color:'var(--pri)' },
-    { label:'基金从业考试', date: s.examDate, color:'var(--suc)' },
-    { label:'立秋', date: '2026-08-07', color:'var(--pri-l)' },
-  ];
+  const items = [];
+  if(s.regDate) items.push({ label:'报名截止', date: s.regDate, color:'var(--wrn)' });
+  items.push({ label:'学习期结束', date: s.endDate, color:'var(--pri)' });
+  if(s.examDate) items.push({ label:'重要考试', date: s.examDate, color:'var(--suc)' });
   document.getElementById('cdCards').innerHTML = items.map(it => {
     const d = new Date(it.date+'T00:00:00'); d.setHours(0,0,0,0);
     const diff = Math.ceil((d - today) / 86400000);
@@ -562,10 +959,12 @@ function renderCountdown() {
 }
 
 // ============ TASKS ============
+function getTemplates() { return getS('customTemplates', []); }
+
 function renderTasks() {
   const dk = todayKey(), tasks = getS('tasks_'+dk,[]), done = tasks.filter(t=>t.completed).length;
   document.getElementById('taskBadge').textContent = `${done}/${tasks.length}`;
-  if (!tasks.length) { document.getElementById('taskList').innerHTML = '<div style="text-align:center;padding:30px;color:var(--muted)"><div style="font-size:36px;margin-bottom:8px">📝</div><div style="font-size:13px">今天还没有计划</div></div>'; return; }
+  if (!tasks.length) { document.getElementById('taskList').innerHTML = '<div style="text-align:center;padding:30px;color:var(--muted)"><div style="font-size:36px;margin-bottom:8px">📝</div><div style="font-size:13px">今天还没有计划<br>点击下方按钮添加任务<br>或用快速模板一键添加</div></div>'; return; }
   tasks.sort((a,b) => t2m(a.start)-t2m(b.start));
   const nm = t2m(nowStr());
   document.getElementById('taskList').innerHTML = tasks.map(t => {
@@ -586,10 +985,68 @@ function toggleTask(id) {
 }
 function openAddTask(){editTaskId=null;document.getElementById('taskModalTitle').textContent='添加任务';document.getElementById('tName').value='';document.getElementById('tStart').value='';document.getElementById('tEnd').value='';document.getElementById('tNote').value='';openModal('taskModal');}
 function editTask(id){const dk=todayKey(),tasks=getS('tasks_'+dk,[]),t=tasks.find(x=>x.id===id);if(!t)return;editTaskId=id;document.getElementById('taskModalTitle').textContent='编辑任务';document.getElementById('tName').value=t.name;document.getElementById('tStart').value=t.start;document.getElementById('tEnd').value=t.end;document.getElementById('tNote').value=t.note||'';openModal('taskModal');}
-function saveTask(){const n=document.getElementById('tName').value.trim(),s=document.getElementById('tStart').value,e=document.getElementById('tEnd').value,nt=document.getElementById('tNote').value.trim();if(!n||!s||!e){toast('⚠️ 请填写完整');return;}const dk=todayKey(),tasks=getS('tasks_'+dk,[]);if(editTaskId){const t=tasks.find(x=>x.id===editTaskId);if(t){t.name=n;t.start=s;t.end=e;t.note=nt;}}else{tasks.push({id:'t_'+Date.now(),name:n,start:s,end:e,note:nt,color:TEMPLATES[tasks.length%TEMPLATES.length].color,completed:false});}S('tasks_'+dk,tasks);closeModal('taskModal');renderAll();toast('✅ 已保存');}
+function saveTask(){
+  const n=document.getElementById('tName').value.trim(),s=document.getElementById('tStart').value,e=document.getElementById('tEnd').value,nt=document.getElementById('tNote').value.trim();
+  if(!n||!s||!e){toast('⚠️ 请填写完整');return;}
+  const dk=todayKey(),tasks=getS('tasks_'+dk,[]);
+  const tpls=getTemplates();
+  if(editTaskId){const t=tasks.find(x=>x.id===editTaskId);if(t){t.name=n;t.start=s;t.end=e;t.note=nt;}}
+  else{tasks.push({id:'t_'+Date.now(),name:n,start:s,end:e,note:nt,color:tpls.length?tpls[tasks.length%tpls.length].color:'var(--pri)',completed:false});}
+  S('tasks_'+dk,tasks);closeModal('taskModal');renderAll();toast('✅ 已保存');
+}
 function delTask(id){openModal('delModal');document.getElementById('delConfirm').onclick=()=>{const dk=todayKey();let tasks=getS('tasks_'+dk,[]);tasks=tasks.filter(x=>x.id!==id);S('tasks_'+dk,tasks);closeModal('delModal');renderAll();toast('🗑️ 已删除');};}
-function addTpl(i){const t=TEMPLATES[i],dk=todayKey(),tasks=getS('tasks_'+dk,[]);if(tasks.some(x=>x.name===t.name)){toast('⚠️ 已存在');return;}tasks.push({id:'t_'+Date.now(),name:t.name,start:t.start,end:t.end,note:t.note,color:t.color,completed:false});S('tasks_'+dk,tasks);renderAll();toast(`✅ 已添加「${t.name}」`);}
-function renderTpls(){document.getElementById('tplList').innerHTML=TEMPLATES.map((t,i)=>`<div class="tchip" onclick="addTpl(${i})">${t.name}</div>`).join('');}
+function addTpl(i){
+  const tpls=getTemplates(),t=tpls[i],dk=todayKey(),tasks=getS('tasks_'+dk,[]);
+  if(tasks.some(x=>x.name===t.name)){toast('⚠️ 已存在');return;}
+  tasks.push({id:'t_'+Date.now(),name:t.name,start:t.start,end:t.end,note:t.note,color:t.color,completed:false});
+  S('tasks_'+dk,tasks);renderAll();toast(`✅ 已添加「${t.name}」`);
+}
+function addAllTpls(){
+  const tpls=getTemplates(),dk=todayKey(),tasks=getS('tasks_'+dk,[]);
+  let added=0;
+  tpls.forEach(t=>{if(!tasks.some(x=>x.name===t.name)){tasks.push({id:'t_'+Date.now()+'_'+added,name:t.name,start:t.start,end:t.end,note:t.note,color:t.color,completed:false});added++;}});
+  S('tasks_'+dk,tasks);renderAll();toast(`✅ 已添加${added}个任务`);
+}
+
+function renderTpls(){
+  const tpls=getTemplates();
+  let h = tpls.map((t,i)=>`<div class="tchip" onclick="addTpl(${i})">${t.name}</div>`).join('');
+  if(tpls.length>1) h += `<div class="tchip" onclick="addAllTpls()" style="border-color:var(--suc);color:var(--suc)">📋 全部添加</div>`;
+  document.getElementById('tplList').innerHTML = h;
+  renderTplManage();
+}
+
+function toggleTplManage(){
+  tplManageOpen=!tplManageOpen;
+  renderTplManage();
+}
+function renderTplManage(){
+  const area=document.getElementById('tplManage');
+  if(!tplManageOpen){area.classList.remove('show');return;}
+  area.classList.add('show');
+  const tpls=getTemplates();
+  let h='<div style="font-size:12px;color:var(--muted);margin-bottom:8px">模板可自由增删改，不影响已添加的任务</div>';
+  tpls.forEach((t,i)=>{
+    h+=`<div class="tpl-edit-row">
+      <input value="${t.name}" onchange="editTplName(${i},this.value)" placeholder="任务名" style="flex:2">
+      <input value="${t.start}" type="time" onchange="editTplStart(${i},this.value)" style="flex:1">
+      <input value="${t.end}" type="time" onchange="editTplEnd(${i},this.value)" style="flex:1">
+      <button onclick="delTpl(${i})" title="删除">🗑️</button>
+    </div>`;
+  });
+  h+=`<button style="width:100%;padding:8px;background:var(--pri);color:white;border:none;border-radius:8px;font-size:13px;cursor:pointer;margin-top:6px" onclick="addNewTpl()">＋ 添加新模板项</button>`;
+  area.innerHTML=h;
+}
+function editTplName(i,v){const tpls=getTemplates();if(tpls[i]){tpls[i].name=v;S('customTemplates',tpls);renderTpls();}}
+function editTplStart(i,v){const tpls=getTemplates();if(tpls[i]){tpls[i].start=v;S('customTemplates',tpls);renderTpls();}}
+function editTplEnd(i,v){const tpls=getTemplates();if(tpls[i]){tpls[i].end=v;S('customTemplates',tpls);renderTpls();}}
+function delTpl(i){const tpls=getTemplates();tpls.splice(i,1);S('customTemplates',tpls);renderTpls();}
+function addNewTpl(){
+  const tpls=getTemplates();
+  tpls.push({name:'新任务',start:'09:00',end:'10:00',note:'',color:PRESET_COLORS[tpls.length%PRESET_COLORS.length].color});
+  S('customTemplates',tpls);renderTpls();
+  toast('✅ 已添加新模板项');
+}
 
 // ============ WATER ============
 function renderWater(){
@@ -609,8 +1066,14 @@ function renderJournal(){
   document.getElementById('jBadge').textContent=j.text.trim()?'✅ 已写':'未写';
   document.getElementById('jBadge').style.background=j.text.trim()?'var(--suc)':'var(--pri)';
   document.getElementById('jSaved').textContent=j.text.trim()?'已自动保存':'';
-  document.getElementById('jMoods').innerHTML=MOODS.map(m=>`<button class="mbtn${j.mood===m?' sel':''}" onclick="setMood('${m}')">${m}</button>`).join('');
-  document.getElementById('jText').oninput=()=>{clearTimeout(jSaveTimer);jSaveTimer=setTimeout(()=>{const jj={text:document.getElementById('jText').value,mood:getS('journal_'+todayKey(),{}).mood||''};S('journal_'+todayKey(),jj);document.getElementById('jSaved').textContent='✓ 已保存';setTimeout(()=>document.getElementById('jSaved').textContent='已自动保存',1500);document.getElementById('jBadge').textContent=jj.text.trim()?'✅ 已写':'未写';document.getElementById('jBadge').style.background=jj.text.trim()?'var(--suc)':'var(--pri)';},800);};
+  document.getElementById('jMoods').innerHTML=MOODS.map(m=>`<button class="mbtn2${j.mood===m?' sel':''}" onclick="setMood('${m}')">${m}</button>`).join('');
+  document.getElementById('jText').oninput=()=>{clearTimeout(jSaveTimer);jSaveTimer=setTimeout(()=>{
+    const jj={text:document.getElementById('jText').value,mood:getS('journal_'+todayKey(),{}).mood||''};
+    S('journal_'+todayKey(),jj);document.getElementById('jSaved').textContent='✓ 已保存';
+    setTimeout(()=>document.getElementById('jSaved').textContent='已自动保存',1500);
+    document.getElementById('jBadge').textContent=jj.text.trim()?'✅ 已写':'未写';
+    document.getElementById('jBadge').style.background=jj.text.trim()?'var(--suc)':'var(--pri)';
+  },800);};
 }
 function setMood(m){const dk=todayKey(),j=getS('journal_'+dk,{text:'',mood:''});j.mood=m;S('journal_'+dk,j);renderJournal();}
 function toggleJHist(){const el=document.getElementById('jHist'),btn=event.target;if(el.style.display==='none'){el.style.display='block';btn.textContent='📖 收起 ▴';let h='';for(let i=1;i<=30;i++){const d=new Date();d.setDate(d.getDate()-i);const k=fmtDate(d),j=getS('journal_'+k);if(j&&j.text.trim()) h+=`<div class="jentry"><span class="jentry-date">${k} ${j.mood||''}</span><div class="jentry-text">${j.text.replace(/</g,'&lt;')}</div></div>`;}el.innerHTML=h||'<div style="text-align:center;padding:16px;color:var(--muted);font-size:12px">暂无</div>';}else{el.style.display='none';btn.textContent='📖 历史心得 ▾';}}
@@ -623,23 +1086,22 @@ function renderCal(){
   const first=new Date(calYear,calMonth,1), lastDay=new Date(calYear,calMonth+1,0).getDate();
   const startDow=first.getDay(),today=fmtDate(new Date());
   let h='';
-  // prev month fill
   const prevLast=new Date(calYear,calMonth,0).getDate();
   for(let i=startDow-1;i>=0;i--){const d=prevLast-i;const dt=new Date(calYear,calMonth-1,d);const ls=getLunarShort(dt);h+=`<div class="cal-day other-month"><span>${d}</span><span class="lunar ${ls.cls}">${ls.text}</span></div>`;}
-  // this month
   for(let d=1;d<=lastDay;d++){
     const dt=new Date(calYear,calMonth,d);const k=fmtDate(dt);const ls=getLunarShort(dt);
     const isToday=k===today;const tasks=getS('tasks_'+k,[]);const hasChk=tasks.some(t=>t.completed);
     h+=`<div class="cal-day${isToday?' today':''}"><span>${d}</span><span class="lunar ${ls.cls}">${ls.text}</span>${hasChk?'<div class="chk-dot"></div>':''}</div>`;
   }
-  // next month fill
   const totalCells=startDow+lastDay;const remain=totalCells%7===0?0:7-totalCells%7;
   for(let d=1;d<=remain;d++){const dt=new Date(calYear,calMonth+1,d);const ls=getLunarShort(dt);h+=`<div class="cal-day other-month"><span>${d}</span><span class="lunar ${ls.cls}">${ls.text}</span></div>`;}
   document.getElementById('calDays').innerHTML=h;
   renderHeatmap();
 }
 function renderHeatmap(){
-  const start=getStart(),total=getTotalDays();let h='',checked=0;
+  const start=getStart(),total=getTotalDays();
+  document.getElementById('heatmapTitle').textContent=`📅 ${total}天打卡热力图`;
+  let h='',checked=0;
   for(let i=0;i<total;i++){const d=new Date(start);d.setDate(d.getDate()+i);const k=fmtDate(d);const tasks=getS('tasks_'+k,[]);const done=tasks.filter(t=>t.completed).length;
     let cls='s0';if(tasks.length){if(done===tasks.length){cls='s3';checked++;}else if(done>0)cls='s2';else cls='s1';}
     const isToday=k===todayKey();h+=`<div class="hdot ${cls}${isToday?' today':''}" title="${k}"></div>`;}
@@ -685,22 +1147,22 @@ function pomoReset(){clearInterval(pomoTimer);pomoRunning=false;pomoSec=POMO_MOD
 
 // ============ HABITS ============
 function renderHabits(){
-  const habits=getS('habits',DEFAULT_HABITS),dk=todayKey(),hc=getS('hcheck_'+dk,{});
+  const habits=getS('habits',[]),dk=todayKey(),hc=getS('hcheck_'+dk,{});
   const hdone=Object.values(hc).filter(v=>v).length;
   document.getElementById('habitBadge').textContent=`${hdone}/${habits.length}`;
-  document.getElementById('habitList').innerHTML=habits.map((h,i)=>{
+  document.getElementById('habitList').innerHTML=habits.length ? habits.map((h,i)=>{
     const checked=hc[i];let streak=0;
     for(let d=0;d<365;d++){const dt=new Date();dt.setDate(dt.getDate()-d);const c=getS('hcheck_'+fmtDate(dt),{});if(c[i])streak++;else if(d===0)continue;else break;}
-    return `<div class="habit-card"><div class="habit-ck${checked?' checked':''}" onclick="toggleHabit(${i})">${checked?'✓':''}</div><div class="habit-info"><div class="habit-name">${h.icon} ${h.name}</div><div class="habit-streak">🔥 连续${streak}天</div></div><button class="habit-del" onclick="delHabit(${i})">🗑️</button></div>`;
-  }).join('');
+    return `<div class="habit-card"><div class="habit-ck${checked?' checked':''}" onclick="toggleHabit(${i})">${checked?'✓':''}</div><div class="habit-info"><div class="habit-name">${h.icon||'🎯'} ${h.name}</div><div class="habit-streak">🔥 连续${streak}天</div></div><button class="habit-del" onclick="delHabit(${i})">🗑️</button></div>`;
+  }).join('') : '<div style="text-align:center;padding:20px;color:var(--muted);font-size:13px">暂无习惯，点击下方添加</div>';
   renderHabitHeatmap();
 }
 function toggleHabit(i){const dk=todayKey(),hc=getS('hcheck_'+dk,{});hc[i]=!hc[i];S('hcheck_'+dk,hc);renderAll();}
 function openAddHabit(){document.getElementById('hName').value='';document.getElementById('hIcon').value='🎯';openModal('habitModal');}
-function saveHabit(){const n=document.getElementById('hName').value.trim(),ic=document.getElementById('hIcon').value.trim()||'🎯';if(!n){toast('⚠️ 请输入名称');return;}const habits=getS('habits',DEFAULT_HABITS);habits.push({name:n,icon:ic});S('habits',habits);closeModal('habitModal');renderAll();toast('✅ 已添加');}
-function delHabit(i){openModal('delModal');document.getElementById('delConfirm').onclick=()=>{const habits=getS('habits',DEFAULT_HABITS);habits.splice(i,1);S('habits',habits);closeModal('delModal');renderAll();toast('🗑️ 已删除');};}
+function saveHabit(){const n=document.getElementById('hName').value.trim(),ic=document.getElementById('hIcon').value.trim()||'🎯';if(!n){toast('⚠️ 请输入名称');return;}const habits=getS('habits',[]);habits.push({name:n,icon:ic});S('habits',habits);closeModal('habitModal');renderAll();toast('✅ 已添加');}
+function delHabit(i){openModal('delModal');document.getElementById('delConfirm').onclick=()=>{const habits=getS('habits',[]);habits.splice(i,1);S('habits',habits);closeModal('delModal');renderAll();toast('🗑️ 已删除');};}
 function renderHabitHeatmap(){
-  let h='';for(let i=29;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);const k=fmtDate(d);const hc=getS('hcheck_'+k,{});const habits=getS('habits',DEFAULT_HABITS);const done=Object.values(hc).filter(v=>v).length;const total=habits.length;
+  let h='';for(let i=29;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);const k=fmtDate(d);const hc=getS('hcheck_'+k,{});const habits=getS('habits',[]);const done=Object.values(hc).filter(v=>v).length;const total=habits.length;
     let cls='s0';if(total){const r=done/total;if(r>=1)cls='s3';else if(r>=.5)cls='s2';else if(r>0)cls='s1';}
     h+=`<div class="hdot ${cls}" title="${k}"></div>`;}
   document.getElementById('habitHeatmap').innerHTML=h;
@@ -725,12 +1187,47 @@ function delNote(id){openModal('delModal');document.getElementById('delConfirm')
 function pinNote(id){const notes=getS('notes',[]),n=notes.find(x=>x.id===id);if(n){n.pinned=!n.pinned;S('notes',notes);renderNotes();}}
 
 // ============ SETTINGS ============
-function openSettings(){const s=getSettings();document.getElementById('sStart').value=s.startDate;document.getElementById('sEnd').value=s.endDate;document.getElementById('sExam').value=s.examDate;document.getElementById('sReg').value=s.regDate;openModal('settingsModal');}
-function saveSettings(){S('settings',{startDate:document.getElementById('sStart').value,endDate:document.getElementById('sEnd').value,examDate:document.getElementById('sExam').value,regDate:document.getElementById('sReg').value});renderAll();}
+function openSettings(){
+  const s=getSettings();
+  document.getElementById('sName').value=s.appName||'我的打卡';
+  document.getElementById('sStart').value=s.startDate;
+  document.getElementById('sEnd').value=s.endDate;
+  document.getElementById('sExam').value=s.examDate||'';
+  document.getElementById('sReg').value=s.regDate||'';
+  // City dropdown
+  const citySel = document.getElementById('sCity');
+  const cityOpts = document.getElementById('wCity').innerHTML;
+  citySel.innerHTML = cityOpts;
+  citySel.value = s.city || 'Quanzhou';
+  // Color grid
+  selectedColor = s.themeColor || '#FF6B9D';
+  renderColorGrid('sColorGrid');
+  // Pattern grid
+  selectedPattern = s.pattern || 'none';
+  renderPatternGrid('sPatternGrid');
+  openModal('settingsModal');
+}
+function saveSettings(){
+  const s = {
+    appName: document.getElementById('sName').value.trim() || '我的打卡',
+    city: document.getElementById('sCity').value,
+    startDate: document.getElementById('sStart').value,
+    endDate: document.getElementById('sEnd').value,
+    examDate: document.getElementById('sExam').value,
+    regDate: document.getElementById('sReg').value,
+    themeColor: selectedColor,
+    pattern: selectedPattern,
+    setupDone: true
+  };
+  S('settings', s);
+  applyAllTheme();
+  renderAll();
+}
 
 // ============ NOTIFICATIONS ============
 function checkNotif(){if('Notification' in window && Notification.permission==='default') document.getElementById('notifBanner').style.display='block';}
 function reqNotif(){if('Notification' in window) Notification.requestPermission().then(p=>{document.getElementById('notifBanner').style.display='none';if(p==='granted') toast('🔔 提醒已开启！');});}
+let reminderTimers = [];
 function setupReminders(){reminderTimers.forEach(t=>clearTimeout(t));reminderTimers=[];
   const dk=todayKey(),tasks=getS('tasks_'+dk,[]),now=new Date();
   tasks.forEach(t=>{if(t.completed)return;const[h,m]=t.start.split(':').map(Number);const tt=new Date();tt.setHours(h,m,0,0);const diff=tt-now;
@@ -748,10 +1245,11 @@ function closeModal(id){document.getElementById(id).classList.remove('active');e
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
 
 // ============ RENDER ALL ============
-let reminderTimers = [];
 function renderAll(){renderHeader();renderStats();renderCountdown();renderTasks();renderTpls();renderWater();renderJournal();renderPomo();renderHabits();renderNotes();checkNotif();}
 
 // ============ INIT ============
+applyAllTheme();
+initWizard();
 initCal();
 renderAll();
 setupReminders();
