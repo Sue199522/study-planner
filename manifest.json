@@ -1,6 +1,6 @@
 {
-  "name": "Sue学习打卡",
-  "short_name": "学习打卡",
+  "name": "学习打卡",
+  "short_name": "打卡",
   "description": "一站式学习生活打卡助手",
   "start_url": "./index.html",
   "display": "standalone",
