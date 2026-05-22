@@ -20,8 +20,10 @@ body.pattern-none{background-image:none}
 /* Tab Bar */
 .tab-bar{position:fixed;bottom:0;left:0;right:0;background:white;border-top:1px solid var(--border);display:flex;z-index:100;padding-bottom:env(safe-area-inset-bottom,0px);box-shadow:0 -2px 10px rgba(0,0,0,.05)}
 .tab-btn{flex:1;display:flex;flex-direction:column;align-items:center;padding:10px 0 8px;background:none;border:none;color:var(--muted);font-size:12px;cursor:pointer;transition:color .2s}
-.tab-btn .tab-icon{font-size:26px;margin-bottom:3px}
-.tab-btn.active{color:var(--pri)}
+.tab-btn .tab-icon{font-size:26px;margin-bottom:3px;filter:grayscale(0)}
+.tab-btn:not(.active) .tab-icon{filter:grayscale(.3);opacity:.7}
+.tab-btn.active{color:var(--pri);font-weight:600}
+.tab-btn.active .tab-icon{filter:grayscale(0);opacity:1;transform:scale(1.1)}
 
 /* Pages */
 .page{display:none;padding:0 16px 20px}.page.active{display:block}
@@ -132,8 +134,6 @@ body.pattern-none{background-image:none}
 .habit-pomo-btn:hover{transform:scale(1.15)}
 .habit-edit-btn{background:none;border:none;font-size:16px;cursor:pointer;padding:4px;color:var(--pri-l)}
 .habit-edit-btn:hover{transform:scale(1.15)}
-.habit-heatmap{margin-top:16px}
-.habit-heatmap-title{font-size:13px;color:var(--muted);margin-bottom:6px}
 .hdot{width:12px;height:12px;border-radius:3px}
 .hdot.s0{background:var(--border)}.hdot.s1{background:rgba(255,107,157,.25)}.hdot.s2{background:rgba(255,107,157,.5)}.hdot.s3{background:var(--pri)}
 .pomo-stats-row{display:flex;gap:16px;margin-top:16px;justify-content:center}
@@ -423,6 +423,13 @@ body.pattern-none{background-image:none}
         <div style="font-size:11px;color:var(--muted)">⚡ 快速模板</div>
         <button class="tpl-manage-btn" onclick="toggleTplManage()">✏️ 管理模板</button>
       </div>
+      <div class="tpl-presets" style="margin-bottom:8px">
+        <div style="font-size:11px;color:var(--muted);margin-bottom:4px">点选预设一键填充：</div>
+        <button class="tchip" onclick="loadPreset('exam')" style="border-color:var(--pri);color:var(--pri)">📖 基金备考</button>
+        <button class="tchip" onclick="loadPreset('read')" style="border-color:var(--suc);color:var(--suc)">📚 财报阅读</button>
+        <button class="tchip" onclick="loadPreset('review')" style="border-color:var(--wrn);color:var(--wrn)">📝 复盘刷题</button>
+        <button class="tchip" onclick="loadPreset('free')" style="border-color:var(--muted)">✏️ 自定义</button>
+      </div>
       <div class="templates" id="tplList"></div>
       <div class="tpl-manage-area" id="tplManage"></div>
     </div>
@@ -435,10 +442,6 @@ body.pattern-none{background-image:none}
       <div class="pomo-stat-item"><b id="pomoToday">0</b><small>今日番茄</small></div>
       <div class="pomo-stat-item"><b id="pomoTotal">0</b><small>累计番茄</small></div>
       <div class="pomo-stat-item"><b id="pomoMins">0</b><small>专注分钟</small></div>
-    </div>
-    <div class="habit-heatmap">
-      <div class="habit-heatmap-title">习惯完成率（近30天）</div>
-      <div class="heatmap" id="habitHeatmap"></div>
     </div>
   </div>
 </div>
@@ -1188,6 +1191,49 @@ function addNewTpl(){
   toast('✅ 已添加新模板项');
 }
 
+// ============ PRESET TEMPLATES ============
+const TPL_PRESETS = {
+  exam: [
+    {name:'🌅 早起晨读',start:'06:30',end:'07:00',note:'背诵核心知识点',color:'#FF6B9D'},
+    {name:'📖 刷题训练',start:'08:00',end:'10:00',note:'重点章节刷题',color:'#00C48C'},
+    {name:'☕ 休息',start:'10:00',end:'10:15',note:'起来走走喝口水',color:'#FFAA00'},
+    {name:'📝 错题复盘',start:'10:15',end:'12:00',note:'整理错题本',color:'#FF4757'},
+    {name:'🍱 午饭+午休',start:'12:00',end:'13:30',note:'',color:'#FFAA00'},
+    {name:'📚 知识点梳理',start:'14:00',end:'16:00',note:'三色笔记/思维导图',color:'#74B9FF'},
+    {name:'🎯 模拟考试',start:'16:00',end:'18:00',note:'限时模拟',color:'#FF6B9D'},
+    {name:'📝 当日复盘',start:'22:00',end:'22:30',note:'今日总结+明日计划',color:'#FF6B9D'}
+  ],
+  read: [
+    {name:'📖 财报阅读',start:'09:00',end:'11:00',note:'《手把手教你读财报》',color:'#00C48C'},
+    {name:'💻 巨潮实操',start:'11:00',end:'12:00',note:'cninfo.com.cn看年报',color:'#74B9FF'},
+    {name:'🍱 午饭',start:'12:00',end:'13:30',note:'',color:'#FFAA00'},
+    {name:'📊 财报对比',start:'14:00',end:'16:00',note:'同行业对比分析',color:'#FF6B9D'},
+    {name:'📝 笔记整理',start:'16:00',end:'17:00',note:'关键指标笔记',color:'#00C48C'}
+  ],
+  review: [
+    {name:'📖 三色笔记复习',start:'08:00',end:'10:00',note:'科目一重点',color:'#FF6B9D'},
+    {name:'🧠 默写框架',start:'10:00',end:'11:00',note:'知识点思维导图默写',color:'#74B9FF'},
+    {name:'🍱 午饭',start:'12:00',end:'13:30',note:'',color:'#FFAA00'},
+    {name:'✏️ 万题库刷题',start:'14:00',end:'16:30',note:'章节练习',color:'#00C48C'},
+    {name:'❌ 错题二刷',start:'16:30',end:'18:00',note:'只做错的',color:'#FF4757'},
+    {name:'📝 每日复盘',start:'22:00',end:'22:30',note:'',color:'#FF6B9D'}
+  ],
+  free: []
+};
+
+function loadPreset(key) {
+  const preset = TPL_PRESETS[key];
+  if (!preset || preset.length === 0) {
+    S('customTemplates', []);
+    renderTpls();
+    toast('✏️ 已清空，自行添加');
+    return;
+  }
+  S('customTemplates', [...preset]);
+  renderTpls();
+  toast(`✅ 已加载「${key==='exam'?'基金备考':key==='read'?'财报阅读':'复盘刷题'}」模板`);
+}
+
 
 
 
@@ -1368,15 +1414,18 @@ function renderHabits(){
   const hdone=Object.values(hc).filter(v=>v).length;
   document.getElementById('habitBadge').textContent=`${hdone}/${habits.length}`;
   document.getElementById('habitList').innerHTML=habits.length ? habits.map((h,i)=>{
-    const checked=hc[i];let streak=0;
-    for(let d=0;d<365;d++){const dt=new Date();dt.setDate(dt.getDate()-d);const c=getS('hcheck_'+fmtDate(dt),{});if(c[i])streak++;else if(d===0)continue;else break;}
+    const checked=hc[i];
+    // Calculate 7-day completion rate
+    let done7=0;
+    for(let d=0;d<7;d++){const dt=new Date();dt.setDate(dt.getDate()-d);const c=getS('hcheck_'+fmtDate(dt),{});if(c[i])done7++;}
+    const rate7=Math.round(done7/7*100);
     const isActive = activePomoHabitIdx === i;
     const pomoTimerHtml = isActive ? `<div class="habit-pomo-timer">⏱️ ${formatPomoTime(pomoSec)} <button style="background:none;border:none;color:var(--dng);font-size:12px;cursor:pointer" onclick="event.stopPropagation();cancelHabitPomo()">✕</button></div>` : '';
     return `<div class="habit-card">
       <div class="habit-ck${checked?' checked':''}" onclick="toggleHabit(${i})">${checked?'✓':''}</div>
       <div class="habit-info">
         <div class="habit-name">${h.icon||'🎯'} ${h.name}</div>
-        <div class="habit-streak">🔥 连续${streak}天</div>
+        <div class="habit-streak">📊 近7天 ${rate7}%</div>
         ${pomoTimerHtml}
       </div>
       <div class="habit-acts">
@@ -1386,7 +1435,6 @@ function renderHabits(){
       </div>
     </div>`;
   }).join('') : '<div style="text-align:center;padding:20px;color:var(--muted);font-size:13px">暂无习惯，点击下方添加</div>';
-  renderHabitHeatmap();
   renderPomoStats();
 }
 function toggleHabit(i){const dk=todayKey(),hc=getS('hcheck_'+dk,{});hc[i]=!hc[i];S('hcheck_'+dk,hc);renderAll();}
@@ -1404,12 +1452,6 @@ function saveHabit(){
   S('habits',habits);closeModal('habitModal');renderAll();toast('✅ 已保存');
 }
 function delHabit(i){openModal('delModal');document.getElementById('delConfirm').onclick=()=>{const habits=getS('habits',[]);habits.splice(i,1);S('habits',habits);closeModal('delModal');renderAll();toast('🗑️ 已删除');};}
-function renderHabitHeatmap(){
-  let h='';for(let i=29;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);const k=fmtDate(d);const hc=getS('hcheck_'+k,{});const habits=getS('habits',[]);const done=Object.values(hc).filter(v=>v).length;const total=habits.length;
-    let cls='s0';if(total){const r=done/total;if(r>=1)cls='s3';else if(r>=.5)cls='s2';else if(r>0)cls='s1';}
-    h+=`<div class="hdot ${cls}" title="${k}"></div>`;}
-  document.getElementById('habitHeatmap').innerHTML=h;
-}
 
 // ============ NEWS TAB ============
 const WSJ_CHANNELS = ['global-channel', 'a-stock-channel', 'commodity-channel'];
@@ -1561,6 +1603,53 @@ try { initCal(); } catch(e) { console.error('Cal error:', e); }
 try { renderAll(); } catch(e) { console.error('Render error:', e); }
 try { setupReminders(); } catch(e) { console.error('Reminders error:', e); }
 setInterval(()=>{ try{renderTasks();renderStats();}catch(e){} },60000);
+
+// ============ NEWS DIGEST (8:00 + 22:30) ============
+async function generateNewsDigest() {
+  const channels = ['global-channel', 'a-stock-channel', 'commodity-channel'];
+  const names = ['全球宏观', 'A股市场', '大宗商品'];
+  let digest = '';
+  for (let c = 0; c < channels.length; c++) {
+    try {
+      const r = await fetch(`https://api-one-wscn.awtmt.com/apiv1/content/lives?channel=${channels[c]}&cursor=0&limit=30`);
+      const d = await r.json();
+      if (d && d.data && d.data.items) {
+        const important = d.data.items.filter(it => (it.score || 1) >= 2).slice(0, 5);
+        if (important.length) {
+          digest += `【${names[c]}】\n`;
+          important.forEach(it => {
+            const title = (it.title || it.content_text || '').slice(0, 80);
+            const time = it.display_time ? new Date(it.display_time * 1000).toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'}) : '';
+            digest += `${time ? time+' ' : ''}${title}\n`;
+          });
+          digest += '\n';
+        }
+      }
+    } catch(e) {}
+  }
+  if (digest) {
+    const dk = todayKey();
+    const existing = getS('kite_summary_'+dk, '');
+    const label = new Date().getHours() < 12 ? '☀️ 早间资讯汇总' : '🌙 晚间资讯汇总';
+    const timeStr = new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'});
+    const newSummary = (existing ? existing + '\n\n' : '') + `--- ${label} (${timeStr}) ---\n${digest}`;
+    S('kite_summary_'+dk, newSummary);
+    toast('📰 资讯汇总已更新到每日总结');
+  }
+}
+
+// Schedule digest at 8:00 and 22:30
+function scheduleNewsDigest() {
+  const now = new Date();
+  const scheduleNext = (h, m) => {
+    const target = new Date(now); target.setHours(h, m, 0, 0);
+    if (target <= now) target.setDate(target.getDate() + 1);
+    return setTimeout(() => { generateNewsDigest(); scheduleNewsDigest(); }, target - now);
+  };
+  scheduleNext(8, 0);
+  scheduleNext(22, 30);
+}
+scheduleNewsDigest();
 
 // ============ NEWS PUSH NOTIFICATION ============
 let lastNewsId = '';
