@@ -1597,6 +1597,20 @@ function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t
 function renderAll(){renderHeader();renderStats();renderCountdown();renderTasks();renderTpls();renderHabits();checkNotif();}
 
 // ============ INIT ============
+// Inject conversation summaries (one-time)
+try {
+  if (!S('summaries_injected')) {
+    const summaries = {
+      ["kite_summary_2026-05-21"]: `--- 📅 5月21日 Kite总结 ---\n\n【今日成就】\n- 卷王日记App完成v2.0大改版\n- App正式更名"卷王日记"\n- 测试15+财经API，找到3个可用源\n\n【能力提升】\n- 学会PWA部署流程\n- 理解CORS跨域限制\n\n【待改进】\n- 遇到问题应先穷举方案再下结论`,
+      ["chat_digest_2026-05-21"]: `--- 💬 5月21日 对话精华 ---\n1. App改名"卷王日记"\n2. 底栏5→4：今日/总结/资讯/我的\n3. ST报告因数据不全取消\n4. 切换GitHub Pages部署\n5. 每晚对话汇总+行为分析\n6. "程序化一切，能自助就不沟通"`,
+      ["kite_summary_2026-05-22"]: `--- 📅 5月22日 Kite总结 ---\n\n【今日成就】\n- 搬家完成，正式开始80天学习打卡\n- App v2.1→v2.4持续迭代\n- 白底UI重构\n- 倒计时全部可编辑+进度条\n- 资讯3频道接通\n- 修复关键JS语法错误\n\n【能力提升】\n- 产品思维：信息不重复\n- 先验证再交付\n\n【待改进】\n- 代码修改后必须先语法检查\n- 改动要一次性完成再让用户测试`,
+      ["chat_digest_2026-05-22"]: `--- 💬 5月22日 对话精华 ---\n1. 搬家完成，开始正式打卡\n2. 修复JS语法错误导致页面无响应\n3. 白底UI重做\n4. 倒计时全可编辑+进度条\n5. 去掉喝水/热力图/装饰图案\n6. 资讯3频道全部可用\n7. 习惯显示近7天完成率\n8. 新增模板预设\n9. 资讯8:00+22:30自动汇总`
+    };
+    Object.entries(summaries).forEach(([k, v]) => { if (!S(k)) S(k, v); });
+    S('summaries_injected', true);
+  }
+} catch(e) {}
+
 try { applyAllTheme(); } catch(e) { console.error('Theme error:', e); }
 try { initWizard(); } catch(e) { console.error('Wizard error:', e); }
 try { initCal(); } catch(e) { console.error('Cal error:', e); }
