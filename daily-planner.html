@@ -19,10 +19,24 @@ body.pattern-none{background-image:none}
 
 /* Tab Bar */
 .tab-bar{position:fixed;bottom:0;left:0;right:0;background:white;border-top:1px solid var(--border);display:flex;z-index:100;padding-bottom:env(safe-area-inset-bottom,0px);box-shadow:0 -2px 10px rgba(0,0,0,.05)}
-.tab-btn{flex:1;display:flex;flex-direction:column;align-items:center;padding:10px 0 8px;background:none;border:none;color:#8E8E93;font-size:12px;cursor:pointer;transition:all .2s}
-.tab-btn .tab-icon{font-size:26px;margin-bottom:3px}
-.tab-btn.active{color:var(--pri);font-weight:600}
-.tab-btn.active .tab-icon{transform:scale(1.15)}
+.tab-btn{flex:1;display:flex;flex-direction:column;align-items:center;padding:10px 0 8px;background:none;border:none;font-size:12px;cursor:pointer;transition:all .2s}
+.tab-btn .tab-icon{font-size:24px;margin-bottom:3px;width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px}
+.tab-btn .tab-label{font-size:11px;margin-top:1px}
+.tab-btn.active .tab-label{font-weight:700}
+.tab-btn.active .tab-icon{transform:scale(1.1);box-shadow:0 2px 8px rgba(0,0,0,.12)}
+/* Each tab gets its own color */
+.tab-home .tab-icon{background:#FFE8EE;color:#FF4D6D}
+.tab-home .tab-label{color:#FF4D6D}
+.tab-home.active .tab-icon{background:#FF4D6D;color:white}
+.tab-summary .tab-icon{background:#E0F3FF;color:#2196F3}
+.tab-summary .tab-label{color:#2196F3}
+.tab-summary.active .tab-icon{background:#2196F3;color:white}
+.tab-news .tab-icon{background:#FFF3E0;color:#FF9800}
+.tab-news .tab-label{color:#FF9800}
+.tab-news.active .tab-icon{background:#FF9800;color:white}
+.tab-settings .tab-icon{background:#E8F5E9;color:#4CAF50}
+.tab-settings .tab-label{color:#4CAF50}
+.tab-settings.active .tab-icon{background:#4CAF50;color:white}
 
 /* Pages */
 .page{display:none;padding:0 16px 20px}.page.active{display:block}
@@ -565,10 +579,10 @@ body.pattern-none{background-image:none}
 
 <!-- Tab Bar (4 tabs) -->
 <div class="tab-bar">
-  <button class="tab-btn active" onclick="switchTab('home',this)"><span class="tab-icon">🏠</span>今日</button>
-  <button class="tab-btn" onclick="switchTab('summary',this)"><span class="tab-icon">📝</span>总结</button>
-  <button class="tab-btn" onclick="switchTab('news',this)"><span class="tab-icon">📰</span>资讯</button>
-  <button class="tab-btn" onclick="switchTab('settings',this)"><span class="tab-icon">⚙️</span>我的</button>
+  <button class="tab-btn tab-home active" onclick="switchTab('home',this)"><span class="tab-icon">🏠</span><span class="tab-label">今日</span></button>
+  <button class="tab-btn tab-summary" onclick="switchTab('summary',this)"><span class="tab-icon">📝</span><span class="tab-label">总结</span></button>
+  <button class="tab-btn tab-news" onclick="switchTab('news',this)"><span class="tab-icon">📰</span><span class="tab-label">资讯</span></button>
+  <button class="tab-btn tab-settings" onclick="switchTab('settings',this)"><span class="tab-icon">⚙️</span><span class="tab-label">我的</span></button>
 </div>
 
 <!-- Task Modal -->
