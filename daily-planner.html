@@ -1106,7 +1106,7 @@ function renderCountdown() {
   const custom = getCustomCountdowns();
   custom.forEach((c,i) => {
     const colors = ['var(--pri-l)','var(--suc)','var(--wrn)'];
-    items.push({ id:'custom_'+i, label:c.name, date:c.date, color:colors[i%3.length||0], system:false, idx:i });
+    items.push({ id:'custom_'+i, label:c.name, date:c.date, color:colors[i%colors.length], system:false, idx:i });
   });
 
   document.getElementById('cdCards').innerHTML = items.map(it => {
