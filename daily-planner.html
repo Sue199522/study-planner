@@ -988,7 +988,10 @@ async function fetchWeather() {
   if (weatherCache && now - weatherTime < 3600000) return weatherCache;
   const city = getSettings().city || 'Quanzhou';
   try {
-    const r = await fetch(`https://wttr.in/${city}?format=j1`);
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 5000);
+    const r = await fetch(`https://wttr.in/${city}?format=j1`, { signal: controller.signal });
+    clearTimeout(timeout);
     const d = await r.json();
     const c = d.current_condition[0];
     const desc = c.lang_zh && c.lang_zh[0] ? c.lang_zh[0].value : c.weatherDesc[0].value;
@@ -1363,7 +1366,9 @@ function renderHeatmap(){
 function renderPomoStats(){
   const dk=todayKey(),hist=getS('pomo_'+dk,[]);
   document.getElementById('pomoToday').textContent=hist.length;
-  let total=0,mins=0;for(let i=0;i<365;i++){const d=new Date();d.setDate(d.getDate()-i);const h=getS('pomo_'+fmtDate(d),[]);total+=h.length;mins+=h.reduce((a,b)=>a+b.mins,0);}
+  let total=hist.length,mins=hist.reduce((a,b)=>a+b.mins,0);
+  // Only check last 30 days for performance
+  for(let i=1;i<=30;i++){const d=new Date();d.setDate(d.getDate()-i);const h=getS('pomo_'+fmtDate(d),[]);total+=h.length;mins+=h.reduce((a,b)=>a+b.mins,0);}
   document.getElementById('pomoTotal').textContent=total;document.getElementById('pomoMins').textContent=mins;
 }
 
@@ -1643,12 +1648,12 @@ function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t
 function renderAll(){renderHeader();renderStats();renderCountdown();renderTasks();renderTpls();renderWater();renderHabits();renderHeatmap();checkNotif();}
 
 // ============ INIT ============
-applyAllTheme();
-initWizard();
-initCal();
-renderAll();
-setupReminders();
-setInterval(()=>{renderTasks();renderStats();},60000);
+try { applyAllTheme(); } catch(e) { console.error('Theme error:', e); }
+try { initWizard(); } catch(e) { console.error('Wizard error:', e); }
+try { initCal(); } catch(e) { console.error('Cal error:', e); }
+try { renderAll(); } catch(e) { console.error('Render error:', e); }
+try { setupReminders(); } catch(e) { console.error('Reminders error:', e); }
+setInterval(()=>{ try{renderTasks();renderStats();}catch(e){} },60000);
 
 // PWA
 if('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js').catch(()=>{});
