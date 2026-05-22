@@ -265,9 +265,10 @@ body.pattern-none{background-image:none}
 
 /* Scene cards */
 .scene-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.scene-card{background:var(--card);border:2px solid var(--border);border-radius:14px;padding:16px 12px;cursor:pointer;text-align:center;transition:all .2s}
+.scene-card{background:var(--card);border:2px solid var(--border);border-radius:14px;padding:16px 12px;cursor:pointer;text-align:center;transition:all .2s;touch-action:manipulation;-webkit-tap-highlight-color:transparent;user-select:none}
+.scene-card:active{transform:scale(0.96);background:var(--card2)}
 .scene-card:hover{border-color:var(--pri-l);background:var(--card2)}
-.scene-card.selected{border-color:var(--pri);background:rgba(255,107,157,.1)}
+.scene-card.selected{border-color:var(--pri);background:rgba(255,107,157,.15);box-shadow:0 0 16px rgba(255,107,157,.25)}
 .scene-card .sc-icon{font-size:36px;display:block;margin-bottom:6px}
 .scene-card .sc-name{font-size:14px;font-weight:700}
 .scene-card .sc-desc{font-size:11px;color:var(--muted);margin-top:3px}
@@ -292,9 +293,9 @@ body.pattern-none{background-image:none}
 .pattern-card .pt-name{font-size:13px;font-weight:600}
 
 .wizard-nav{display:flex;gap:10px;margin-top:24px}
-.wizard-nav button{flex:1;padding:12px;border-radius:12px;border:none;font-size:14px;font-weight:700;cursor:pointer}
+.wizard-nav button{flex:1;padding:14px;border-radius:12px;border:none;font-size:16px;font-weight:700;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
 .w-prev{background:var(--card2);color:var(--text)}
-.w-next{background:var(--pri);color:white}
+.w-next{background:var(--pri);color:white;font-size:18px}
 
 /* Template management */
 .tpl-manage-btn{font-size:12px;color:var(--pri-l);background:none;border:none;cursor:pointer;padding:2px 8px}
@@ -902,12 +903,19 @@ function renderSceneGrid() {
   const grid = document.getElementById('sceneGrid');
   grid.innerHTML = Object.keys(SCENE_TEMPLATES).map(key => {
     const sc = SCENE_TEMPLATES[key];
-    return `<div class="scene-card${selectedScene===key?' selected':''}" onclick="selectScene('${key}')">
+    return `<div class="scene-card${selectedScene===key?' selected':''}" data-scene="${key}">
       <span class="sc-icon">${sc.icon}</span>
       <div class="sc-name">${sc.name}</div>
       <div class="sc-desc">${sc.desc}</div>
     </div>`;
   }).join('');
+  // Event delegation for mobile compatibility
+  grid.onclick = function(e) {
+    const card = e.target.closest('.scene-card');
+    if (card) {
+      selectScene(card.dataset.scene);
+    }
+  };
 }
 function selectScene(key) {
   selectedScene = key;
