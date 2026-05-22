@@ -95,13 +95,6 @@ body.pattern-none{background-image:none}
 .tchip{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:6px 14px;font-size:13px;cursor:pointer;color:var(--muted);transition:all .2s}
 .tchip:hover{border-color:var(--pri);color:var(--pri-l)}
 
-/* Water */
-.water-row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:8px}
-.water-cup{font-size:34px;cursor:pointer;transition:transform .15s;opacity:.4}
-.water-cup.filled{opacity:1;transform:scale(1.05)}
-.water-cup:hover{transform:scale(1.15)}
-.water-info{text-align:center;font-size:14px;color:var(--muted);margin-top:8px}
-
 /* Journal (now in summary tab) */
 .jcard{background:var(--card);border-radius:var(--radius);padding:14px;border:1px solid var(--border)}
 .jcard:focus-within{border-color:var(--pri)}
@@ -202,10 +195,14 @@ body.pattern-none{background-image:none}
 .news-item{background:var(--card);border-radius:var(--radius);padding:12px 14px;cursor:pointer;transition:background .2s}
 .news-item:hover{background:var(--card2)}
 .news-item-header{display:flex;justify-content:space-between;align-items:center}
-.news-item-time{font-size:11px;color:var(--muted)}
-.news-item-title{font-size:15px;font-weight:600;margin-top:4px}
-.news-item-summary{font-size:13px;color:var(--muted);margin-top:6px;display:none;line-height:1.6}
+.news-item-time{font-size:13px;color:var(--muted)}
+.news-item-title{font-size:18px;font-weight:600;margin-top:4px;line-height:1.5}
+.news-item-summary{font-size:15px;color:var(--muted);margin-top:6px;display:none;line-height:1.7}
 .news-item.expanded .news-item-summary{display:block}
+.news-hot{background:var(--dng);color:white;font-size:11px;font-weight:700;padding:2px 8px;border-radius:10px;animation:hotPulse 2s infinite}
+@keyframes hotPulse{0%,100%{opacity:1}50%{opacity:.6}}
+.news-important{border-left:4px solid var(--dng);background:rgba(255,107,107,.08)}
+.news-important .news-item-title{font-size:17px;color:#FF6B6B;font-weight:800}
 .news-footer{text-align:center;font-size:11px;color:var(--muted);padding:16px 0;margin-top:8px}
 .news-loading{text-align:center;padding:40px;color:var(--muted)}
 .news-error{text-align:center;padding:40px;color:var(--dng)}
@@ -476,11 +473,6 @@ body.pattern-none{background-image:none}
       <div class="heatmap" id="habitHeatmap"></div>
     </div>
   </div>
-  <div class="sec">
-    <div class="sec-title">💧 喝水打卡<span class="badge" id="waterBadge">0/8杯</span></div>
-    <div class="water-row" id="waterRow"></div>
-    <div class="water-info" id="waterInfo"></div>
-  </div>
   <!-- Heatmap at bottom of home -->
   <div class="sec">
     <div class="heatmap-title" id="heatmapTitle">📅 打卡热力图</div>
@@ -573,14 +565,14 @@ body.pattern-none{background-image:none}
     <button onclick="refreshNews()" id="newsRefreshBtn">🔄 刷新</button>
   </div>
   <div class="news-source-tabs">
-    <button class="news-source-tab active" onclick="switchNewsSource(0,this)">华尔街见闻</button>
-    <button class="news-source-tab" onclick="switchNewsSource(1,this)">新浪财经</button>
-    <button class="news-source-tab" onclick="switchNewsSource(2,this)">新华网</button>
+    <button class="news-source-tab active" onclick="switchNewsSource(0,this)">全球宏观</button>
+    <button class="news-source-tab" onclick="switchNewsSource(1,this)">A股市场</button>
+    <button class="news-source-tab" onclick="switchNewsSource(2,this)">大宗商品</button>
   </div>
   <div id="newsContent">
     <div class="news-loading">点击刷新获取最新资讯</div>
   </div>
-  <div class="news-footer">数据来源：华尔街见闻 | 新浪财经 | 新华网</div>
+  <div class="news-footer">数据来源：华尔街见闻</div>
 </div>
 
 <!-- ============ PAGE: SETTINGS ============ -->
@@ -606,8 +598,6 @@ body.pattern-none{background-image:none}
       <h3>📅 日期</h3>
       <div class="setting-row"><div class="setting-label">开始日期<small>学习期起始日</small></div><input type="date" id="sStart" onchange="saveSettings()"></div>
       <div class="setting-row"><div class="setting-label">结束日期<small>学习期截止日</small></div><input type="date" id="sEnd" onchange="saveSettings()"></div>
-      <div class="setting-row"><div class="setting-label">重要考试日<small>考试日期</small></div><input type="date" id="sExam" onchange="saveSettings()"></div>
-      <div class="setting-row"><div class="setting-label">报名截止日<small>报名截止</small></div><input type="date" id="sReg" onchange="saveSettings()"></div>
     </div>
     <button class="reset-btn" onclick="resetData()">🗑️ 重置所有数据</button>
   </div>
@@ -1093,28 +1083,29 @@ function renderStats() {
     <div class="stat"><b class="p4">${rate}%</b><small>完成率</small></div>`;
 }
 
-// ============ COUNTDOWN (with CRUD) ============
+// ============ COUNTDOWN (full CRUD) ============
 function getCustomCountdowns() { return getS('customCountdowns', []); }
 
 function renderCountdown() {
-  const s = getSettings(), today = new Date(); today.setHours(0,0,0,0);
-  const items = [];
-  if(s.regDate) items.push({ id:'_reg', label:'报名截止', date: s.regDate, color:'var(--wrn)', system:true });
-  items.push({ id:'_end', label:'学习期结束', date: s.endDate, color:'var(--pri)', system:true });
-  if(s.examDate) items.push({ id:'_exam', label:'重要考试', date: s.examDate, color:'var(--suc)', system:true });
-  // Custom countdowns
-  const custom = getCustomCountdowns();
-  custom.forEach((c,i) => {
-    const colors = ['var(--pri-l)','var(--suc)','var(--wrn)'];
-    items.push({ id:'custom_'+i, label:c.name, date:c.date, color:colors[i%colors.length], system:false, idx:i });
-  });
+  const today = new Date(); today.setHours(0,0,0,0);
+  // All countdowns stored in one list, no system/custom distinction
+  let items = getCustomCountdowns();
+  if (!items || items.length === 0) {
+    // First time: seed with defaults from settings
+    const s = getSettings();
+    items = [];
+    items.push({ label:'学习期结束', date: s.endDate, color:'var(--pri)' });
+    if(s.examDate) items.push({ label:'重要考试', date: s.examDate, color:'var(--suc)' });
+    if(s.regDate) items.push({ label:'报名截止', date: s.regDate, color:'var(--wrn)' });
+    S('customCountdowns', items);
+  }
 
-  document.getElementById('cdCards').innerHTML = items.map(it => {
+  document.getElementById('cdCards').innerHTML = items.map((it,i) => {
     const d = new Date(it.date+'T00:00:00'); d.setHours(0,0,0,0);
     const diff = Math.ceil((d - today) / 86400000);
-    return `<div class="cd-card${cdEditing&&!it.system?' cd-editing':''}">
-      ${(!it.system&&cdEditing)?`<div class="cd-acts"><button style="background:none;border:none;cursor:pointer;font-size:14px" onclick="editCountdown(${it.idx})">✏️</button><button style="background:none;border:none;cursor:pointer;font-size:14px" onclick="delCountdown(${it.idx})">❌</button></div>`:''}
-      <div class="cd-num" style="color:${it.color}">${diff > 0 ? diff : 0}</div>
+    return `<div class="cd-card${cdEditing?' cd-editing':''}">
+      ${cdEditing?`<div class="cd-acts"><button style="background:none;border:none;cursor:pointer;font-size:14px" onclick="editCountdown(${i})">✏️</button><button style="background:none;border:none;cursor:pointer;font-size:14px" onclick="delCountdown(${i})">❌</button></div>`:''}
+      <div class="cd-num" style="color:${it.color||'var(--pri-l)'}">${diff > 0 ? diff : 0}</div>
       <div class="cd-label">${it.label}</div>
       <div class="cd-date">${it.date}</div>
     </div>`;
@@ -1137,12 +1128,12 @@ function openAddCountdown() {
 }
 
 function editCountdown(idx) {
-  const custom = getCustomCountdowns();
-  if (!custom[idx]) return;
+  const items = getCustomCountdowns();
+  if (!items[idx]) return;
   editCdId = idx;
   document.getElementById('cdModalTitle').textContent = '编辑倒计时';
-  document.getElementById('cdName').value = custom[idx].name;
-  document.getElementById('cdDate').value = custom[idx].date;
+  document.getElementById('cdName').value = items[idx].label || items[idx].name;
+  document.getElementById('cdDate').value = items[idx].date;
   openModal('cdModal');
 }
 
@@ -1150,16 +1141,18 @@ function saveCountdown() {
   const name = document.getElementById('cdName').value.trim();
   const date = document.getElementById('cdDate').value;
   if (!name || !date) { toast('⚠️ 请填写完整'); return; }
-  const custom = getCustomCountdowns();
+  const items = getCustomCountdowns();
+  const colors = ['var(--pri)','var(--suc)','var(--wrn)','var(--pri-l)'];
   if (editCdId !== null) {
-    if (custom[editCdId]) {
-      custom[editCdId].name = name;
-      custom[editCdId].date = date;
+    if (items[editCdId]) {
+      items[editCdId].label = name;
+      items[editCdId].name = name;
+      items[editCdId].date = date;
     }
   } else {
-    custom.push({ name, date });
+    items.push({ label: name, name: name, date: date, color: colors[items.length % colors.length] });
   }
-  S('customCountdowns', custom);
+  S('customCountdowns', items);
   closeModal('cdModal');
   renderAll();
   toast('✅ 已保存');
@@ -1168,9 +1161,9 @@ function saveCountdown() {
 function delCountdown(idx) {
   openModal('delModal');
   document.getElementById('delConfirm').onclick = () => {
-    const custom = getCustomCountdowns();
-    custom.splice(idx, 1);
-    S('customCountdowns', custom);
+    const items = getCustomCountdowns();
+    items.splice(idx, 1);
+    S('customCountdowns', items);
     closeModal('delModal');
     renderAll();
     toast('🗑️ 已删除');
@@ -1267,17 +1260,10 @@ function addNewTpl(){
   toast('✅ 已添加新模板项');
 }
 
-// ============ WATER ============
-function renderWater(){
-  const dk=todayKey(),w=getS('water_'+dk,0);let h='';
-  for(let i=0;i<8;i++) h+=`<span class="water-cup${i<w?' filled':''}" onclick="setWater(${i+1})">${i<w?'🥛':'🫗'}</span>`;
-  document.getElementById('waterRow').innerHTML=h;
-  document.getElementById('waterBadge').textContent=`${w}/8杯`;
-  document.getElementById('waterInfo').textContent=w>=8?'💧 今日饮水目标完成！':`还需${8-w}杯，约${(8-w)*250}ml`;
-}
-function setWater(n){S('water_'+todayKey(),n);renderAll();if(n>=8) toast('💧 喝水目标完成！');}
 
-// ============ JOURNAL (now in summary tab) ============
+
+
+// ============ JOURNAL (now in summary tab) ============ (now in summary tab) ============
 function renderJournal(){
   const dk=todayKey(),j=getS('journal_'+dk,{text:'',mood:''}),dn=getDayNum();
   document.getElementById('jPrompt').textContent=JOURNAL_PROMPTS[(dn-1)%JOURNAL_PROMPTS.length];
@@ -1507,19 +1493,23 @@ function renderHabitHeatmap(){
 }
 
 // ============ NEWS TAB ============
-async function fetchNewsWSJ() {
+const WSJ_CHANNELS = ['global-channel', 'a-stock-channel', 'commodity-channel'];
+
+async function fetchNewsWSJ(channelIdx) {
   try {
-    const r = await fetch('https://api-one-wscn.awtmt.com/apiv1/content/lives?channel=global-channel&cursor=0&limit=20');
+    const ch = WSJ_CHANNELS[channelIdx || 0];
+    const r = await fetch(`https://api-one-wscn.awtmt.com/apiv1/content/lives?channel=${ch}&cursor=0&limit=30`);
     const d = await r.json();
     if (d && d.data && d.data.items) {
       return d.data.items.map(it => ({
         time: it.display_time ? new Date(it.display_time * 1000).toLocaleString('zh-CN',{hour:'2-digit',minute:'2-digit'}) : '',
         title: it.title || it.content_text || '',
-        summary: it.content_text || ''
-      }));
+        summary: it.content_text || '',
+        score: it.score || 1
+      })).filter(it => it.title);
     }
     return [];
-  } catch(e) { console.error('WSJ fetch error', e); return []; }
+  } catch(e) { console.error('News fetch error', e); return []; }
 }
 
 async function fetchNewsSina() {
@@ -1598,13 +1588,14 @@ function renderNews() {
     container.innerHTML = '<div class="news-error">暂无数据，请稍后刷新重试</div>';
     return;
   }
-  container.innerHTML = '<div class="news-list">' + data.map((it, i) =>
-    `<div class="news-item" onclick="this.classList.toggle('expanded')">
-      <div class="news-item-header"><span class="news-item-time">${it.time}</span></div>
+  container.innerHTML = '<div class="news-list">' + data.map((it, i) => {
+    const imp = (it.score || 1) >= 2;
+    return `<div class="news-item${imp?' news-important':''}" onclick="this.classList.toggle('expanded')">
+      <div class="news-item-header"><span class="news-item-time">${it.time}</span>${imp?'<span class="news-hot">🔥 重要</span>':''}</div>
       <div class="news-item-title">${it.title.replace(/</g,'&lt;')}</div>
       ${it.summary ? `<div class="news-item-summary">${it.summary.replace(/</g,'&lt;')}</div>` : ''}
-    </div>`
-  ).join('') + '</div>';
+    </div>`;
+  }).join('') + '</div>';
 }
 
 // ============ SETTINGS PAGE ============
@@ -1613,8 +1604,6 @@ function renderSettingsPage() {
   document.getElementById('sName').value = s.appName || '卷王日记';
   document.getElementById('sStart').value = s.startDate;
   document.getElementById('sEnd').value = s.endDate;
-  document.getElementById('sExam').value = s.examDate || '';
-  document.getElementById('sReg').value = s.regDate || '';
   // City dropdown
   const citySel = document.getElementById('sCity');
   const cityOpts = document.getElementById('wCity').innerHTML;
@@ -1634,8 +1623,6 @@ function saveSettings(){
     city: document.getElementById('sCity').value,
     startDate: document.getElementById('sStart').value,
     endDate: document.getElementById('sEnd').value,
-    examDate: document.getElementById('sExam').value,
-    regDate: document.getElementById('sReg').value,
     themeColor: selectedColor,
     pattern: selectedPattern,
     setupDone: true
@@ -1684,7 +1671,7 @@ function closeModal(id){document.getElementById(id).classList.remove('active');e
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
 
 // ============ RENDER ALL ============
-function renderAll(){renderHeader();renderStats();renderCountdown();renderTasks();renderTpls();renderWater();renderHabits();renderHeatmap();checkNotif();}
+function renderAll(){renderHeader();renderStats();renderCountdown();renderTasks();renderTpls();renderHabits();renderHeatmap();checkNotif();}
 
 // ============ INIT ============
 try { applyAllTheme(); } catch(e) { console.error('Theme error:', e); }
@@ -1693,6 +1680,31 @@ try { initCal(); } catch(e) { console.error('Cal error:', e); }
 try { renderAll(); } catch(e) { console.error('Render error:', e); }
 try { setupReminders(); } catch(e) { console.error('Reminders error:', e); }
 setInterval(()=>{ try{renderTasks();renderStats();}catch(e){} },60000);
+
+// ============ NEWS PUSH NOTIFICATION ============
+let lastNewsId = '';
+async function checkImportantNews() {
+  try {
+    const r = await fetch('https://api-one-wscn.awtmt.com/apiv1/content/lives?channel=global-channel&cursor=0&limit=5');
+    const d = await r.json();
+    if (!d || !d.data || !d.data.items) return;
+    for (const it of d.data.items) {
+      if ((it.score || 1) >= 2 && it.uri !== lastNewsId) {
+        lastNewsId = it.uri;
+        const title = it.title || it.content_text || '';
+        if (title && 'Notification' in window && Notification.permission === 'granted') {
+          new Notification('🔥 重要财经快讯', { body: title.slice(0, 80), icon: '📰' });
+        }
+        toast('🔥 重要快讯: ' + title.slice(0, 40));
+        break; // only notify the latest one
+      }
+    }
+  } catch(e) {}
+}
+// Check every 5 minutes
+setInterval(checkImportantNews, 300000);
+// First check after 30 seconds
+setTimeout(checkImportantNews, 30000);
 
 // PWA
 if('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js').catch(()=>{});
