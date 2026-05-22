@@ -15,13 +15,6 @@
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:18px;padding-bottom:90px;padding-bottom:calc(90px + env(safe-area-inset-bottom,0px));-webkit-tap-highlight-color:transparent;line-height:1.6}
 
 /* Decorative patterns */
-body.pattern-stars{background-image:radial-gradient(circle,rgba(255,107,157,.12) 1px,transparent 1px),radial-gradient(circle,rgba(255,168,197,.1) 1px,transparent 1px);background-size:50px 50px,30px 30px;background-position:0 0,25px 25px}
-body.pattern-hearts{background-image:radial-gradient(circle,rgba(255,107,157,.1) 1.5px,transparent 1.5px);background-size:40px 40px;background-position:10px 10px}
-body.pattern-dots{background-image:radial-gradient(circle,rgba(0,0,0,.06) 1px,transparent 1px);background-size:20px 20px}
-body.pattern-waves{background-image:url("data:image/svg+xml,%3Csvg width='100' height='20' viewBox='0 0 100 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 10 Q25 0 50 10 Q75 20 100 10' fill='none' stroke='%23E5E5EA' stroke-width='1'/%3E%3C/svg%3E");background-size:100px 20px}
-body.pattern-bubbles{background-image:radial-gradient(circle 8px,rgba(0,0,0,.03) 1px,transparent 2px),radial-gradient(circle 5px,rgba(0,0,0,.02) 1px,transparent 2px);background-size:60px 60px,40px 40px;background-position:0 0,20px 20px}
-body.pattern-flower{background-image:radial-gradient(circle,rgba(255,107,157,.08) 2px,transparent 2px),radial-gradient(circle,rgba(255,168,197,.06) 1.5px,transparent 1.5px),radial-gradient(circle,rgba(232,85,135,.05) 1px,transparent 1px);background-size:60px 60px,40px 40px,80px 80px;background-position:0 0,30px 30px,15px 15px}
-body.pattern-clouds{background-image:url("data:image/svg+xml,%3Csvg width='80' height='40' viewBox='0 0 80 40' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='30' cy='20' r='10' fill='%23E5E5EA' opacity='0.5'/%3E%3Ccircle cx='40' cy='18' r='12' fill='%23E5E5EA' opacity='0.5'/%3E%3Ccircle cx='50' cy='20' r='10' fill='%23E5E5EA' opacity='0.5'/%3E%3C/svg%3E");background-size:80px 40px}
 body.pattern-none{background-image:none}
 
 /* Tab Bar */
@@ -43,20 +36,11 @@ body.pattern-none{background-image:none}
 .hdr-right .weather-icon{font-size:36px}
 .hdr-right .weather-temp{font-size:20px;font-weight:700}
 .hdr-right .weather-desc{font-size:13px;opacity:.85}
-.progress-bar{background:rgba(255,255,255,.15);border-radius:20px;height:6px;margin-top:12px;overflow:hidden}
-.progress-fill{height:100%;background:#FFEAA7;border-radius:20px;transition:width .5s}
-.progress-text{display:flex;justify-content:space-between;font-size:13px;margin-top:4px;opacity:.85}
 
 /* Settings btn */
 .settings-btn{background:none;border:none;color:white;font-size:20px;cursor:pointer;opacity:.8;padding:4px}
 .settings-btn:hover{opacity:1}
 
-/* Stats */
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:16px 16px 0;margin-top:-8px}
-.stat{background:var(--card);border-radius:12px;padding:12px 8px;text-align:center;box-shadow:0 1px 4px rgba(0,0,0,.06)}
-.stat b{font-size:28px;font-weight:800;display:block}
-.stat b.p1{color:var(--pri-l)}.stat b.p2{color:var(--suc)}.stat b.p3{color:var(--wrn)}.stat b.p4{color:var(--dng)}
-.stat small{font-size:13px;color:var(--muted)}
 
 /* Section */
 .sec{margin-top:20px}
@@ -70,6 +54,9 @@ body.pattern-none{background-image:none}
 .cd-card .cd-num{font-size:28px;font-weight:800;color:var(--pri-l)}
 .cd-card .cd-label{font-size:11px;color:var(--muted);margin-top:2px}
 .cd-card .cd-date{font-size:10px;color:var(--muted);opacity:.7}
+.cd-progress-bar{background:var(--border);border-radius:4px;height:4px;margin-top:6px;overflow:hidden}
+.cd-progress-fill{height:100%;border-radius:4px;transition:width .5s}
+.cd-pct{font-size:11px;color:var(--muted);text-align:right;margin-top:2px}
 .cd-card .cd-acts{display:none;position:absolute;top:4px;right:4px;gap:2px}
 .cd-editing .cd-acts{display:flex}
 
@@ -128,10 +115,6 @@ body.pattern-none{background-image:none}
 .cal-day .lunar.fest{color:var(--pri-l);font-weight:600}
 .cal-day .lunar.term{color:var(--wrn);font-weight:600}
 .cal-day .chk-dot{position:absolute;bottom:3px;width:5px;height:5px;border-radius:50%;background:var(--suc)}
-.heatmap-title{font-size:13px;color:var(--muted);margin-top:16px;margin-bottom:6px}
-.heatmap{display:flex;gap:3px;flex-wrap:wrap}
-.hdot{width:12px;height:12px;border-radius:3px}
-.hdot.s0{background:var(--border)}.hdot.s1{background:rgba(255,107,157,.25)}.hdot.s2{background:rgba(255,107,157,.5)}.hdot.s3{background:var(--pri)}.hdot.today{box-shadow:0 0 0 2px var(--pri-l)}
 
 /* Habits */
 .habit-list{display:flex;flex-direction:column;gap:10px}
@@ -151,6 +134,8 @@ body.pattern-none{background-image:none}
 .habit-edit-btn:hover{transform:scale(1.15)}
 .habit-heatmap{margin-top:16px}
 .habit-heatmap-title{font-size:13px;color:var(--muted);margin-bottom:6px}
+.hdot{width:12px;height:12px;border-radius:3px}
+.hdot.s0{background:var(--border)}.hdot.s1{background:rgba(255,107,157,.25)}.hdot.s2{background:rgba(255,107,157,.5)}.hdot.s3{background:var(--pri)}
 .pomo-stats-row{display:flex;gap:16px;margin-top:16px;justify-content:center}
 .pomo-stat-item{text-align:center}
 .pomo-stat-item b{font-size:20px;color:var(--pri-l);display:block}
@@ -281,13 +266,6 @@ body.pattern-none{background-image:none}
 .color-custom input[type="color"]{position:absolute;inset:-10px;width:60px;height:60px;cursor:pointer;opacity:0}
 .color-custom-label{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:18px;pointer-events:none}
 
-/* Pattern selection */
-.pattern-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.pattern-card{background:var(--card);border:2px solid var(--border);border-radius:14px;padding:16px 12px;cursor:pointer;text-align:center;transition:all .2s}
-.pattern-card:hover{border-color:var(--pri-l)}
-.pattern-card.selected{border-color:var(--pri);background:rgba(255,107,157,.1)}
-.pattern-card .pt-icon{font-size:28px;display:block;margin-bottom:4px}
-.pattern-card .pt-name{font-size:13px;font-weight:600}
 
 .wizard-nav{display:flex;gap:10px;margin-top:24px}
 .wizard-nav button{flex:1;padding:14px;border-radius:12px;border:none;font-size:16px;font-weight:700;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
@@ -367,10 +345,6 @@ body.pattern-none{background-image:none}
       <label>主题色</label>
       <div class="color-grid" id="colorGrid"></div>
     </div>
-    <div class="color-section">
-      <label>装饰图案</label>
-      <div class="pattern-grid" id="patternGrid"></div>
-    </div>
   </div>
 
   <!-- Step 3: Personal info -->
@@ -398,10 +372,6 @@ body.pattern-none{background-image:none}
       <div class="fg"><label>开始日期</label><input type="date" id="wStart"></div>
       <div class="fg"><label>结束日期</label><input type="date" id="wEnd"></div>
     </div>
-    <div class="frow">
-      <div class="fg"><label>重要考试日</label><input type="date" id="wExam"></div>
-      <div class="fg"><label>报名截止日</label><input type="date" id="wReg"></div>
-    </div>
   </div>
 
   <div class="wizard-nav" id="wNav">
@@ -428,13 +398,10 @@ body.pattern-none{background-image:none}
       <div class="weather-desc">加载中</div>
     </div>
   </div>
-  <div class="progress-bar"><div class="progress-fill" id="pFill"></div></div>
-  <div class="progress-text"><span id="pLeft"></span><span id="pRight"></span></div>
 </div>
 
 <!-- ============ PAGE: HOME ============ -->
 <div class="page active" id="pg-home">
-  <div class="stats" id="statsRow"></div>
   <div id="notifBanner" class="notif-b" style="display:none;margin:12px 16px 0">
     <p>🔔 开启通知权限，到点提醒你该干嘛！</p>
     <button onclick="reqNotif()">开启提醒</button>
@@ -450,6 +417,7 @@ body.pattern-none{background-image:none}
     <div class="sec-title">📝 今日计划<span class="badge" id="taskBadge">0/0</span></div>
     <div class="task-list" id="taskList"></div>
     <button class="add-btn" onclick="openAddTask()">＋ 添加任务</button>
+    <div class="task-stats" id="taskStats"></div>
     <div style="margin-top:12px">
       <div style="display:flex;align-items:center;justify-content:space-between">
         <div style="font-size:11px;color:var(--muted)">⚡ 快速模板</div>
@@ -472,11 +440,6 @@ body.pattern-none{background-image:none}
       <div class="habit-heatmap-title">习惯完成率（近30天）</div>
       <div class="heatmap" id="habitHeatmap"></div>
     </div>
-  </div>
-  <!-- Heatmap at bottom of home -->
-  <div class="sec">
-    <div class="heatmap-title" id="heatmapTitle">📅 打卡热力图</div>
-    <div class="heatmap" id="heatmap"></div>
   </div>
 </div>
 
@@ -589,16 +552,6 @@ body.pattern-none{background-image:none}
         <label>主题色</label>
         <div class="color-grid" id="sColorGrid"></div>
       </div>
-      <div class="color-section">
-        <label>装饰图案</label>
-        <div class="pattern-grid" id="sPatternGrid"></div>
-      </div>
-    </div>
-    <div class="settings-section">
-      <h3>📅 日期</h3>
-      <div class="setting-row"><div class="setting-label">开始日期<small>进度条起始日</small></div><input type="date" id="sStart" onchange="saveSettings()"></div>
-      <div class="setting-row"><div class="setting-label">结束日期<small>进度条截止日</small></div><input type="date" id="sEnd" onchange="saveSettings()"></div>
-      <div style="font-size:13px;color:var(--muted);padding:8px 0">💡 重要日期请在首页「重要倒计时」中添加</div>
     </div>
     <button class="reset-btn" onclick="resetData()">🗑️ 重置所有数据</button>
   </div>
@@ -756,24 +709,12 @@ const PRESET_COLORS = [
   {name:'深空灰',color:'#94A3B8',light:'#CBD5E1',dark:'#64748B'},
 ];
 
-// ============ PATTERNS ============
-const PATTERNS = [
-  {id:'none',name:'纯色',icon:'⬜'},
-  {id:'dots',name:'圆点',icon:'⚪'},
-  {id:'stars',name:'星星',icon:'⭐'},
-  {id:'hearts',name:'爱心',icon:'💗'},
-  {id:'bubbles',name:'气泡',icon:'🫧'},
-  {id:'waves',name:'波浪',icon:'🌊'},
-  {id:'clouds',name:'云朵',icon:'☁️'},
-  {id:'flower',name:'花瓣',icon:'🌸'},
-];
-
 // ============ CONFIG ============
 const JOURNAL_PROMPTS = ['💡 今天学到了什么新知识点？','🎯 今天最专注的是哪个任务？','🤔 遇到了什么难点？怎么解决的？','📈 跟昨天比，有什么进步？','🔮 明天最想突破什么？','💪 今天最坚持的一件事是什么？','🧠 有什么知识突然想通了？'];
 const POMO_MODES = [{label:'15分钟',work:15,rest:5},{label:'25分钟',work:25,rest:5},{label:'30分钟',work:30,rest:5},{label:'45分钟',work:45,rest:10}];
 const MOODS = ['😊','😐','😤','😴','🔥'];
 
-const DEFAULT_SETTINGS = {appName:'卷王日记',city:'Quanzhou',startDate:'2026-05-20',endDate:'2026-08-07',examDate:'2026-11-28',regDate:'2026-08-11',themeColor:'#FF6B9D',pattern:'none',setupDone:false};
+const DEFAULT_SETTINGS = {appName:'卷王日记',city:'Quanzhou',startDate:'2026-05-20',endDate:'2026-08-07',examDate:'2026-11-28',regDate:'2026-08-11',themeColor:'#FF6B9D',setupDone:false};
 
 // ============ LUNAR CALENDAR ============
 const LUNAR_MONTHS_2026 = [
@@ -820,7 +761,6 @@ let jSaveTimer = null;
 let wizardStep = 1;
 let selectedScene = 'exam';
 let selectedColor = '#FF6B9D';
-let selectedPattern = 'none';
 let tplManageOpen = false;
 let cdEditing = false;
 let editCdId = null;
@@ -836,8 +776,23 @@ function nowStr() { const n=new Date(); return `${String(n.getHours()).padStart(
 function S(k,v) { if(v!==undefined) localStorage.setItem(k,JSON.stringify(v)); else { const x=localStorage.getItem(k); return x?JSON.parse(x):undefined; } }
 function getS(k,def) { const v=S(k); return v!==undefined?v:def; }
 function getSettings() { return getS('settings', DEFAULT_SETTINGS); }
-function getStart() { return new Date(getSettings().startDate + 'T00:00:00'); }
-function getEnd() { return new Date(getSettings().endDate + 'T00:00:00'); }
+function getStart() {
+  const items = getCustomCountdowns();
+  if (items.length) {
+    const dates = items.map(it => new Date(it.date+'T00:00:00')).sort((a,b) => a-b);
+    const start = new Date(dates[0]); start.setDate(start.getDate() - 79);
+    return start;
+  }
+  return new Date(getSettings().startDate + 'T00:00:00');
+}
+function getEnd() {
+  const items = getCustomCountdowns();
+  if (items.length) {
+    const dates = items.map(it => new Date(it.date+'T00:00:00')).sort((a,b) => b-a);
+    return dates[0];
+  }
+  return new Date(getSettings().endDate + 'T00:00:00');
+}
 function getTotalDays() { return Math.max(1, Math.round((getEnd() - getStart()) / 86400000) + 1); }
 function getDayNum() { const t=new Date();t.setHours(0,0,0,0); return Math.max(1, Math.floor((t - getStart()) / 86400000) + 1); }
 function daysLeft() { const t=new Date();t.setHours(0,0,0,0); return Math.max(0, Math.ceil((getEnd() - t) / 86400000)); }
@@ -879,14 +834,9 @@ function applyTheme(priColor) {
   document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]').content = priColor;
 }
 
-function applyPattern(patternId) {
-  document.body.className = 'pattern-' + patternId;
-}
-
 function applyAllTheme() {
   const s = getSettings();
   applyTheme(s.themeColor || '#FF6B9D');
-  applyPattern(s.pattern || 'none');
   document.getElementById('hdrTitle').textContent = '📋 ' + (s.appName || '卷王日记');
   document.title = (s.appName || '卷王日记');
 }
@@ -897,13 +847,10 @@ function initWizard() {
   renderWizardStep();
   renderSceneGrid();
   renderColorGrid('colorGrid');
-  renderPatternGrid('patternGrid');
   const today = fmtDate(new Date());
   const end = new Date(); end.setDate(end.getDate() + 79);
   document.getElementById('wStart').value = today;
   document.getElementById('wEnd').value = fmtDate(end);
-  document.getElementById('wExam').value = '';
-  document.getElementById('wReg').value = '';
 }
 
 function renderWizardStep() {
@@ -962,35 +909,16 @@ function selectColor(color, containerId) {
   applyTheme(color);
 }
 
-function renderPatternGrid(containerId) {
-  const container = document.getElementById(containerId);
-  container.innerHTML = PATTERNS.map(p =>
-    `<div class="pattern-card${selectedPattern===p.id?' selected':''}" onclick="selectPattern('${p.id}','${containerId}')">
-      <span class="pt-icon">${p.icon}</span>
-      <div class="pt-name">${p.name}</div>
-    </div>`
-  ).join('');
-}
-function selectPattern(id, containerId) {
-  selectedPattern = id;
-  renderPatternGrid(containerId);
-  applyPattern(id);
-}
 
 function finishWizard() {
   const appName = document.getElementById('wName').value.trim() || '卷王日记';
   const city = document.getElementById('wCity').value;
   const startDate = document.getElementById('wStart').value || fmtDate(new Date());
   const endDate = document.getElementById('wEnd').value;
-  const examDate = document.getElementById('wExam').value;
-  const regDate = document.getElementById('wReg').value;
 
   const settings = {
     appName, city, startDate, endDate,
-    examDate: examDate || endDate,
-    regDate: regDate || endDate,
     themeColor: selectedColor,
-    pattern: selectedPattern,
     setupDone: true
   };
   S('settings', settings);
@@ -1057,11 +985,6 @@ function renderHeader() {
   document.getElementById('hdrDate').textContent = `${now.getFullYear()}年${now.getMonth()+1}月${now.getDate()}日 周${wd[now.getDay()]}`;
   const l = getLunarDate(now);
   document.getElementById('hdrLunar').textContent = l ? `🏮 农历${l.monthName}${l.dayName} · 丙午年` : '';
-  const total = getTotalDays(), dn = getDayNum(), left = daysLeft();
-  const pct = Math.min(100, Math.max(0, (dn / total) * 100));
-  document.getElementById('pFill').style.width = pct + '%';
-  document.getElementById('pLeft').textContent = `第${dn}天 / 共${total}天`;
-  document.getElementById('pRight').textContent = `剩余${left}天`;
   document.getElementById('hdrTitle').textContent = '📋 ' + (getSettings().appName || '卷王日记');
   renderWeather();
 }
@@ -1071,18 +994,17 @@ function renderStats() {
   const dk = todayKey(), tasks = getS('tasks_'+dk, []), done = tasks.filter(t=>t.completed).length;
   const habits = getS('habits', []), hc = getS('hcheck_'+dk, {});
   const hdone = Object.values(hc).filter(v=>v).length;
-  let streak = 0;
-  for (let i = 0; i < getTotalDays(); i++) {
-    const d = new Date(); d.setDate(d.getDate()-i); const k = fmtDate(d);
-    const dt = getS('tasks_'+k,[]); if(!dt.length) continue;
-    if(dt.every(t=>t.completed)) streak++; else if(i===0) break; else break;
-  }
-  const rate = (tasks.length+habits.length) > 0 ? Math.round(((done+hdone)/(tasks.length+habits.length))*100) : 0;
-  document.getElementById('statsRow').innerHTML = `
-    <div class="stat"><b class="p1">${getDayNum()}</b><small>第几天</small></div>
-    <div class="stat"><b class="p2">${done}/${tasks.length}</b><small>任务完成</small></div>
-    <div class="stat"><b class="p3">${streak}</b><small>连续打卡</small></div>
-    <div class="stat"><b class="p4">${rate}%</b><small>完成率</small></div>`;
+  const total = tasks.length + habits.length;
+  const totalDone = done + hdone;
+  const rate = total > 0 ? Math.round((totalDone/total)*100) : 0;
+  const el = document.getElementById('taskStats');
+  if (!el) return;
+  if (total === 0) { el.innerHTML = ''; return; }
+  el.innerHTML = `<div style="display:flex;gap:12px;align-items:center;margin-top:10px;padding:10px 14px;background:var(--card);border-radius:10px;box-shadow:0 1px 3px rgba(0,0,0,.05)">
+    <span style="font-size:14px;color:var(--muted)">✅ 完成 <b style="color:var(--suc)">${totalDone}/${total}</b></span>
+    <div style="flex:1;background:var(--border);border-radius:4px;height:6px;overflow:hidden"><div style="height:100%;background:var(--suc);border-radius:4px;width:${rate}%;transition:width .5s"></div></div>
+    <span style="font-size:14px;font-weight:700;color:var(--suc)">${rate}%</span>
+  </div>`;
 }
 
 // ============ COUNTDOWN (full CRUD) ============
@@ -1090,10 +1012,9 @@ function getCustomCountdowns() { return getS('customCountdowns', []); }
 
 function renderCountdown() {
   const today = new Date(); today.setHours(0,0,0,0);
-  // All countdowns stored in one list, no system/custom distinction
+  const start = getStart();
   let items = getCustomCountdowns();
   if (!items || items.length === 0) {
-    // First time: seed with defaults from settings
     const s = getSettings();
     items = [];
     items.push({ label:'学习期结束', date: s.endDate, color:'var(--pri)' });
@@ -1105,11 +1026,16 @@ function renderCountdown() {
   document.getElementById('cdCards').innerHTML = items.map((it,i) => {
     const d = new Date(it.date+'T00:00:00'); d.setHours(0,0,0,0);
     const diff = Math.ceil((d - today) / 86400000);
+    const totalDays = Math.max(1, Math.ceil((d - start) / 86400000));
+    const passed = Math.max(0, Math.ceil((today - start) / 86400000));
+    const pct = Math.min(100, Math.max(0, Math.round((passed / totalDays) * 100)));
+    const clr = it.color || 'var(--pri-l)';
     return `<div class="cd-card${cdEditing?' cd-editing':''}">
       ${cdEditing?`<div class="cd-acts"><button style="background:none;border:none;cursor:pointer;font-size:14px" onclick="editCountdown(${i})">✏️</button><button style="background:none;border:none;cursor:pointer;font-size:14px" onclick="delCountdown(${i})">❌</button></div>`:''}
-      <div class="cd-num" style="color:${it.color||'var(--pri-l)'}">${diff > 0 ? diff : 0}</div>
+      <div class="cd-num" style="color:${clr}">${diff > 0 ? diff : 0}<span style="font-size:12px;font-weight:400">天</span></div>
       <div class="cd-label">${it.label}</div>
-      <div class="cd-date">${it.date}</div>
+      <div class="cd-progress-bar"><div class="cd-progress-fill" style="width:${pct}%;background:${clr}"></div></div>
+      <div class="cd-pct">${pct}%</div>
     </div>`;
   }).join('');
   document.getElementById('cdBadge').textContent = `${items.length}个`;
@@ -1379,15 +1305,6 @@ function renderCal(){
   document.getElementById('calDays').innerHTML=h;
 }
 
-function renderHeatmap(){
-  const start=getStart(),total=getTotalDays();
-  document.getElementById('heatmapTitle').textContent=`📅 ${total}天打卡热力图`;
-  let h='',checked=0;
-  for(let i=0;i<total;i++){const d=new Date(start);d.setDate(d.getDate()+i);const k=fmtDate(d);const tasks=getS('tasks_'+k,[]);const done=tasks.filter(t=>t.completed).length;
-    let cls='s0';if(tasks.length){if(done===tasks.length){cls='s3';checked++;}else if(done>0)cls='s2';else cls='s1';}
-    const isToday=k===todayKey();h+=`<div class="hdot ${cls}${isToday?' today':''}" title="${k}"></div>`;}
-  document.getElementById('heatmap').innerHTML=h;
-}
 
 // ============ POMODORO (merged into habits) ============
 function renderPomoStats(){
@@ -1573,8 +1490,6 @@ function renderNews() {
 function renderSettingsPage() {
   const s = getSettings();
   document.getElementById('sName').value = s.appName || '卷王日记';
-  document.getElementById('sStart').value = s.startDate;
-  document.getElementById('sEnd').value = s.endDate;
   // City dropdown
   const citySel = document.getElementById('sCity');
   const cityOpts = document.getElementById('wCity').innerHTML;
@@ -1584,18 +1499,13 @@ function renderSettingsPage() {
   selectedColor = s.themeColor || '#FF6B9D';
   renderColorGrid('sColorGrid');
   // Pattern grid
-  selectedPattern = s.pattern || 'none';
-  renderPatternGrid('sPatternGrid');
 }
 
 function saveSettings(){
   const s = {
     appName: document.getElementById('sName').value.trim() || '卷王日记',
     city: document.getElementById('sCity').value,
-    startDate: document.getElementById('sStart').value,
-    endDate: document.getElementById('sEnd').value,
     themeColor: selectedColor,
-    pattern: selectedPattern,
     setupDone: true
   };
   S('settings', s);
@@ -1642,7 +1552,7 @@ function closeModal(id){document.getElementById(id).classList.remove('active');e
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
 
 // ============ RENDER ALL ============
-function renderAll(){renderHeader();renderStats();renderCountdown();renderTasks();renderTpls();renderHabits();renderHeatmap();checkNotif();}
+function renderAll(){renderHeader();renderStats();renderCountdown();renderTasks();renderTpls();renderHabits();checkNotif();}
 
 // ============ INIT ============
 try { applyAllTheme(); } catch(e) { console.error('Theme error:', e); }
