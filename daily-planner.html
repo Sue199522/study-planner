@@ -4,28 +4,28 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="卷王日记">
 <meta name="theme-color" content="#FF6B9D">
 <link rel="manifest" href="./manifest.json">
 <title>卷王日记</title>
 <style>
-:root{--pri:#FF6B9D;--pri-l:#FFA8C5;--pri-d:#E85587;--suc:#00D2A0;--wrn:#FFD93D;--dng:#FF6B6B;--bg:#1A0A12;--card:#2A1520;--card2:#351E2C;--text:#F5E6EE;--muted:#AA8899;--border:#3D2535;--radius:14px}
+:root{--pri:#FF6B9D;--pri-l:#FFA8C5;--pri-d:#E85587;--suc:#00C48C;--wrn:#FFAA00;--dng:#FF4757;--bg:#F5F5F7;--card:#FFFFFF;--card2:#F0F0F2;--text:#1A1A2E;--muted:#8E8E93;--border:#E5E5EA;--radius:14px}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:18px;padding-bottom:90px;padding-bottom:calc(90px + env(safe-area-inset-bottom,0px));-webkit-tap-highlight-color:transparent;line-height:1.6}
 
 /* Decorative patterns */
-body.pattern-stars{background-image:radial-gradient(circle,var(--pri) 1px,transparent 1px),radial-gradient(circle,var(--pri-l) 1px,transparent 1px);background-size:50px 50px,30px 30px;background-position:0 0,25px 25px}
-body.pattern-hearts{background-image:radial-gradient(circle,var(--pri) 1.5px,transparent 1.5px);background-size:40px 40px;background-position:10px 10px}
-body.pattern-dots{background-image:radial-gradient(circle,var(--border) 1px,transparent 1px);background-size:20px 20px}
-body.pattern-waves{background-image:url("data:image/svg+xml,%3Csvg width='100' height='20' viewBox='0 0 100 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 10 Q25 0 50 10 Q75 20 100 10' fill='none' stroke='%233D2535' stroke-width='1'/%3E%3C/svg%3E");background-size:100px 20px}
-body.pattern-bubbles{background-image:radial-gradient(circle 8px,var(--card) 1px,transparent 2px),radial-gradient(circle 5px,var(--card2) 1px,transparent 2px);background-size:60px 60px,40px 40px;background-position:0 0,20px 20px}
-body.pattern-flower{background-image:radial-gradient(circle,var(--pri) 2px,transparent 2px),radial-gradient(circle,var(--pri-l) 1.5px,transparent 1.5px),radial-gradient(circle,var(--pri-d) 1px,transparent 1px);background-size:60px 60px,40px 40px,80px 80px;background-position:0 0,30px 30px,15px 15px}
-body.pattern-clouds{background-image:url("data:image/svg+xml,%3Csvg width='80' height='40' viewBox='0 0 80 40' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='30' cy='20' r='10' fill='%233D2535' opacity='0.3'/%3E%3Ccircle cx='40' cy='18' r='12' fill='%233D2535' opacity='0.3'/%3E%3Ccircle cx='50' cy='20' r='10' fill='%233D2535' opacity='0.3'/%3E%3C/svg%3E");background-size:80px 40px}
+body.pattern-stars{background-image:radial-gradient(circle,rgba(255,107,157,.12) 1px,transparent 1px),radial-gradient(circle,rgba(255,168,197,.1) 1px,transparent 1px);background-size:50px 50px,30px 30px;background-position:0 0,25px 25px}
+body.pattern-hearts{background-image:radial-gradient(circle,rgba(255,107,157,.1) 1.5px,transparent 1.5px);background-size:40px 40px;background-position:10px 10px}
+body.pattern-dots{background-image:radial-gradient(circle,rgba(0,0,0,.06) 1px,transparent 1px);background-size:20px 20px}
+body.pattern-waves{background-image:url("data:image/svg+xml,%3Csvg width='100' height='20' viewBox='0 0 100 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 10 Q25 0 50 10 Q75 20 100 10' fill='none' stroke='%23E5E5EA' stroke-width='1'/%3E%3C/svg%3E");background-size:100px 20px}
+body.pattern-bubbles{background-image:radial-gradient(circle 8px,rgba(0,0,0,.03) 1px,transparent 2px),radial-gradient(circle 5px,rgba(0,0,0,.02) 1px,transparent 2px);background-size:60px 60px,40px 40px;background-position:0 0,20px 20px}
+body.pattern-flower{background-image:radial-gradient(circle,rgba(255,107,157,.08) 2px,transparent 2px),radial-gradient(circle,rgba(255,168,197,.06) 1.5px,transparent 1.5px),radial-gradient(circle,rgba(232,85,135,.05) 1px,transparent 1px);background-size:60px 60px,40px 40px,80px 80px;background-position:0 0,30px 30px,15px 15px}
+body.pattern-clouds{background-image:url("data:image/svg+xml,%3Csvg width='80' height='40' viewBox='0 0 80 40' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='30' cy='20' r='10' fill='%23E5E5EA' opacity='0.5'/%3E%3Ccircle cx='40' cy='18' r='12' fill='%23E5E5EA' opacity='0.5'/%3E%3Ccircle cx='50' cy='20' r='10' fill='%23E5E5EA' opacity='0.5'/%3E%3C/svg%3E");background-size:80px 40px}
 body.pattern-none{background-image:none}
 
 /* Tab Bar */
-.tab-bar{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--border);display:flex;z-index:100;padding-bottom:env(safe-area-inset-bottom,0px)}
+.tab-bar{position:fixed;bottom:0;left:0;right:0;background:white;border-top:1px solid var(--border);display:flex;z-index:100;padding-bottom:env(safe-area-inset-bottom,0px);box-shadow:0 -2px 10px rgba(0,0,0,.05)}
 .tab-btn{flex:1;display:flex;flex-direction:column;align-items:center;padding:10px 0 8px;background:none;border:none;color:var(--muted);font-size:12px;cursor:pointer;transition:color .2s}
 .tab-btn .tab-icon{font-size:26px;margin-bottom:3px}
 .tab-btn.active{color:var(--pri)}
@@ -34,7 +34,7 @@ body.pattern-none{background-image:none}
 .page{display:none;padding:0 16px 20px}.page.active{display:block}
 
 /* Header */
-.hdr{background:linear-gradient(135deg,var(--pri),var(--pri-l));padding:20px 16px 24px;margin:-0 0 0;position:sticky;top:0;z-index:50;box-shadow:0 4px 20px rgba(255,107,157,.3)}
+.hdr{background:linear-gradient(135deg,var(--pri),var(--pri-l));padding:20px 16px 24px;margin:-0 0 0;position:sticky;top:0;z-index:50;box-shadow:0 4px 20px rgba(255,107,157,.2);color:white}
 .hdr-top{display:flex;justify-content:space-between;align-items:center}
 .hdr h1{font-size:24px;font-weight:700}
 .hdr .date-line{font-size:15px;opacity:.9;margin-top:4px}
@@ -53,7 +53,7 @@ body.pattern-none{background-image:none}
 
 /* Stats */
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:16px 16px 0;margin-top:-8px}
-.stat{background:var(--card);border-radius:12px;padding:12px 8px;text-align:center}
+.stat{background:var(--card);border-radius:12px;padding:12px 8px;text-align:center;box-shadow:0 1px 4px rgba(0,0,0,.06)}
 .stat b{font-size:28px;font-weight:800;display:block}
 .stat b.p1{color:var(--pri-l)}.stat b.p2{color:var(--suc)}.stat b.p3{color:var(--wrn)}.stat b.p4{color:var(--dng)}
 .stat small{font-size:13px;color:var(--muted)}
@@ -66,7 +66,7 @@ body.pattern-none{background-image:none}
 
 /* Countdown */
 .countdown-cards{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:4px}
-.cd-card{background:var(--card);border-radius:12px;padding:12px;text-align:center;position:relative}
+.cd-card{background:var(--card);border-radius:12px;padding:12px;text-align:center;position:relative;box-shadow:0 1px 4px rgba(0,0,0,.06)}
 .cd-card .cd-num{font-size:28px;font-weight:800;color:var(--pri-l)}
 .cd-card .cd-label{font-size:11px;color:var(--muted);margin-top:2px}
 .cd-card .cd-date{font-size:10px;color:var(--muted);opacity:.7}
@@ -75,7 +75,7 @@ body.pattern-none{background-image:none}
 
 /* Task */
 .task-list{display:flex;flex-direction:column;gap:8px}
-.tcard{background:var(--card);border-radius:var(--radius);padding:14px 16px;border-left:5px solid var(--pri);position:relative;transition:opacity .2s}
+.tcard{background:var(--card);border-radius:var(--radius);padding:14px 16px;border-left:5px solid var(--pri);position:relative;transition:opacity .2s;box-shadow:0 1px 4px rgba(0,0,0,.06)}
 .tcard.done{opacity:.6}.tcard.done .tname{text-decoration:line-through}
 .tcard.now{border-left-color:var(--wrn);box-shadow:0 0 12px rgba(255,217,61,.12)}
 .tcard.now::after{content:'⏰ 进行中';position:absolute;top:-8px;right:10px;background:var(--wrn);color:#333;font-size:11px;font-weight:700;padding:3px 8px;border-radius:8px}
@@ -131,11 +131,11 @@ body.pattern-none{background-image:none}
 .heatmap-title{font-size:13px;color:var(--muted);margin-top:16px;margin-bottom:6px}
 .heatmap{display:flex;gap:3px;flex-wrap:wrap}
 .hdot{width:12px;height:12px;border-radius:3px}
-.hdot.s0{background:var(--border)}.hdot.s1{background:rgba(255,107,157,.3)}.hdot.s2{background:rgba(255,107,157,.6)}.hdot.s3{background:var(--pri)}.hdot.today{box-shadow:0 0 0 2px var(--pri-l)}
+.hdot.s0{background:var(--border)}.hdot.s1{background:rgba(255,107,157,.25)}.hdot.s2{background:rgba(255,107,157,.5)}.hdot.s3{background:var(--pri)}.hdot.today{box-shadow:0 0 0 2px var(--pri-l)}
 
 /* Habits */
 .habit-list{display:flex;flex-direction:column;gap:10px}
-.habit-card{background:var(--card);border-radius:var(--radius);padding:14px;display:flex;align-items:center;gap:12px}
+.habit-card{background:var(--card);border-radius:var(--radius);padding:14px;display:flex;align-items:center;gap:12px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
 .habit-ck{width:32px;height:32px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;transition:all .2s;flex-shrink:0}
 .habit-ck.checked{background:var(--suc);border-color:var(--suc);color:white}
 .habit-info{flex:1}
@@ -192,7 +192,7 @@ body.pattern-none{background-image:none}
 .news-source-tab{padding:6px 14px;border-radius:16px;border:1px solid var(--border);background:none;color:var(--muted);font-size:12px;cursor:pointer;transition:all .2s}
 .news-source-tab.active{border-color:var(--pri);color:var(--pri-l);background:rgba(255,107,157,.1)}
 .news-list{display:flex;flex-direction:column;gap:8px}
-.news-item{background:var(--card);border-radius:var(--radius);padding:12px 14px;cursor:pointer;transition:background .2s}
+.news-item{background:var(--card);border-radius:var(--radius);padding:12px 14px;cursor:pointer;transition:background .2s;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04)}
 .news-item:hover{background:var(--card2)}
 .news-item-header{display:flex;justify-content:space-between;align-items:center}
 .news-item-time{font-size:13px;color:var(--muted)}
@@ -201,8 +201,8 @@ body.pattern-none{background-image:none}
 .news-item.expanded .news-item-summary{display:block}
 .news-hot{background:var(--dng);color:white;font-size:11px;font-weight:700;padding:2px 8px;border-radius:10px;animation:hotPulse 2s infinite}
 @keyframes hotPulse{0%,100%{opacity:1}50%{opacity:.6}}
-.news-important{border-left:4px solid var(--dng);background:rgba(255,107,107,.08)}
-.news-important .news-item-title{font-size:17px;color:#FF6B6B;font-weight:800}
+.news-important{border-left:4px solid var(--dng);background:rgba(255,71,87,.04)}
+.news-important .news-item-title{font-size:17px;color:#FF4757;font-weight:800}
 .news-footer{text-align:center;font-size:11px;color:var(--muted);padding:16px 0;margin-top:8px}
 .news-loading{text-align:center;padding:40px;color:var(--muted)}
 .news-error{text-align:center;padding:40px;color:var(--dng)}
@@ -219,9 +219,9 @@ body.pattern-none{background-image:none}
 .reset-btn:hover{opacity:.9}
 
 /* Modal */
-.modal-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;justify-content:center;align-items:flex-end}
+.modal-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:200;justify-content:center;align-items:flex-end}
 .modal-ov.active{display:flex}
-.modal{background:var(--card);border-radius:20px 20px 0 0;padding:24px 20px 40px;width:100%;max-width:480px;max-height:85vh;overflow-y:auto;animation:slideUp .3s ease}
+.modal{background:white;border-radius:20px 20px 0 0;padding:24px 20px 40px;width:100%;max-width:480px;max-height:85vh;overflow-y:auto;animation:slideUp .3s ease;box-shadow:0 -4px 20px rgba(0,0,0,.1)}
 @keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
 .modal h3{font-size:17px;margin-bottom:16px;text-align:center}
 .fg{margin-bottom:14px}
@@ -262,10 +262,10 @@ body.pattern-none{background-image:none}
 
 /* Scene cards */
 .scene-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.scene-card{background:var(--card);border:2px solid var(--border);border-radius:14px;padding:16px 12px;cursor:pointer;text-align:center;transition:all .2s;touch-action:manipulation;-webkit-tap-highlight-color:transparent;user-select:none}
+.scene-card{background:var(--card);border:2px solid var(--border);border-radius:14px;padding:16px 12px;cursor:pointer;text-align:center;transition:all .2s;touch-action:manipulation;-webkit-tap-highlight-color:transparent;user-select:none;box-shadow:0 1px 4px rgba(0,0,0,.06)}
 .scene-card:active{transform:scale(0.96);background:var(--card2)}
 .scene-card:hover{border-color:var(--pri-l);background:var(--card2)}
-.scene-card.selected{border-color:var(--pri);background:rgba(255,107,157,.15);box-shadow:0 0 16px rgba(255,107,157,.25)}
+.scene-card.selected{border-color:var(--pri);background:rgba(255,107,157,.06);box-shadow:0 0 12px rgba(255,107,157,.15)}
 .scene-card .sc-icon{font-size:36px;display:block;margin-bottom:6px}
 .scene-card .sc-name{font-size:14px;font-weight:700}
 .scene-card .sc-desc{font-size:11px;color:var(--muted);margin-top:3px}
@@ -596,8 +596,9 @@ body.pattern-none{background-image:none}
     </div>
     <div class="settings-section">
       <h3>📅 日期</h3>
-      <div class="setting-row"><div class="setting-label">开始日期<small>学习期起始日</small></div><input type="date" id="sStart" onchange="saveSettings()"></div>
-      <div class="setting-row"><div class="setting-label">结束日期<small>学习期截止日</small></div><input type="date" id="sEnd" onchange="saveSettings()"></div>
+      <div class="setting-row"><div class="setting-label">开始日期<small>进度条起始日</small></div><input type="date" id="sStart" onchange="saveSettings()"></div>
+      <div class="setting-row"><div class="setting-label">结束日期<small>进度条截止日</small></div><input type="date" id="sEnd" onchange="saveSettings()"></div>
+      <div style="font-size:13px;color:var(--muted);padding:8px 0">💡 重要日期请在首页「重要倒计时」中添加</div>
     </div>
     <button class="reset-btn" onclick="resetData()">🗑️ 重置所有数据</button>
   </div>
@@ -856,12 +857,13 @@ function applyTheme(priColor) {
   const h = hsl.h, s = hsl.s, l = hsl.l;
   const priL = `hsl(${h},${Math.min(s+10,100)}%,${Math.min(l+20,85)}%)`;
   const priD = `hsl(${h},${s}%,${Math.max(l-10,25)}%)`;
-  const bg = `hsl(${h},${Math.max(s-50,8)}%,6%)`;
-  const card = `hsl(${h},${Math.max(s-40,10)}%,12%)`;
-  const card2 = `hsl(${h},${Math.max(s-35,12)}%,16%)`;
-  const border = `hsl(${h},${Math.max(s-45,10)}%,18%)`;
-  const muted = `hsl(${h},${Math.max(s-20,20)}%,55%)`;
-  const text = `hsl(${h},${Math.max(s-30,10)}%,92%)`;
+  // Light mode colors
+  const bg = '#F5F5F7';
+  const card = '#FFFFFF';
+  const card2 = '#F0F0F2';
+  const border = '#E5E5EA';
+  const muted = '#8E8E93';
+  const text = '#1A1A2E';
 
   document.documentElement.style.setProperty('--pri', priColor);
   document.documentElement.style.setProperty('--pri-l', priL);
@@ -1512,39 +1514,9 @@ async function fetchNewsWSJ(channelIdx) {
   } catch(e) { console.error('News fetch error', e); return []; }
 }
 
-async function fetchNewsSina() {
-  try {
-    const r = await fetch('https://feed.mix.sina.com.cn/api/roll/get?pageid=153&lid=2516&num=20');
-    const d = await r.json();
-    if (d && d.result && d.result.data) {
-      return d.result.data.map(it => ({
-        time: it.ctime || '',
-        title: it.title || '',
-        summary: it.intro || ''
-      }));
-    }
-    return [];
-  } catch(e) { console.error('Sina fetch error', e); return []; }
-}
+async function fetchNewsSina() { return []; }
 
-async function fetchNewsXinhua() {
-  try {
-    const r = await fetch('http://www.xinhuanet.com/finance/');
-    const t = await r.text();
-    // Simple extraction of titles from HTML
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(t, 'text/html');
-    const links = doc.querySelectorAll('a');
-    const items = [];
-    links.forEach(a => {
-      const text = a.textContent.trim();
-      if (text.length > 8 && text.length < 80 && !text.includes('新华') && !text.includes('登录') && !text.includes('注册')) {
-        items.push({ time: '', title: text, summary: '' });
-      }
-    });
-    return items.slice(0, 20);
-  } catch(e) { console.error('Xinhua fetch error', e); return []; }
-}
+async function fetchNewsXinhua() { return []; }
 
 async function refreshNews() {
   const btn = document.getElementById('newsRefreshBtn');
@@ -1553,8 +1525,7 @@ async function refreshNews() {
   newsLoading = true;
 
   try {
-    const fetchers = [fetchNewsWSJ, fetchNewsSina, fetchNewsXinhua];
-    newsCache[currentNewsSource] = await fetchers[currentNewsSource]();
+    newsCache[currentNewsSource] = await fetchNewsWSJ(currentNewsSource);
   } catch(e) {
     console.error('News fetch error', e);
   }
