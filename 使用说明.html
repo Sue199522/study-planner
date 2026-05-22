@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>📖 使用说明 - 学习打卡助手</title>
+<style>
+:root{--pri:#FF6B9D;--bg:#0f0f17;--card:#1a1a28;--card2:#242438;--text:#e8e0f0;--muted:#8888aa;--border:#2a2a40;--suc:#00D2A0;--wrn:#FFD93D;--dng:#FF6B6B}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);font-size:16px;line-height:1.8;padding:20px 16px 60px}
+h1{text-align:center;font-size:24px;margin-bottom:4px;color:var(--pri)}
+.subtitle{text-align:center;color:var(--muted);font-size:14px;margin-bottom:30px}
+h2{font-size:20px;margin:30px 0 14px;padding-bottom:8px;border-bottom:2px solid var(--pri);color:var(--pri)}
+h3{font-size:17px;margin:20px 0 10px;color:var(--text)}
+.card{background:var(--card);border-radius:14px;padding:18px;margin:12px 0;border:1px solid var(--border)}
+.step{display:flex;gap:12px;margin:12px 0;align-items:flex-start}
+.step-num{background:var(--pri);color:white;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;flex-shrink:0;margin-top:2px}
+.step-text{flex:1;font-size:15px}
+.tip{background:rgba(255,107,157,.1);border-left:4px solid var(--pri);border-radius:0 10px 10px 0;padding:12px 16px;margin:12px 0;font-size:14px}
+.tip-label{color:var(--pri);font-weight:700;font-size:13px;margin-bottom:4px}
+.warn{background:rgba(255,217,61,.08);border-left:4px solid var(--wrn);border-radius:0 10px 10px 0;padding:12px 16px;margin:12px 0;font-size:14px}
+.warn-label{color:var(--wrn);font-weight:700;font-size:13px;margin-bottom:4px}
+.success{background:rgba(0,210,160,.08);border-left:4px solid var(--suc);border-radius:0 10px 10px 0;padding:12px 16px;margin:12px 0;font-size:14px}
+.success-label{color:var(--suc);font-weight:700;font-size:13px;margin-bottom:4px}
+.screenshot{background:var(--card2);border-radius:12px;padding:20px;text-align:center;margin:12px 0;color:var(--muted);font-size:14px;border:1px dashed var(--border)}
+.code-box{background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:14px;margin:12px 0;font-size:13px;word-break:break-all;color:var(--suc)}
+ul,ol{padding-left:20px;margin:8px 0}
+li{margin:6px 0;font-size:15px}
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:14px}
+th{background:var(--card2);padding:10px;text-align:left;border:1px solid var(--border)}
+td{padding:10px;border:1px solid var(--border)}
+.faq-q{font-weight:700;color:var(--pri);font-size:16px;margin:18px 0 6px;list-style:none;padding-left:0}
+.faq-q::before{content:"❓ "}
+.faq-a{margin:0 0 16px;padding-left:8px;font-size:15px}
+.toc{background:var(--card);border-radius:14px;padding:18px 24px;margin:20px 0;border:1px solid var(--border)}
+.toc a{color:var(--pri);text-decoration:none;display:block;padding:4px 0;font-size:15px}
+.toc a:hover{text-decoration:underline}
+.badge{display:inline-block;background:var(--pri);color:white;padding:2px 10px;border-radius:10px;font-size:12px;font-weight:600}
+.divider{text-align:center;color:var(--border);margin:30px 0;font-size:24px}
+</style>
+</head>
+<body>
+
+<h1>📋 学习打卡助手</h1>
+<div class="subtitle">完整使用说明 · 从安装到精通</div>
+
+<div class="toc">
+<strong>📑 目录</strong>
+<a href="#install">一、安装到手机</a>
+<a href="#first">二、首次设置（3步搞定）</a>
+<a href="#daily">三、日常使用</a>
+<a href="#theme">四、个性化定制</a>
+<a href="#template">五、模板管理</a>
+<a href="#faq">六、常见问题（必看！）</a>
+<a href="#data">七、数据说明</a>
+</div>
+
+<!-- ===================== 一、安装 ===================== -->
+<h2 id="install">📱 一、安装到手机</h2>
+
+<h3>🍎 苹果手机（iPhone）</h3>
+<div class="card">
+  <div class="step"><div class="step-num">1</div><div class="step-text">把收到的 <strong>.html文件</strong> 保存到手机（微信里长按文件 → 保存到手机）</div></div>
+  <div class="step"><div class="step-num">2</div><div class="step-text">打开手机自带的 <strong>Safari浏览器</strong>（必须用Safari，其他浏览器不行）</div></div>
+  <div class="step"><div class="step-num">3</div><div class="step-text">在Safari里打开这个HTML文件：
+    <ul>
+      <li>方法一：Safari地址栏输入 <code>file://</code> 然后找到文件</li>
+      <li>方法二（更简单）：用「文件」App找到HTML文件 → 长按 → 共享 → 用Safari打开</li>
+      <li>方法三（最简单）：用iCloud网页版上传文件，Safari访问下载后打开</li>
+    </ul>
+  </div></div>
+  <div class="step"><div class="step-num">4</div><div class="step-text">Safari打开后，点底部的 <strong>分享按钮（方框+向上箭头）</strong></div></div>
+  <div class="step"><div class="step-num">5</div><div class="step-text">在弹出的菜单里找到 <strong>"添加到主屏幕"</strong>，点它</div></div>
+  <div class="step"><div class="step-num">6</div><div class="step-text">桌面上会出现打卡App图标，以后直接点图标就能用了！</div></div>
+</div>
+
+<div class="tip">
+  <div class="tip-label">💡 小提示</div>
+  如果你是在线访问的网址（不是本地文件），直接Safari打开网址 → 点分享 → 添加到主屏幕就行，更简单。
+</div>
+
+<h3>🤖 安卓手机</h3>
+<div class="card">
+  <div class="step"><div class="step-num">1</div><div class="step-text">用 <strong>Chrome浏览器</strong> 打开收到的HTML文件</div></div>
+  <div class="step"><div class="step-num">2</div><div class="step-text">点右上角 <strong>三个点菜单 ⋮</strong></div></div>
+  <div class="step"><div class="step-num">3</div><div class="step-text">找到 <strong>"添加到主屏幕"</strong> 或 <strong>"创建快捷方式"</strong></div></div>
+  <div class="step"><div class="step-num">4</div><div class="step-text">桌面上出现App图标，完成！</div></div>
+</div>
+
+<div class="warn">
+  <div class="warn-label">⚠️ 重要提醒</div>
+  <ul>
+    <li><strong>苹果手机必须用Safari</strong>，用微信/QQ浏览器打开无法添加到主屏幕</li>
+    <li><strong>安卓推荐用Chrome</strong>，其他浏览器可能不兼容</li>
+    <li>添加到主屏幕后，<strong>不要删除原HTML文件</strong>，删了App就打不开了</li>
+    <li>如果用在线网址访问的，不需要保留HTML文件</li>
+  </ul>
+</div>
+
+<div class="divider">✦ ✦ ✦</div>
+
+<!-- ===================== 二、首次设置 ===================== -->
+<h2 id="first">✨ 二、首次设置（3步搞定）</h2>
+
+<p>第一次打开App，会自动进入<strong>设置向导</strong>，跟着选就行：</p>
+
+<div class="card">
+  <h3>第1步：选择场景模板 📋</h3>
+  <p>根据你的需求选一个最接近的：</p>
+  <table>
+    <tr><th>模板</th><th>适合谁</th><th>预置内容</th></tr>
+    <tr><td>📖 考证冲刺</td><td>基金/CPA/法考/教资</td><td>刷题+复盘+模拟考</td></tr>
+    <tr><td>🎓 考研上岸</td><td>考研党</td><td>英语+政治+专业课</td></tr>
+    <tr><td>💪 健身塑形</td><td>增肌/减脂</td><td>训练+饮食+拉伸</td></tr>
+    <tr><td>🌟 自律生活</td><td>日常习惯养成</td><td>阅读+工作+复盘</td></tr>
+    <tr><td>🎬 自媒体日更</td><td>博主/自媒体</td><td>选题+拍摄+发布</td></tr>
+    <tr><td>✨ 自由定制</td><td>想从零开始</td><td>空白模板</td></tr>
+  </table>
+  <div class="tip">
+    <div class="tip-label">💡 放心选</div>
+    选完之后<strong>随时可以改</strong>！模板只是预置一些默认任务和习惯，你之后可以自由增删改。
+  </div>
+</div>
+
+<div class="card">
+  <h3>第2步：选主题色和图案 🎨</h3>
+  <p><strong>主题色：</strong>点击喜欢的颜色即可，也可以点最右边的🎨用取色器选<strong>任意颜色</strong></p>
+  <p><strong>装饰图案：</strong>8种背景图案可选：</p>
+  <ul>
+    <li>⬜ 纯色 — 简约无图案</li>
+    <li>⚪ 圆点 — 淡雅圆点</li>
+    <li>⭐ 星星 — 闪烁星点</li>
+    <li>💗 爱心 — 可爱爱心</li>
+    <li>🫧 气泡 — 透明气泡</li>
+    <li>🌊 波浪 — 流动波浪</li>
+    <li>☁️ 云朵 — 柔软云朵</li>
+    <li>🌸 花瓣 — 浪漫花瓣</li>
+  </ul>
+  <div class="tip">
+    <div class="tip-label">💡 实时预览</div>
+    选颜色和图案的时候，背景会<strong>实时变化</strong>，选到满意再点下一步。
+  </div>
+</div>
+
+<div class="card">
+  <h3>第3步：个性化设置 👤</h3>
+  <ul>
+    <li><strong>App名称：</strong>给你的打卡起个名字，比如"小明的备考打卡"</li>
+    <li><strong>城市：</strong>选择你所在城市，用于显示天气</li>
+    <li><strong>日期：</strong>设置开始日期、结束日期、考试日期、报名截止日</li>
+  </ul>
+  <div class="success">
+    <div class="success-label">✅ 完成！</div>
+    点"开始使用"就进入主页了。这些设置以后随时可以在 ⚙️设置 里修改。
+  </div>
+</div>
+
+<div class="divider">✦ ✦ ✦</div>
+
+<!-- ===================== 三、日常使用 ===================== -->
+<h2 id="daily">📱 三、日常使用</h2>
+
+<p>App有5个页面，底部Tab栏切换：</p>
+
+<div class="card">
+<h3>🏠 今日（主页）</h3>
+<p>每天打开看到的第一页，包含：</p>
+
+<p><strong>📊 数据统计栏</strong></p>
+<ul>
+  <li>第几天 — 自动计算当前是学习期第几天</li>
+  <li>任务完成 — 已完成/总任务数</li>
+  <li>连续打卡 — 连续多少天完成了所有任务</li>
+  <li>完成率 — 今日总体完成百分比</li>
+</ul>
+
+<p><strong>⏳ 重要倒计时</strong></p>
+<ul>
+  <li>自动显示报名截止、学习期结束、考试日等倒计时</li>
+  <li>日期可在设置中修改</li>
+</ul>
+
+<p><strong>📝 今日计划</strong></p>
+<ul>
+  <li>点击 <strong>"＋ 添加任务"</strong> 手动创建任务</li>
+  <li>点击 <strong>"⚡ 快速模板"</strong> 里的标签一键添加</li>
+  <li>点击 <strong>"📋 全部添加"</strong> 一键把模板里所有任务都加上</li>
+  <li>任务状态：<span style="color:var(--wrn)">⏰ 进行中</span>（当前时间段的任务）<span style="color:var(--dng)">已过时</span>（超时未完成）<span style="color:var(--suc)">✅ 已完成</span></li>
+  <li>点击 ✅ 完成任务，点击 ✏️ 编辑，点击 🗑️ 删除</li>
+</ul>
+
+<p><strong>💧 喝水打卡</strong></p>
+<ul>
+  <li>点一个杯子图标 = 喝了一杯</li>
+  <li>再点 = 取消，点错可以改</li>
+  <li>每天8杯目标，达标自动庆祝</li>
+</ul>
+
+<p><strong>💭 每日心得</strong></p>
+<ul>
+  <li>每天有一个引导问题，帮你想写什么</li>
+  <li>写完<strong>自动保存</strong>，不用手动</li>
+  <li>选一个心情emoji记录今天的状态</li>
+  <li>点"📖 历史心得"可回顾之前写的</li>
+</ul>
+</div>
+
+<div class="card">
+<h3>📅 日历</h3>
+<ul>
+  <li>左右箭头切换月份</li>
+  <li>每个日期下方显示<strong>农历</strong>和<strong>节气/节日</strong></li>
+  <li>有任务完成的日期会显示<strong>绿色小圆点</strong></li>
+  <li>底部<strong>打卡热力图</strong>：绿色=全完成，浅色=部分完成，灰色=无数据</li>
+</ul>
+</div>
+
+<div class="card">
+<h3>⏱️ 番茄钟</h3>
+<ul>
+  <li>4种模式：15/25/30/45分钟</li>
+  <li>点"▶ 开始"启动专注计时</li>
+  <li>专注结束后<strong>自动进入休息</strong>（5分钟或10分钟）</li>
+  <li>休息结束<strong>自动继续下一个专注</strong></li>
+  <li>随时暂停、重置</li>
+  <li>统计今日番茄数、累计番茄数、总专注分钟</li>
+</ul>
+<div class="tip">
+  <div class="tip-label">💡 推荐用法</div>
+  考证推荐25分钟模式，刷题推荐45分钟模式。休息时间站起来走走，别继续盯着屏幕。
+</div>
+</div>
+
+<div class="card">
+<h3>🎯 习惯</h3>
+<ul>
+  <li>点圆圈<strong>打勾=完成</strong>今日该习惯</li>
+  <li>显示<strong>🔥 连续天数</strong>，鼓励你坚持</li>
+  <li>点"＋ 添加习惯"新增，点 🗑️ 删除不想要的</li>
+  <li>底部显示近30天习惯完成率热力图</li>
+</ul>
+</div>
+
+<div class="card">
+<h3>📌 便签</h3>
+<ul>
+  <li>随手记录任何内容：知识点、灵感、待办事项</li>
+  <li>支持<strong>分类</strong>（学习/炒股/生活/其他）</li>
+  <li>支持<strong>搜索</strong></li>
+  <li>点 📍 可以<strong>置顶</strong>重要便签</li>
+</ul>
+</div>
+
+<div class="divider">✦ ✦ ✦</div>
+
+<!-- ===================== 四、个性化定制 ===================== -->
+<h2 id="theme">🎨 四、个性化定制</h2>
+
+<div class="card">
+<h3>改主题色</h3>
+<div class="step"><div class="step-num">1</div><div class="step-text">点右上角 <strong>⚙️ 设置</strong></div></div>
+<div class="step"><div class="step-num">2</div><div class="step-text">在"主题色"区域点选颜色，或点🎨自定义任意颜色</div></div>
+<div class="step"><div class="step-num">3</div><div class="step-text">点"完成"，整个App的配色立即更新</div></div>
+</div>
+
+<div class="card">
+<h3>改装饰图案</h3>
+<div class="step"><div class="step-num">1</div><div class="step-text">点右上角 <strong>⚙️ 设置</strong></div></div>
+<div class="step"><div class="step-num">2</div><div class="step-text">在"装饰图案"区域选你喜欢的图案</div></div>
+<div class="step"><div class="step-num">3</div><div class="step-text">点"完成"</div></div>
+</div>
+
+<div class="card">
+<h3>改城市/日期/名称</h3>
+<div class="step"><div class="step-num">1</div><div class="step-text">点右上角 <strong>⚙️ 设置</strong></div></div>
+<div class="step"><div class="step-num">2</div><div class="step-text">修改App名称、城市、开始/结束日期、考试日期</div></div>
+<div class="step"><div class="step-num">3</div><div class="step-text">改完自动保存，点"完成"即可</div></div>
+</div>
+
+<div class="divider">✦ ✦ ✦</div>
+
+<!-- ===================== 五、模板管理 ===================== -->
+<h2 id="template">✏️ 五、模板管理</h2>
+
+<div class="card">
+<p>模板 = 你常用的任务列表，一键添加到"今日计划"，<strong>修改模板不影响已添加的任务</strong>。</p>
+
+<h3>管理模板</h3>
+<div class="step"><div class="step-num">1</div><div class="step-text">在"今日计划"下方，点 <strong>"✏️ 管理模板"</strong></div></div>
+<div class="step"><div class="step-num">2</div><div class="step-text">展开管理面板，可以看到所有模板项</div></div>
+<div class="step"><div class="step-num">3</div><div class="step-text">可以<strong>修改</strong>模板名称和时间（直接在输入框改）</div></div>
+<div class="step"><div class="step-num">4</div><div class="step-text">可以<strong>删除</strong>模板项（点🗑️）</div></div>
+<div class="step"><div class="step-num">5</div><div class="step-text">可以<strong>添加</strong>新模板项（点"＋ 添加新模板项"）</div></div>
+</div>
+
+<div class="tip">
+  <div class="tip-label">💡 使用技巧</div>
+  <ul>
+    <li>每天早上打开App → 点"📋 全部添加" → 一键生成今日计划</li>
+    <li>然后根据今天实际情况，删掉不需要的、加上额外的</li>
+    <li>模板只是快捷方式，添加后想怎么改就怎么改</li>
+  </ul>
+</div>
+</div>
+
+<div class="divider">✦ ✦ ✦</div>
+
+<!-- ===================== 六、常见问题 ===================== -->
+<h2 id="faq">❓ 六、常见问题（必看！）</h2>
+
+<div class="card">
+<div class="faq-q">打开后是空白页/加载不了？</div>
+<div class="faq-a">
+  <ul>
+    <li>确保用<strong>Safari（苹果）</strong>或<strong>Chrome（安卓）</strong>打开，不要用微信/QQ内置浏览器</li>
+    <li>如果是微信里收到的文件，先保存到手机，再用浏览器打开</li>
+    <li>如果还是空白，试试清除浏览器缓存后重新打开</li>
+  </ul>
+</div>
+
+<div class="faq-q">添加到主屏幕后打不开？</div>
+<div class="faq-a">
+  <ul>
+    <li>苹果手机：确保是<strong>Safari</strong>添加的，不是其他浏览器</li>
+    <li>安卓手机：确保是<strong>Chrome</strong>添加的</li>
+    <li>如果之前能打开现在打不开了：长按主屏幕图标 → 删除 → 重新用浏览器打开 → 重新添加到主屏幕</li>
+    <li><strong>本地文件版</strong>：不要删除手机里的HTML原文件！删了App就打不开了</li>
+    <li><strong>在线网址版</strong>：需要网络才能访问，离线无法使用</li>
+  </ul>
+</div>
+
+<div class="faq-q">每天的任务要手动添加吗？</div>
+<div class="faq-a">
+  不用每天重新输入！<strong>点"📋 全部添加"一键生成</strong>，只需5秒。如果今天有特殊安排，手动调整就行。
+</div>
+
+<div class="faq-q">第二天的任务还在吗？</div>
+<div class="faq-a">
+  每天的任务是独立的。新的一天开始，任务列表是空的，需要点"📋 全部添加"一键生成。这样设计是因为每天的安排可能不同，避免昨天没完成的任务堆积。
+</div>
+
+<div class="faq-q">倒计时日期不对/想改日期？</div>
+<div class="faq-a">
+  点右上角 ⚙️设置 → 修改开始日期、结束日期、考试日期等 → 改完自动生效。
+</div>
+
+<div class="faq-q">天气显示"获取失败"？</div>
+<div class="faq-a">
+  <ul>
+    <li>需要手机联网才能获取天气</li>
+    <li>检查城市设置是否正确（⚙️设置 → 城市）</li>
+    <li>天气接口偶尔会不稳定，过一会儿自动恢复</li>
+  </ul>
+</div>
+
+<div class="faq-q">任务提醒不响？</div>
+<div class="faq-a">
+  <ul>
+    <li>首次使用需要在App内点击<strong>"开启提醒"</strong>按钮，允许通知权限</li>
+    <li>苹果手机：设置 → Safari → 通知 → 确保允许</li>
+    <li>安卓手机：设置 → 应用 → Chrome → 通知 → 确保允许</li>
+    <li><strong>注意</strong>：只有App在后台运行时提醒才会弹出，完全关闭后无法提醒</li>
+  </ul>
+</div>
+
+<div class="faq-q">农历显示的年份是"丙午年"？</div>
+<div class="faq-a">
+  这是2026年的农历年份（马年），是正确显示。2027年会自动更新。
+</div>
+
+<div class="faq-q">颜色不喜欢了能换吗？</div>
+<div class="faq-a">
+  随时换！⚙️设置 → 主题色 → 选新颜色 → 完成。整个App配色立即变化，连背景色都会跟着调整。
+</div>
+
+<div class="faq-q">图案不喜欢了能换吗？</div>
+<div class="faq-a">
+  随时换！⚙️设置 → 装饰图案 → 选新图案 → 完成。背景图案立即变化。
+</div>
+
+<div class="faq-q">场景模板选错了能换吗？</div>
+<div class="faq-a">
+  可以！有两种方式：
+  <ul>
+    <li><strong>只改任务</strong>：点"✏️ 管理模板"，直接修改/删除/添加模板项</li>
+    <li><strong>全换</strong>：在 ⚙️设置里无法重选模板，但你可以手动把模板改成任何场景的内容</li>
+  </ul>
+</div>
+
+<div class="faq-q">换手机了数据怎么办？</div>
+<div class="faq-a">
+  数据存储在你手机本地（浏览器localStorage），换手机不会自动迁移。解决方法见下方"数据说明"章节。
+</div>
+
+<div class="faq-q">这个App会收费吗？会泄露隐私吗？</div>
+<div class="faq-a">
+  <ul>
+    <li><strong>不会收费</strong>，买断制，一次购买永久使用</li>
+    <li><strong>不会泄露</strong>，所有数据存在你手机本地，不经过任何服务器</li>
+    <li>没有账号系统，没有后台，没有人能看到你的数据</li>
+    <li>天气数据来自公共API，不涉及你的个人信息</li>
+  </ul>
+</div>
+
+<div class="faq-q">App需要联网吗？</div>
+<div class="faq-a">
+  <ul>
+    <li><strong>核心功能</strong>不需要联网：任务、习惯、番茄钟、心得、便签、日历</li>
+    <li><strong>需要联网</strong>的功能：天气显示、在线版访问</li>
+    <li>断网后除了天气，其他全部正常使用</li>
+  </ul>
+</div>
+</div>
+
+<div class="divider">✦ ✦ ✦</div>
+
+<!-- ===================== 七、数据说明 ===================== -->
+<h2 id="data">💾 七、数据说明</h2>
+
+<div class="card">
+<h3>数据存在哪里？</h3>
+<p>所有数据存在<strong>你手机浏览器的本地存储（localStorage）</strong>中：</p>
+<ul>
+  <li>✅ 不需要注册账号</li>
+  <li>✅ 不需要网络</li>
+  <li>✅ 不会丢失（除非你主动清除浏览器数据）</li>
+  <li>✅ 不会泄露给任何人</li>
+</ul>
+</div>
+
+<div class="card">
+<h3>⚠️ 什么操作会清空数据？</h3>
+<ul>
+  <li>❌ 清除浏览器缓存/数据</li>
+  <li>❌ 卸载浏览器</li>
+  <li>❌ 手机恢复出厂设置</li>
+  <li>❌ iOS"卸载App"（会清除Safari数据）</li>
+</ul>
+<div class="warn">
+  <div class="warn-label">⚠️ 请注意</div>
+  不要在手机设置里"清除Safari数据"或"清除Chrome数据"，这会把打卡记录全部清空！
+</div>
+</div>
+
+<div class="card">
+<h3>换手机怎么迁移数据？</h3>
+<p>如果你需要换手机，可以这样做：</p>
+<div class="step"><div class="step-num">1</div><div class="step-text">在<strong>旧手机</strong>上打开App → ⚙️设置 → 确认你的设置信息</div></div>
+<div class="step"><div class="step-num">2</div><div class="step-text">在<strong>新手机</strong>上打开同一个HTML文件</div></div>
+<div class="step"><div class="step-num">3</div><div class="step-text">重新走一遍设置向导（1分钟搞定）</div></div>
+<div class="step"><div class="step-num">4</div><div class="step-text">历史打卡记录无法自动迁移，但新手机的记录会重新开始累积</div></div>
+
+<div class="tip">
+  <div class="tip-label">💡 建议</div>
+  如果你特别在意历史数据，可以定期截图保存"打卡热力图"和"每日心得"作为备份。
+</div>
+</div>
+
+<div class="divider">✦ ✦ ✦</div>
+
+<div style="text-align:center;color:var(--muted);font-size:13px;margin-top:30px">
+  <p>📋 学习打卡助手 · 使用说明 v1.0</p>
+  <p>有问题可联系卖家获取帮助</p>
+</div>
+
+</body>
+</html>
