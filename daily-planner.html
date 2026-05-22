@@ -19,11 +19,10 @@ body.pattern-none{background-image:none}
 
 /* Tab Bar */
 .tab-bar{position:fixed;bottom:0;left:0;right:0;background:white;border-top:1px solid var(--border);display:flex;z-index:100;padding-bottom:env(safe-area-inset-bottom,0px);box-shadow:0 -2px 10px rgba(0,0,0,.05)}
-.tab-btn{flex:1;display:flex;flex-direction:column;align-items:center;padding:10px 0 8px;background:none;border:none;color:var(--muted);font-size:12px;cursor:pointer;transition:color .2s}
-.tab-btn .tab-icon{font-size:26px;margin-bottom:3px;filter:grayscale(0)}
-.tab-btn:not(.active) .tab-icon{filter:grayscale(.3);opacity:.7}
+.tab-btn{flex:1;display:flex;flex-direction:column;align-items:center;padding:10px 0 8px;background:none;border:none;color:#8E8E93;font-size:12px;cursor:pointer;transition:all .2s}
+.tab-btn .tab-icon{font-size:26px;margin-bottom:3px}
 .tab-btn.active{color:var(--pri);font-weight:600}
-.tab-btn.active .tab-icon{filter:grayscale(0);opacity:1;transform:scale(1.1)}
+.tab-btn.active .tab-icon{transform:scale(1.15)}
 
 /* Pages */
 .page{display:none;padding:0 16px 20px}.page.active{display:block}
@@ -525,6 +524,10 @@ body.pattern-none{background-image:none}
 <div class="page" id="pg-news">
   <div class="sec">
     <div class="sec-title">📰 每日资讯</div>
+  </div>
+  <div class="news-digest-area">
+    <div class="sec-title" style="font-size:15px">📋 今日汇总<span style="font-size:11px;color:var(--muted);font-weight:400;margin-left:6px">每日8:00/22:30自动更新</span></div>
+    <div id="newsDigestContent" style="background:var(--card);border-radius:10px;padding:12px 14px;font-size:14px;line-height:1.8;color:var(--text);box-shadow:0 1px 3px rgba(0,0,0,.04);white-space:pre-wrap">暂无汇总</div>
   </div>
   <div class="news-refresh">
     <span style="font-size:12px;color:var(--muted)" id="newsUpdateTime">上次更新：未更新</span>
@@ -1582,7 +1585,7 @@ function switchTab(name,btn){
   document.getElementById('pg-'+name).classList.add('active');
   btn.classList.add('active');
   if(name==='summary') renderSummary();
-  if(name==='news') { if(!newsCache[currentNewsSource]) refreshNews(); else renderNews(); }
+  if(name==='news') { renderNewsDigest(); if(!newsCache[currentNewsSource]) refreshNews(); else renderNews(); }
   if(name==='settings') renderSettingsPage();
 }
 
@@ -1643,13 +1646,21 @@ async function generateNewsDigest() {
   }
   if (digest) {
     const dk = todayKey();
-    const existing = getS('kite_summary_'+dk, '');
     const label = new Date().getHours() < 12 ? '☀️ 早间资讯汇总' : '🌙 晚间资讯汇总';
     const timeStr = new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'});
-    const newSummary = (existing ? existing + '\n\n' : '') + `--- ${label} (${timeStr}) ---\n${digest}`;
-    S('kite_summary_'+dk, newSummary);
-    toast('📰 资讯汇总已更新到每日总结');
+    const fullDigest = `${label} (${timeStr})\n${digest}`;
+    S('news_digest_'+dk, fullDigest);
+    renderNewsDigest();
+    toast('📰 资讯汇总已更新');
   }
+}
+
+function renderNewsDigest() {
+  const el = document.getElementById('newsDigestContent');
+  if (!el) return;
+  const dk = todayKey();
+  const digest = getS('news_digest_'+dk, '');
+  el.textContent = digest || '暂无汇总，每日8:00/22:30自动更新';
 }
 
 // Schedule digest at 8:00 and 22:30
