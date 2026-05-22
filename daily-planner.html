@@ -328,7 +328,38 @@ body.pattern-none{background-image:none}
   <div class="wizard-step active" id="ws1">
     <h3>📋 选择场景模板</h3>
     <div class="wsdesc">选一个最贴近你需求的，之后可以随意修改</div>
-    <div class="scene-grid" id="sceneGrid"></div>
+    <div class="scene-grid" id="sceneGrid">
+      <div class="scene-card" data-scene="exam" onclick="selectScene('exam')">
+        <span class="sc-icon">📖</span>
+        <div class="sc-name">考证冲刺</div>
+        <div class="sc-desc">基金/CPA/法考/教资</div>
+      </div>
+      <div class="scene-card" data-scene="grad" onclick="selectScene('grad')">
+        <span class="sc-icon">🎓</span>
+        <div class="sc-name">考研上岸</div>
+        <div class="sc-desc">政治/英语/专业课</div>
+      </div>
+      <div class="scene-card" data-scene="fitness" onclick="selectScene('fitness')">
+        <span class="sc-icon">💪</span>
+        <div class="sc-name">健身塑形</div>
+        <div class="sc-desc">增肌/减脂/塑形</div>
+      </div>
+      <div class="scene-card" data-scene="self" onclick="selectScene('self')">
+        <span class="sc-icon">🌟</span>
+        <div class="sc-name">自律生活</div>
+        <div class="sc-desc">日常习惯养成</div>
+      </div>
+      <div class="scene-card" data-scene="media" onclick="selectScene('media')">
+        <span class="sc-icon">🎬</span>
+        <div class="sc-name">自媒体日更</div>
+        <div class="sc-desc">小红书/抖音/公众号</div>
+      </div>
+      <div class="scene-card" data-scene="custom" onclick="selectScene('custom')">
+        <span class="sc-icon">✏️</span>
+        <div class="sc-name">自由定制</div>
+        <div class="sc-desc">从零开始自己规划</div>
+      </div>
+    </div>
   </div>
 
   <!-- Step 2: Theme + Pattern -->
@@ -379,6 +410,9 @@ body.pattern-none{background-image:none}
   <div class="wizard-nav" id="wNav">
     <button class="w-prev" id="wPrev" onclick="wizardPrev()" style="display:none">上一步</button>
     <button class="w-next" id="wNext" onclick="wizardNext()">下一步</button>
+  </div>
+  <div style="text-align:center;margin-top:16px">
+    <button onclick="skipWizard()" style="background:none;border:none;color:var(--muted);font-size:14px;cursor:pointer;padding:8px 16px;text-decoration:underline">跳过设置，直接使用</button>
   </div>
 </div>
 </div>
@@ -900,26 +934,23 @@ function wizardPrev() {
 }
 
 function renderSceneGrid() {
-  const grid = document.getElementById('sceneGrid');
-  grid.innerHTML = Object.keys(SCENE_TEMPLATES).map(key => {
-    const sc = SCENE_TEMPLATES[key];
-    return `<div class="scene-card${selectedScene===key?' selected':''}" data-scene="${key}">
-      <span class="sc-icon">${sc.icon}</span>
-      <div class="sc-name">${sc.name}</div>
-      <div class="sc-desc">${sc.desc}</div>
-    </div>`;
-  }).join('');
-  // Event delegation for mobile compatibility
-  grid.onclick = function(e) {
-    const card = e.target.closest('.scene-card');
-    if (card) {
-      selectScene(card.dataset.scene);
-    }
-  };
+  // Scene grid is now static HTML, just update selection state
+  document.querySelectorAll('#sceneGrid .scene-card').forEach(c => {
+    c.classList.toggle('selected', c.dataset.scene === selectedScene);
+  });
 }
 function selectScene(key) {
   selectedScene = key;
-  renderSceneGrid();
+  // Update selection visually
+  document.querySelectorAll('#sceneGrid .scene-card').forEach(c => {
+    c.classList.toggle('selected', c.dataset.scene === key);
+  });
+}
+
+function skipWizard() {
+  S('settings', {...DEFAULT_SETTINGS, setupDone: true});
+  document.getElementById('wizardOv').classList.add('hidden');
+  renderAll();
 }
 
 function renderColorGrid(containerId) {
