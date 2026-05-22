@@ -5,14 +5,14 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="学习打卡">
+<meta name="apple-mobile-web-app-title" content="卷王日记">
 <meta name="theme-color" content="#FF6B9D">
 <link rel="manifest" href="./manifest.json">
-<title>学习打卡</title>
+<title>卷王日记</title>
 <style>
 :root{--pri:#FF6B9D;--pri-l:#FFA8C5;--pri-d:#E85587;--suc:#00D2A0;--wrn:#FFD93D;--dng:#FF6B6B;--bg:#1A0A12;--card:#2A1520;--card2:#351E2C;--text:#F5E6EE;--muted:#AA8899;--border:#3D2535;--radius:14px}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:16px;padding-bottom:90px;padding-bottom:calc(90px + env(safe-area-inset-bottom,0px));-webkit-tap-highlight-color:transparent;line-height:1.6}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:18px;padding-bottom:90px;padding-bottom:calc(90px + env(safe-area-inset-bottom,0px));-webkit-tap-highlight-color:transparent;line-height:1.6}
 
 /* Decorative patterns */
 body.pattern-stars{background-image:radial-gradient(circle,var(--pri) 1px,transparent 1px),radial-gradient(circle,var(--pri-l) 1px,transparent 1px);background-size:50px 50px,30px 30px;background-position:0 0,25px 25px}
@@ -38,7 +38,7 @@ body.pattern-none{background-image:none}
 .hdr-top{display:flex;justify-content:space-between;align-items:center}
 .hdr h1{font-size:24px;font-weight:700}
 .hdr .date-line{font-size:15px;opacity:.9;margin-top:4px}
-.hdr .lunar-line{font-size:14px;opacity:.75;margin-top:2px}
+.hdr .lunar-line{font-size:14px;opacity:.75;margin-top:2px;cursor:pointer}
 .hdr-right{text-align:right;font-size:12px;opacity:.9}
 .hdr-right .weather-icon{font-size:36px}
 .hdr-right .weather-temp{font-size:20px;font-weight:700}
@@ -54,21 +54,24 @@ body.pattern-none{background-image:none}
 /* Stats */
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:16px 16px 0;margin-top:-8px}
 .stat{background:var(--card);border-radius:12px;padding:12px 8px;text-align:center}
-.stat b{font-size:24px;font-weight:800;display:block}
+.stat b{font-size:28px;font-weight:800;display:block}
 .stat b.p1{color:var(--pri-l)}.stat b.p2{color:var(--suc)}.stat b.p3{color:var(--wrn)}.stat b.p4{color:var(--dng)}
-.stat small{font-size:12px;color:var(--muted)}
+.stat small{font-size:13px;color:var(--muted)}
 
 /* Section */
 .sec{margin-top:20px}
-.sec-title{font-size:17px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between}
+.sec-title{font-size:19px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between}
 .sec-title .badge{background:var(--pri);color:white;font-size:12px;padding:3px 12px;border-radius:20px;font-weight:500}
+.sec-title .edit-btn{background:none;border:none;color:var(--pri-l);font-size:13px;cursor:pointer;padding:2px 8px}
 
 /* Countdown */
 .countdown-cards{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:4px}
-.cd-card{background:var(--card);border-radius:12px;padding:12px;text-align:center}
-.cd-card .cd-num{font-size:24px;font-weight:800;color:var(--pri-l)}
+.cd-card{background:var(--card);border-radius:12px;padding:12px;text-align:center;position:relative}
+.cd-card .cd-num{font-size:28px;font-weight:800;color:var(--pri-l)}
 .cd-card .cd-label{font-size:11px;color:var(--muted);margin-top:2px}
 .cd-card .cd-date{font-size:10px;color:var(--muted);opacity:.7}
+.cd-card .cd-acts{display:none;position:absolute;top:4px;right:4px;gap:2px}
+.cd-editing .cd-acts{display:flex}
 
 /* Task */
 .task-list{display:flex;flex-direction:column;gap:8px}
@@ -83,7 +86,7 @@ body.pattern-none{background-image:none}
 .tbtn{background:none;border:none;cursor:pointer;font-size:18px;padding:4px;border-radius:6px}
 .tbtn:hover{background:rgba(255,255,255,.08)}
 .tbtn.ck{font-size:22px}
-.tname{font-size:16px;font-weight:600;margin-top:5px}
+.tname{font-size:18px;font-weight:600;margin-top:5px}
 .tnote{font-size:13px;color:var(--muted);margin-top:3px}
 
 .add-btn{display:flex;align-items:center;justify-content:center;gap:5px;width:100%;padding:14px;margin-top:12px;background:rgba(255,107,157,.1);border:2px dashed var(--pri);border-radius:var(--radius);color:var(--pri-l);font-size:15px;font-weight:600;cursor:pointer}
@@ -99,11 +102,11 @@ body.pattern-none{background-image:none}
 .water-cup:hover{transform:scale(1.15)}
 .water-info{text-align:center;font-size:14px;color:var(--muted);margin-top:8px}
 
-/* Journal */
+/* Journal (now in summary tab) */
 .jcard{background:var(--card);border-radius:var(--radius);padding:14px;border:1px solid var(--border)}
 .jcard:focus-within{border-color:var(--pri)}
 .jprompt{font-size:14px;color:var(--pri-l);margin-bottom:10px;font-style:italic}
-.jta{width:100%;min-height:100px;background:transparent;border:none;color:var(--text);font-size:15px;line-height:1.8;resize:vertical;outline:none;font-family:inherit}
+.jta{width:100%;min-height:100px;background:transparent;border:none;color:var(--text);font-size:17px;line-height:1.8;resize:vertical;outline:none;font-family:inherit}
 .jta::placeholder{color:var(--muted)}
 .jfoot{display:flex;justify-content:space-between;align-items:center;margin-top:8px;padding-top:8px;border-top:1px solid var(--border)}
 .jsaved{font-size:10px;color:var(--muted)}
@@ -117,9 +120,9 @@ body.pattern-none{background-image:none}
 .jentry-date{font-size:11px;color:var(--pri-l);font-weight:600}
 .jentry-text{font-size:12px;margin-top:4px;white-space:pre-wrap;line-height:1.5}
 
-/* Calendar Tab */
-.cal-header{display:flex;justify-content:space-between;align-items:center;padding:16px 0 8px}
-.cal-header h2{font-size:18px;font-weight:700}
+/* Calendar Modal */
+.cal-modal-header{display:flex;justify-content:space-between;align-items:center;padding:16px 0 8px}
+.cal-modal-header h2{font-size:18px;font-weight:700}
 .cal-nav{background:none;border:none;color:var(--pri-l);font-size:20px;cursor:pointer;padding:4px 10px;border-radius:8px}
 .cal-nav:hover{background:var(--card)}
 .cal-weekdays{display:grid;grid-template-columns:repeat(7,1fr);text-align:center;font-size:11px;color:var(--muted);padding:4px 0}
@@ -137,59 +140,86 @@ body.pattern-none{background-image:none}
 .hdot{width:12px;height:12px;border-radius:3px}
 .hdot.s0{background:var(--border)}.hdot.s1{background:rgba(255,107,157,.3)}.hdot.s2{background:rgba(255,107,157,.6)}.hdot.s3{background:var(--pri)}.hdot.today{box-shadow:0 0 0 2px var(--pri-l)}
 
-/* Pomodoro */
-.pomo-wrap{display:flex;flex-direction:column;align-items:center;padding:30px 0}
-.pomo-circle{width:220px;height:220px;border-radius:50%;border:6px solid var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;transition:border-color .3s}
-.pomo-circle.running{border-color:var(--pri)}
-.pomo-circle.resting{border-color:var(--suc)}
-.pomo-time{font-size:48px;font-weight:800;letter-spacing:2px}
-.pomo-label{font-size:13px;color:var(--muted);margin-top:4px}
-.pomo-progress{position:absolute;inset:-6px;border-radius:50%;pointer-events:none}
-.pomo-progress svg{transform:rotate(-90deg)}
-.pomo-btns{display:flex;gap:12px;margin-top:24px}
-.pomo-btn{padding:12px 28px;border-radius:12px;border:none;font-size:14px;font-weight:700;cursor:pointer;transition:all .2s}
-.pomo-btn.start{background:var(--pri);color:white}
-.pomo-btn.start:hover{background:var(--pri-d)}
-.pomo-btn.pause{background:var(--wrn);color:#333}
-.pomo-btn.reset{background:var(--card2);color:var(--text)}
-.pomo-modes{display:flex;gap:8px;margin-top:20px}
-.pomo-mode{padding:6px 16px;border-radius:20px;border:1px solid var(--border);background:none;color:var(--muted);font-size:12px;cursor:pointer;transition:all .2s}
-.pomo-mode.active{border-color:var(--pri);color:var(--pri-l);background:rgba(255,107,157,.1)}
-.pomo-stats{display:flex;gap:16px;margin-top:24px}
-.pomo-stat{text-align:center}
-.pomo-stat b{font-size:24px;color:var(--pri-l);display:block}
-.pomo-stat small{font-size:11px;color:var(--muted)}
-.pomo-hist{margin-top:20px;width:100%}
-.pomo-hist-title{font-size:13px;color:var(--muted);margin-bottom:8px}
-
 /* Habits */
 .habit-list{display:flex;flex-direction:column;gap:10px}
 .habit-card{background:var(--card);border-radius:var(--radius);padding:14px;display:flex;align-items:center;gap:12px}
 .habit-ck{width:32px;height:32px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;transition:all .2s;flex-shrink:0}
 .habit-ck.checked{background:var(--suc);border-color:var(--suc);color:white}
 .habit-info{flex:1}
-.habit-name{font-size:16px;font-weight:600}
+.habit-name{font-size:18px;font-weight:600}
 .habit-streak{font-size:13px;color:var(--muted);margin-top:2px}
+.habit-pomo-timer{font-size:13px;color:var(--pri-l);margin-top:2px;font-weight:600}
+.habit-acts{display:flex;gap:2px;align-items:center}
 .habit-del{background:none;border:none;color:var(--muted);font-size:16px;cursor:pointer;padding:4px}
 .habit-del:hover{color:var(--dng)}
+.habit-pomo-btn{background:none;border:none;font-size:18px;cursor:pointer;padding:4px}
+.habit-pomo-btn:hover{transform:scale(1.15)}
+.habit-edit-btn{background:none;border:none;font-size:16px;cursor:pointer;padding:4px;color:var(--pri-l)}
+.habit-edit-btn:hover{transform:scale(1.15)}
 .habit-heatmap{margin-top:16px}
 .habit-heatmap-title{font-size:13px;color:var(--muted);margin-bottom:6px}
+.pomo-stats-row{display:flex;gap:16px;margin-top:16px;justify-content:center}
+.pomo-stat-item{text-align:center}
+.pomo-stat-item b{font-size:20px;color:var(--pri-l);display:block}
+.pomo-stat-item small{font-size:11px;color:var(--muted)}
 
-/* Notes */
-.note-list{display:flex;flex-direction:column;gap:10px}
-.note-card{background:var(--card);border-radius:var(--radius);padding:14px;border-left:4px solid var(--pri);position:relative}
-.note-card .note-cat{font-size:12px;color:var(--pri-l);background:rgba(255,107,157,.12);padding:3px 10px;border-radius:8px;display:inline-block}
-.note-card .note-text{font-size:15px;margin-top:6px;white-space:pre-wrap;line-height:1.7}
-.note-card .note-time{font-size:12px;color:var(--muted);margin-top:6px}
-.note-card .note-pin{position:absolute;top:8px;right:8px;font-size:14px;cursor:pointer;opacity:.5}
-.note-card .note-pin:hover{opacity:1}
-.note-card.pinned{border-left-color:var(--wrn)}
-.note-search{width:100%;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 14px;color:var(--text);font-size:15px;outline:none;margin-bottom:14px}
-.note-search:focus{border-color:var(--pri)}
-.note-search::placeholder{color:var(--muted)}
-.note-cats{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
-.note-cat-btn{padding:4px 12px;border-radius:16px;border:1px solid var(--border);background:none;color:var(--muted);font-size:11px;cursor:pointer}
-.note-cat-btn.active{border-color:var(--pri);color:var(--pri-l);background:rgba(255,107,157,.1)}
+/* Summary Tab */
+.summary-section{background:var(--card);border-radius:var(--radius);margin-bottom:12px;overflow:hidden}
+.summary-header{padding:14px 16px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;transition:background .2s}
+.summary-header:hover{background:var(--card2)}
+.summary-header h3{font-size:16px;font-weight:600}
+.summary-header .collapse-icon{font-size:14px;color:var(--muted);transition:transform .3s}
+.summary-section.open .collapse-icon{transform:rotate(180deg)}
+.summary-body{display:none;padding:0 16px 16px}
+.summary-section.open .summary-body{display:block}
+.summary-textarea{width:100%;min-height:100px;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:10px;color:var(--text);font-size:15px;line-height:1.7;resize:vertical;outline:none;font-family:inherit}
+.summary-textarea:focus{border-color:var(--pri)}
+.summary-textarea::placeholder{color:var(--muted)}
+.summary-display{background:var(--bg);border-radius:10px;padding:12px;font-size:14px;line-height:1.7;color:var(--text);min-height:40px;white-space:pre-wrap}
+.summary-display.empty{color:var(--muted);font-style:italic}
+
+/* Star Todos */
+.star-todo-list{display:flex;flex-direction:column;gap:6px}
+.star-todo-item{display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--bg);border-radius:8px}
+.star-todo-item.done{opacity:.5;text-decoration:line-through}
+.star-todo-item .todo-check{cursor:pointer;font-size:18px}
+.star-todo-item .todo-text{flex:1;font-size:14px}
+.star-todo-item .todo-del{background:none;border:none;color:var(--muted);font-size:14px;cursor:pointer}
+.star-add-row{display:flex;gap:8px;margin-top:8px}
+.star-add-row input{flex:1;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:8px 10px;color:var(--text);font-size:14px;outline:none}
+.star-add-row input:focus{border-color:var(--pri)}
+.star-add-row input::placeholder{color:var(--muted)}
+.star-add-row button{background:var(--pri);color:white;border:none;border-radius:8px;padding:8px 14px;font-size:14px;cursor:pointer;font-weight:600}
+
+/* News Tab */
+.news-refresh{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.news-refresh button{background:var(--pri);color:white;border:none;border-radius:8px;padding:8px 16px;font-size:13px;cursor:pointer;font-weight:600}
+.news-refresh button:disabled{opacity:.5}
+.news-source-tabs{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
+.news-source-tab{padding:6px 14px;border-radius:16px;border:1px solid var(--border);background:none;color:var(--muted);font-size:12px;cursor:pointer;transition:all .2s}
+.news-source-tab.active{border-color:var(--pri);color:var(--pri-l);background:rgba(255,107,157,.1)}
+.news-list{display:flex;flex-direction:column;gap:8px}
+.news-item{background:var(--card);border-radius:var(--radius);padding:12px 14px;cursor:pointer;transition:background .2s}
+.news-item:hover{background:var(--card2)}
+.news-item-header{display:flex;justify-content:space-between;align-items:center}
+.news-item-time{font-size:11px;color:var(--muted)}
+.news-item-title{font-size:15px;font-weight:600;margin-top:4px}
+.news-item-summary{font-size:13px;color:var(--muted);margin-top:6px;display:none;line-height:1.6}
+.news-item.expanded .news-item-summary{display:block}
+.news-footer{text-align:center;font-size:11px;color:var(--muted);padding:16px 0;margin-top:8px}
+.news-loading{text-align:center;padding:40px;color:var(--muted)}
+.news-error{text-align:center;padding:40px;color:var(--dng)}
+
+/* Settings Page */
+.settings-page{padding-bottom:20px}
+.settings-section{margin-bottom:20px}
+.settings-section h3{font-size:16px;font-weight:700;margin-bottom:12px;color:var(--pri-l)}
+.setting-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--border)}
+.setting-row:last-child{border:none}
+.setting-label{font-size:14px}.setting-label small{display:block;font-size:12px;color:var(--muted);margin-top:2px}
+.setting-row input[type="date"]{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:6px 10px;color:var(--text);font-size:13px}
+.reset-btn{width:100%;padding:14px;background:var(--dng);color:white;border:none;border-radius:var(--radius);font-size:15px;font-weight:700;cursor:pointer;margin-top:20px}
+.reset-btn:hover{opacity:.9}
 
 /* Modal */
 .modal-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;justify-content:center;align-items:flex-end}
@@ -199,7 +229,7 @@ body.pattern-none{background-image:none}
 .modal h3{font-size:17px;margin-bottom:16px;text-align:center}
 .fg{margin-bottom:14px}
 .fg label{display:block;font-size:12px;color:var(--muted);margin-bottom:4px;font-weight:500}
-.fg input,.fg select,.fg textarea{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:9px 12px;color:var(--text);font-size:13px;outline:none;transition:border .2s}
+.fg input,.fg select,.fg textarea{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:9px 12px;color:var(--text);font-size:15px;outline:none;transition:border .2s}
 .fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--pri)}
 .fg textarea{resize:vertical;min-height:50px}
 .frow{display:grid;grid-template-columns:1fr 1fr;gap:10px}
@@ -217,12 +247,6 @@ body.pattern-none{background-image:none}
 .notif-b{background:linear-gradient(135deg,var(--pri),var(--pri-l));margin:12px 0;padding:14px;border-radius:var(--radius);text-align:center}
 .notif-b p{font-size:12px;margin-bottom:8px}
 .notif-b button{background:white;color:var(--pri);border:none;padding:7px 20px;border-radius:8px;font-weight:700;cursor:pointer;font-size:12px}
-
-/* Settings */
-.setting-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--border)}
-.setting-row:last-child{border:none}
-.setting-label{font-size:13px}.setting-label small{display:block;font-size:11px;color:var(--muted);margin-top:2px}
-.setting-row input[type="date"]{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:6px 10px;color:var(--text);font-size:12px}
 
 /* ============ SETUP WIZARD ============ */
 .wizard-ov{position:fixed;inset:0;background:var(--bg);z-index:500;display:flex;flex-direction:column;align-items:center;overflow-y:auto}
@@ -280,6 +304,12 @@ body.pattern-none{background-image:none}
 .tpl-edit-row{display:flex;align-items:center;gap:6px;margin-bottom:6px}
 .tpl-edit-row input{flex:1;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:6px 10px;color:var(--text);font-size:12px}
 .tpl-edit-row button{background:none;border:none;cursor:pointer;font-size:16px;padding:4px}
+
+/* Countdown edit modal */
+.cd-edit-actions{display:flex;gap:6px;margin-top:8px;justify-content:flex-end}
+.cd-edit-actions button{background:var(--pri);color:white;border:none;border-radius:8px;padding:8px 16px;font-size:13px;cursor:pointer;font-weight:600}
+.cd-add-btn{display:flex;align-items:center;justify-content:center;gap:5px;width:100%;padding:12px;margin-top:8px;background:rgba(255,107,157,.1);border:2px dashed var(--pri);border-radius:var(--radius);color:var(--pri-l);font-size:14px;font-weight:600;cursor:pointer}
+.cd-add-btn:hover{background:rgba(255,107,157,.18)}
 </style>
 </head>
 <body class="pattern-none">
@@ -318,7 +348,7 @@ body.pattern-none{background-image:none}
   <div class="wizard-step" id="ws3">
     <h3>👤 个性化设置</h3>
     <div class="wsdesc">给你的打卡起个名字，填上关键日期</div>
-    <div class="fg"><label>App名称</label><input id="wName" placeholder="比如：Sue学习打卡" value="我的打卡"></div>
+    <div class="fg"><label>App名称</label><input id="wName" placeholder="比如：卷王日记" value="卷王日记"></div>
     <div class="fg"><label>城市（用于天气）</label><select id="wCity">
       <option value="Quanzhou">泉州</option><option value="Beijing">北京</option><option value="Shanghai">上海</option>
       <option value="Guangzhou">广州</option><option value="Shenzhen">深圳</option><option value="Chengdu">成都</option>
@@ -356,22 +386,21 @@ body.pattern-none{background-image:none}
 <div class="hdr">
   <div class="hdr-top">
     <div>
-      <h1 id="hdrTitle">📋 我的打卡</h1>
+      <h1 id="hdrTitle">📋 卷王日记</h1>
       <div class="date-line" id="hdrDate"></div>
-      <div class="lunar-line" id="hdrLunar"></div>
+      <div class="lunar-line" id="hdrLunar" onclick="openCalModal()"></div>
     </div>
     <div class="hdr-right" id="hdrWeather">
       <div class="weather-icon">🌤️</div>
       <div class="weather-temp">--°</div>
       <div class="weather-desc">加载中</div>
     </div>
-    <button class="settings-btn" onclick="openSettings()">⚙️</button>
   </div>
   <div class="progress-bar"><div class="progress-fill" id="pFill"></div></div>
   <div class="progress-text"><span id="pLeft"></span><span id="pRight"></span></div>
 </div>
 
-<!-- Tab Pages -->
+<!-- ============ PAGE: HOME ============ -->
 <div class="page active" id="pg-home">
   <div class="stats" id="statsRow"></div>
   <div id="notifBanner" class="notif-b" style="display:none;margin:12px 16px 0">
@@ -379,8 +408,11 @@ body.pattern-none{background-image:none}
     <button onclick="reqNotif()">开启提醒</button>
   </div>
   <div class="sec">
-    <div class="sec-title">⏳ 重要倒计时<span class="badge" id="cdBadge"></span></div>
+    <div class="sec-title">⏳ 重要倒计时<span class="badge" id="cdBadge"></span><button class="edit-btn" onclick="toggleCdEdit()">✏️ 编辑</button></div>
     <div class="countdown-cards" id="cdCards"></div>
+    <div id="cdEditArea" style="display:none">
+      <button class="cd-add-btn" onclick="openAddCountdown()">＋ 添加倒计时</button>
+    </div>
   </div>
   <div class="sec">
     <div class="sec-title">📝 今日计划<span class="badge" id="taskBadge">0/0</span></div>
@@ -396,83 +428,162 @@ body.pattern-none{background-image:none}
     </div>
   </div>
   <div class="sec">
+    <div class="sec-title">🎯 每日习惯<span class="badge" id="habitBadge">0/0</span></div>
+    <div class="habit-list" id="habitList"></div>
+    <button class="add-btn" onclick="openAddHabit()">＋ 添加习惯</button>
+    <div class="pomo-stats-row" id="pomoStatsRow">
+      <div class="pomo-stat-item"><b id="pomoToday">0</b><small>今日番茄</small></div>
+      <div class="pomo-stat-item"><b id="pomoTotal">0</b><small>累计番茄</small></div>
+      <div class="pomo-stat-item"><b id="pomoMins">0</b><small>专注分钟</small></div>
+    </div>
+    <div class="habit-heatmap">
+      <div class="habit-heatmap-title">习惯完成率（近30天）</div>
+      <div class="heatmap" id="habitHeatmap"></div>
+    </div>
+  </div>
+  <div class="sec">
     <div class="sec-title">💧 喝水打卡<span class="badge" id="waterBadge">0/8杯</span></div>
     <div class="water-row" id="waterRow"></div>
     <div class="water-info" id="waterInfo"></div>
   </div>
+  <!-- Heatmap at bottom of home -->
   <div class="sec">
-    <div class="sec-title">💭 每日心得<span class="badge" id="jBadge">未写</span></div>
-    <div class="jcard">
-      <div class="jprompt" id="jPrompt"></div>
-      <textarea class="jta" id="jText" placeholder="今天学了什么？有什么收获？随便写写..."></textarea>
-      <div class="jfoot">
-        <span class="jsaved" id="jSaved"></span>
-        <div class="moods-row" id="jMoods"></div>
+    <div class="heatmap-title" id="heatmapTitle">📅 打卡热力图</div>
+    <div class="heatmap" id="heatmap"></div>
+  </div>
+</div>
+
+<!-- ============ PAGE: SUMMARY ============ -->
+<div class="page" id="pg-summary">
+  <div class="sec">
+    <div class="sec-title">📝 每日总结</div>
+  </div>
+
+  <!-- 我的心得 -->
+  <div class="summary-section open" id="sumJournal">
+    <div class="summary-header" onclick="toggleSummary('sumJournal')">
+      <h3>💭 我的心得</h3>
+      <span class="collapse-icon">▼</span>
+    </div>
+    <div class="summary-body">
+      <div class="jcard" style="border:none;padding:0">
+        <div class="jprompt" id="jPrompt"></div>
+        <textarea class="jta" id="jText" placeholder="今天学了什么？有什么收获？随便写写..."></textarea>
+        <div class="jfoot">
+          <span class="jsaved" id="jSaved"></span>
+          <div class="moods-row" id="jMoods"></div>
+        </div>
+      </div>
+      <button class="jhist-toggle" onclick="toggleJHist()">📖 历史心得 ▾</button>
+      <div id="jHist" style="display:none"></div>
+    </div>
+  </div>
+
+  <!-- Kite总结 -->
+  <div class="summary-section" id="sumKite">
+    <div class="summary-header" onclick="toggleSummary('sumKite')">
+      <h3>🤖 Kite总结</h3>
+      <span class="collapse-icon">▼</span>
+    </div>
+    <div class="summary-body">
+      <div class="summary-display" id="kiteSummary">暂无总结</div>
+    </div>
+  </div>
+
+  <!-- 对话精华 -->
+  <div class="summary-section" id="sumChat">
+    <div class="summary-header" onclick="toggleSummary('sumChat')">
+      <h3>💬 对话精华</h3>
+      <span class="collapse-icon">▼</span>
+    </div>
+    <div class="summary-body">
+      <div class="summary-display" id="chatDigest">暂无对话精华</div>
+    </div>
+  </div>
+
+  <!-- 标星待办 -->
+  <div class="summary-section" id="sumStar">
+    <div class="summary-header" onclick="toggleSummary('sumStar')">
+      <h3>⭐ 标星待办</h3>
+      <span class="collapse-icon">▼</span>
+    </div>
+    <div class="summary-body">
+      <div class="star-todo-list" id="starTodoList"></div>
+      <div class="star-add-row">
+        <input id="starTodoInput" placeholder="添加标星待办..." onkeydown="if(event.key==='Enter')addStarTodo()">
+        <button onclick="addStarTodo()">添加</button>
       </div>
     </div>
-    <button class="jhist-toggle" onclick="toggleJHist()">📖 历史心得 ▾</button>
-    <div id="jHist" style="display:none"></div>
+  </div>
+
+  <!-- 备忘 -->
+  <div class="summary-section" id="sumMemo">
+    <div class="summary-header" onclick="toggleSummary('sumMemo')">
+      <h3>📋 备忘</h3>
+      <span class="collapse-icon">▼</span>
+    </div>
+    <div class="summary-body">
+      <textarea class="summary-textarea" id="memoText" placeholder="写点备忘..." oninput="saveMemo()"></textarea>
+    </div>
   </div>
 </div>
 
-<div class="page" id="pg-cal">
-  <div class="cal-header">
-    <button class="cal-nav" onclick="calNav(-1)">◀</button>
-    <h2 id="calTitle"></h2>
-    <button class="cal-nav" onclick="calNav(1)">▶</button>
-  </div>
-  <div class="cal-weekdays"><span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span></div>
-  <div class="cal-days" id="calDays"></div>
-  <div class="heatmap-title" id="heatmapTitle">📅 打卡热力图</div>
-  <div class="heatmap" id="heatmap"></div>
-</div>
-
-<div class="page" id="pg-pomo">
-  <div class="pomo-wrap">
-    <div class="pomo-circle" id="pomoCircle">
-      <div class="pomo-time" id="pomoTime">25:00</div>
-      <div class="pomo-label" id="pomoLabel">专注模式</div>
-    </div>
-    <div class="pomo-btns" id="pomoBtns">
-      <button class="pomo-btn start" onclick="pomoStart()">▶ 开始</button>
-      <button class="pomo-btn reset" onclick="pomoReset()">↺ 重置</button>
-    </div>
-    <div class="pomo-modes" id="pomoModes"></div>
-    <div class="pomo-stats">
-      <div class="pomo-stat"><b id="pomoToday">0</b><small>今日番茄</small></div>
-      <div class="pomo-stat"><b id="pomoTotal">0</b><small>累计番茄</small></div>
-      <div class="pomo-stat"><b id="pomoMins">0</b><small>专注分钟</small></div>
-    </div>
-    <div class="pomo-hist"><div class="pomo-hist-title">今日记录</div><div id="pomoHist"></div></div>
-  </div>
-</div>
-
-<div class="page" id="pg-habit">
+<!-- ============ PAGE: NEWS ============ -->
+<div class="page" id="pg-news">
   <div class="sec">
-    <div class="sec-title">🎯 每日习惯<span class="badge" id="habitBadge">0/0</span></div>
-    <div class="habit-list" id="habitList"></div>
-    <button class="add-btn" onclick="openAddHabit()">＋ 添加习惯</button>
+    <div class="sec-title">📰 每日资讯</div>
   </div>
-  <div class="sec">
-    <div class="habit-heatmap-title">习惯完成率（近30天）</div>
-    <div class="heatmap" id="habitHeatmap"></div>
+  <div class="news-refresh">
+    <span style="font-size:12px;color:var(--muted)" id="newsUpdateTime">上次更新：未更新</span>
+    <button onclick="refreshNews()" id="newsRefreshBtn">🔄 刷新</button>
+  </div>
+  <div class="news-source-tabs">
+    <button class="news-source-tab active" onclick="switchNewsSource(0,this)">华尔街见闻</button>
+    <button class="news-source-tab" onclick="switchNewsSource(1,this)">新浪财经</button>
+    <button class="news-source-tab" onclick="switchNewsSource(2,this)">新华网</button>
+  </div>
+  <div id="newsContent">
+    <div class="news-loading">点击刷新获取最新资讯</div>
+  </div>
+  <div class="news-footer">数据来源：华尔街见闻 | 新浪财经 | 新华网</div>
+</div>
+
+<!-- ============ PAGE: SETTINGS ============ -->
+<div class="page" id="pg-settings">
+  <div class="settings-page">
+    <div class="sec">
+      <div class="sec-title">⚙️ 我的设置</div>
+    </div>
+    <div class="settings-section">
+      <h3>🎨 外观</h3>
+      <div class="fg"><label>App名称</label><input id="sName" placeholder="你的打卡名称" oninput="saveSettings()"></div>
+      <div class="fg"><label>城市</label><select id="sCity" onchange="saveSettings()"></select></div>
+      <div class="color-section">
+        <label>主题色</label>
+        <div class="color-grid" id="sColorGrid"></div>
+      </div>
+      <div class="color-section">
+        <label>装饰图案</label>
+        <div class="pattern-grid" id="sPatternGrid"></div>
+      </div>
+    </div>
+    <div class="settings-section">
+      <h3>📅 日期</h3>
+      <div class="setting-row"><div class="setting-label">开始日期<small>学习期起始日</small></div><input type="date" id="sStart" onchange="saveSettings()"></div>
+      <div class="setting-row"><div class="setting-label">结束日期<small>学习期截止日</small></div><input type="date" id="sEnd" onchange="saveSettings()"></div>
+      <div class="setting-row"><div class="setting-label">重要考试日<small>考试日期</small></div><input type="date" id="sExam" onchange="saveSettings()"></div>
+      <div class="setting-row"><div class="setting-label">报名截止日<small>报名截止</small></div><input type="date" id="sReg" onchange="saveSettings()"></div>
+    </div>
+    <button class="reset-btn" onclick="resetData()">🗑️ 重置所有数据</button>
   </div>
 </div>
 
-<div class="page" id="pg-note">
-  <input class="note-search" id="noteSearch" placeholder="🔍 搜索便签..." oninput="renderNotes()">
-  <div class="note-cats" id="noteCats"></div>
-  <div class="note-list" id="noteList"></div>
-  <button class="add-btn" onclick="openAddNote()">＋ 新建便签</button>
-</div>
-
-<!-- Tab Bar -->
+<!-- Tab Bar (4 tabs) -->
 <div class="tab-bar">
   <button class="tab-btn active" onclick="switchTab('home',this)"><span class="tab-icon">🏠</span>今日</button>
-  <button class="tab-btn" onclick="switchTab('cal',this)"><span class="tab-icon">📅</span>日历</button>
-  <button class="tab-btn" onclick="switchTab('pomo',this)"><span class="tab-icon">⏱️</span>番茄</button>
-  <button class="tab-btn" onclick="switchTab('habit',this)"><span class="tab-icon">🎯</span>习惯</button>
-  <button class="tab-btn" onclick="switchTab('note',this)"><span class="tab-icon">📌</span>便签</button>
+  <button class="tab-btn" onclick="switchTab('summary',this)"><span class="tab-icon">📝</span>总结</button>
+  <button class="tab-btn" onclick="switchTab('news',this)"><span class="tab-icon">📰</span>资讯</button>
+  <button class="tab-btn" onclick="switchTab('settings',this)"><span class="tab-icon">⚙️</span>我的</button>
 </div>
 
 <!-- Task Modal -->
@@ -485,42 +596,34 @@ body.pattern-none{background-image:none}
   </div>
 </div>
 
-<!-- Habit Modal -->
+<!-- Habit Modal (add/edit) -->
 <div class="modal-ov" id="habitModal" onclick="if(event.target===this)closeModal('habitModal')">
-  <div class="modal"><h3>添加习惯</h3>
+  <div class="modal"><h3 id="habitModalTitle">添加习惯</h3>
     <div class="fg"><label>习惯名称</label><input id="hName" placeholder="比如：早起"></div>
     <div class="fg"><label>图标（emoji）</label><input id="hIcon" placeholder="🌅" maxlength="4"></div>
     <div class="mactions"><button class="mbtn-action mbtn-s" onclick="closeModal('habitModal')">取消</button><button class="mbtn-action mbtn-p" onclick="saveHabit()">保存</button></div>
   </div>
 </div>
 
-<!-- Note Modal -->
-<div class="modal-ov" id="noteModal" onclick="if(event.target===this)closeModal('noteModal')">
-  <div class="modal"><h3 id="noteModalTitle">新建便签</h3>
-    <div class="fg"><label>内容</label><textarea id="nText" placeholder="写点什么..." style="min-height:100px"></textarea></div>
-    <div class="fg"><label>分类</label><select id="nCat"><option>学习</option><option>炒股</option><option>生活</option><option>其他</option></select></div>
-    <div class="mactions"><button class="mbtn-action mbtn-s" onclick="closeModal('noteModal')">取消</button><button class="mbtn-action mbtn-p" onclick="saveNote()">保存</button></div>
+<!-- Countdown Modal (add/edit) -->
+<div class="modal-ov" id="cdModal" onclick="if(event.target===this)closeModal('cdModal')">
+  <div class="modal"><h3 id="cdModalTitle">添加倒计时</h3>
+    <div class="fg"><label>名称</label><input id="cdName" placeholder="比如：期末考试"></div>
+    <div class="fg"><label>日期</label><input type="date" id="cdDate"></div>
+    <div class="mactions"><button class="mbtn-action mbtn-s" onclick="closeModal('cdModal')">取消</button><button class="mbtn-action mbtn-p" onclick="saveCountdown()">保存</button></div>
   </div>
 </div>
 
-<!-- Settings Modal -->
-<div class="modal-ov" id="settingsModal" onclick="if(event.target===this)closeModal('settingsModal')">
-  <div class="modal"><h3>⚙️ 设置</h3>
-    <div class="fg"><label>App名称</label><input id="sName" placeholder="你的打卡名称" oninput="saveSettings()"></div>
-    <div class="fg"><label>城市</label><select id="sCity" onchange="saveSettings()"></select></div>
-    <div class="color-section">
-      <label>主题色</label>
-      <div class="color-grid" id="sColorGrid"></div>
+<!-- Calendar Modal (popup from lunar-line) -->
+<div class="modal-ov" id="calModal" onclick="if(event.target===this)closeModal('calModal')">
+  <div class="modal">
+    <div class="cal-modal-header">
+      <button class="cal-nav" onclick="calNav(-1)">◀</button>
+      <h2 id="calTitle"></h2>
+      <button class="cal-nav" onclick="calNav(1)">▶</button>
     </div>
-    <div class="color-section">
-      <label>装饰图案</label>
-      <div class="pattern-grid" id="sPatternGrid"></div>
-    </div>
-    <div class="setting-row"><div class="setting-label">开始日期<small>学习期起始日</small></div><input type="date" id="sStart" onchange="saveSettings()"></div>
-    <div class="setting-row"><div class="setting-label">结束日期<small>学习期截止日</small></div><input type="date" id="sEnd" onchange="saveSettings()"></div>
-    <div class="setting-row"><div class="setting-label">重要考试日<small>考试日期</small></div><input type="date" id="sExam" onchange="saveSettings()"></div>
-    <div class="setting-row"><div class="setting-label">报名截止日<small>报名截止</small></div><input type="date" id="sReg" onchange="saveSettings()"></div>
-    <div class="mactions"><button class="mbtn-action mbtn-p" onclick="closeModal('settingsModal')">完成</button></div>
+    <div class="cal-weekdays"><span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span></div>
+    <div class="cal-days" id="calDays"></div>
   </div>
 </div>
 
@@ -529,6 +632,14 @@ body.pattern-none{background-image:none}
   <div class="modal" style="text-align:center" onclick="event.stopPropagation()">
     <h3>🗑️ 确认删除？</h3><p style="color:var(--muted);margin:10px 0 16px;font-size:13px">删除后无法恢复</p>
     <div class="mactions"><button class="mbtn-action mbtn-s" onclick="closeModal('delModal')">取消</button><button class="mbtn-action mbtn-d" id="delConfirm">删除</button></div>
+  </div>
+</div>
+
+<!-- Reset confirm -->
+<div class="modal-ov" id="resetModal" onclick="if(event.target===this)closeModal('resetModal')">
+  <div class="modal" style="text-align:center" onclick="event.stopPropagation()">
+    <h3>⚠️ 重置所有数据？</h3><p style="color:var(--muted);margin:10px 0 16px;font-size:13px">这将清除所有任务、习惯、笔记、日志等数据，且无法恢复！</p>
+    <div class="mactions"><button class="mbtn-action mbtn-s" onclick="closeModal('resetModal')">取消</button><button class="mbtn-action mbtn-d" onclick="confirmResetData()">确认重置</button></div>
   </div>
 </div>
 
@@ -635,9 +746,8 @@ const PATTERNS = [
 const JOURNAL_PROMPTS = ['💡 今天学到了什么新知识点？','🎯 今天最专注的是哪个任务？','🤔 遇到了什么难点？怎么解决的？','📈 跟昨天比，有什么进步？','🔮 明天最想突破什么？','💪 今天最坚持的一件事是什么？','🧠 有什么知识突然想通了？'];
 const POMO_MODES = [{label:'15分钟',work:15,rest:5},{label:'25分钟',work:25,rest:5},{label:'30分钟',work:30,rest:5},{label:'45分钟',work:45,rest:10}];
 const MOODS = ['😊','😐','😤','😴','🔥'];
-const NOTE_CATS = ['全部','学习','炒股','生活','其他'];
 
-const DEFAULT_SETTINGS = {appName:'我的打卡',city:'Quanzhou',startDate:'2026-05-20',endDate:'2026-08-07',examDate:'2026-11-28',regDate:'2026-08-11',themeColor:'#FF6B9D',pattern:'none',setupDone:false};
+const DEFAULT_SETTINGS = {appName:'卷王日记',city:'Quanzhou',startDate:'2026-05-20',endDate:'2026-08-07',examDate:'2026-11-28',regDate:'2026-08-11',themeColor:'#FF6B9D',pattern:'none',setupDone:false};
 
 // ============ LUNAR CALENDAR ============
 const LUNAR_MONTHS_2026 = [
@@ -678,14 +788,19 @@ function getLunarShort(solarDate) {
 // ============ STATE ============
 let editTaskId = null, editNoteId = null, delCallback = null;
 let pomoTimer = null, pomoSec = 0, pomoRunning = false, pomoMode = 1;
+let activePomoHabitIdx = -1; // habit index running pomodoro
 let calYear, calMonth;
 let jSaveTimer = null;
-let noteCatFilter = 0;
 let wizardStep = 1;
 let selectedScene = 'exam';
 let selectedColor = '#FF6B9D';
 let selectedPattern = 'none';
 let tplManageOpen = false;
+let cdEditing = false;
+let editCdId = null;
+let currentNewsSource = 0;
+let newsCache = [null, null, null]; // cache for 3 sources
+let newsLoading = false;
 
 // ============ UTILS ============
 function fmtDate(d) { const x = d instanceof Date ? d : new Date(d); return `${x.getFullYear()}-${String(x.getMonth()+1).padStart(2,'0')}-${String(x.getDate()).padStart(2,'0')}`; }
@@ -714,10 +829,8 @@ function hexToHSL(hex) {
 function applyTheme(priColor) {
   const hsl = hexToHSL(priColor);
   const h = hsl.h, s = hsl.s, l = hsl.l;
-  // Generate light/dark variants
   const priL = `hsl(${h},${Math.min(s+10,100)}%,${Math.min(l+20,85)}%)`;
   const priD = `hsl(${h},${s}%,${Math.max(l-10,25)}%)`;
-  // Generate background colors (dark theme based on primary)
   const bg = `hsl(${h},${Math.max(s-50,8)}%,6%)`;
   const card = `hsl(${h},${Math.max(s-40,10)}%,12%)`;
   const card2 = `hsl(${h},${Math.max(s-35,12)}%,16%)`;
@@ -747,8 +860,8 @@ function applyAllTheme() {
   const s = getSettings();
   applyTheme(s.themeColor || '#FF6B9D');
   applyPattern(s.pattern || 'none');
-  document.getElementById('hdrTitle').textContent = '📋 ' + (s.appName || '我的打卡');
-  document.title = (s.appName || '我的打卡');
+  document.getElementById('hdrTitle').textContent = '📋 ' + (s.appName || '卷王日记');
+  document.title = (s.appName || '卷王日记');
 }
 
 // ============ SETUP WIZARD ============
@@ -758,7 +871,6 @@ function initWizard() {
   renderSceneGrid();
   renderColorGrid('colorGrid');
   renderPatternGrid('patternGrid');
-  // Set defaults for step 3
   const today = fmtDate(new Date());
   const end = new Date(); end.setDate(end.getDate() + 79);
   document.getElementById('wStart').value = today;
@@ -807,7 +919,6 @@ function renderColorGrid(containerId) {
   let h = PRESET_COLORS.map(c =>
     `<div class="color-swatch${selectedColor===c.color?' selected':''}" style="background:${c.color}" onclick="selectColor('${c.color}','${containerId}')" title="${c.name}"></div>`
   ).join('');
-  // Custom color picker
   h += `<div class="color-custom" title="自定义颜色">
     <span class="color-custom-label">🎨</span>
     <input type="color" value="${selectedColor}" onchange="selectColor(this.value,'${containerId}')">
@@ -817,7 +928,7 @@ function renderColorGrid(containerId) {
 function selectColor(color, containerId) {
   selectedColor = color;
   renderColorGrid(containerId);
-  applyTheme(color); // Live preview
+  applyTheme(color);
 }
 
 function renderPatternGrid(containerId) {
@@ -832,11 +943,11 @@ function renderPatternGrid(containerId) {
 function selectPattern(id, containerId) {
   selectedPattern = id;
   renderPatternGrid(containerId);
-  applyPattern(id); // Live preview
+  applyPattern(id);
 }
 
 function finishWizard() {
-  const appName = document.getElementById('wName').value.trim() || '我的打卡';
+  const appName = document.getElementById('wName').value.trim() || '卷王日记';
   const city = document.getElementById('wCity').value;
   const startDate = document.getElementById('wStart').value || fmtDate(new Date());
   const endDate = document.getElementById('wEnd').value;
@@ -853,13 +964,10 @@ function finishWizard() {
   };
   S('settings', settings);
 
-  // Apply scene template
   const scene = SCENE_TEMPLATES[selectedScene];
   if (scene) {
-    // Save custom templates (user can modify later)
     const customTpls = scene.tasks.map(t => ({name:t.name,start:t.start,end:t.end,note:t.note,color:t.color}));
     S('customTemplates', customTpls);
-    // Save default habits
     if (scene.habits && scene.habits.length) {
       S('habits', scene.habits);
     } else {
@@ -920,7 +1028,7 @@ function renderHeader() {
   document.getElementById('pFill').style.width = pct + '%';
   document.getElementById('pLeft').textContent = `第${dn}天 / 共${total}天`;
   document.getElementById('pRight').textContent = `剩余${left}天`;
-  document.getElementById('hdrTitle').textContent = '📋 ' + (getSettings().appName || '我的打卡');
+  document.getElementById('hdrTitle').textContent = '📋 ' + (getSettings().appName || '卷王日记');
   renderWeather();
 }
 
@@ -943,19 +1051,88 @@ function renderStats() {
     <div class="stat"><b class="p4">${rate}%</b><small>完成率</small></div>`;
 }
 
-// ============ COUNTDOWN ============
+// ============ COUNTDOWN (with CRUD) ============
+function getCustomCountdowns() { return getS('customCountdowns', []); }
+
 function renderCountdown() {
   const s = getSettings(), today = new Date(); today.setHours(0,0,0,0);
   const items = [];
-  if(s.regDate) items.push({ label:'报名截止', date: s.regDate, color:'var(--wrn)' });
-  items.push({ label:'学习期结束', date: s.endDate, color:'var(--pri)' });
-  if(s.examDate) items.push({ label:'重要考试', date: s.examDate, color:'var(--suc)' });
+  if(s.regDate) items.push({ id:'_reg', label:'报名截止', date: s.regDate, color:'var(--wrn)', system:true });
+  items.push({ id:'_end', label:'学习期结束', date: s.endDate, color:'var(--pri)', system:true });
+  if(s.examDate) items.push({ id:'_exam', label:'重要考试', date: s.examDate, color:'var(--suc)', system:true });
+  // Custom countdowns
+  const custom = getCustomCountdowns();
+  custom.forEach((c,i) => {
+    const colors = ['var(--pri-l)','var(--suc)','var(--wrn)'];
+    items.push({ id:'custom_'+i, label:c.name, date:c.date, color:colors[i%3.length||0], system:false, idx:i });
+  });
+
   document.getElementById('cdCards').innerHTML = items.map(it => {
     const d = new Date(it.date+'T00:00:00'); d.setHours(0,0,0,0);
     const diff = Math.ceil((d - today) / 86400000);
-    return `<div class="cd-card"><div class="cd-num" style="color:${it.color}">${diff > 0 ? diff : 0}</div><div class="cd-label">${it.label}</div><div class="cd-date">${it.date}</div></div>`;
+    return `<div class="cd-card${cdEditing&&!it.system?' cd-editing':''}">
+      ${(!it.system&&cdEditing)?`<div class="cd-acts"><button style="background:none;border:none;cursor:pointer;font-size:14px" onclick="editCountdown(${it.idx})">✏️</button><button style="background:none;border:none;cursor:pointer;font-size:14px" onclick="delCountdown(${it.idx})">❌</button></div>`:''}
+      <div class="cd-num" style="color:${it.color}">${diff > 0 ? diff : 0}</div>
+      <div class="cd-label">${it.label}</div>
+      <div class="cd-date">${it.date}</div>
+    </div>`;
   }).join('');
   document.getElementById('cdBadge').textContent = `${items.length}个`;
+  document.getElementById('cdEditArea').style.display = cdEditing ? 'block' : 'none';
+}
+
+function toggleCdEdit() {
+  cdEditing = !cdEditing;
+  renderCountdown();
+}
+
+function openAddCountdown() {
+  editCdId = null;
+  document.getElementById('cdModalTitle').textContent = '添加倒计时';
+  document.getElementById('cdName').value = '';
+  document.getElementById('cdDate').value = '';
+  openModal('cdModal');
+}
+
+function editCountdown(idx) {
+  const custom = getCustomCountdowns();
+  if (!custom[idx]) return;
+  editCdId = idx;
+  document.getElementById('cdModalTitle').textContent = '编辑倒计时';
+  document.getElementById('cdName').value = custom[idx].name;
+  document.getElementById('cdDate').value = custom[idx].date;
+  openModal('cdModal');
+}
+
+function saveCountdown() {
+  const name = document.getElementById('cdName').value.trim();
+  const date = document.getElementById('cdDate').value;
+  if (!name || !date) { toast('⚠️ 请填写完整'); return; }
+  const custom = getCustomCountdowns();
+  if (editCdId !== null) {
+    if (custom[editCdId]) {
+      custom[editCdId].name = name;
+      custom[editCdId].date = date;
+    }
+  } else {
+    custom.push({ name, date });
+  }
+  S('customCountdowns', custom);
+  closeModal('cdModal');
+  renderAll();
+  toast('✅ 已保存');
+}
+
+function delCountdown(idx) {
+  openModal('delModal');
+  document.getElementById('delConfirm').onclick = () => {
+    const custom = getCustomCountdowns();
+    custom.splice(idx, 1);
+    S('customCountdowns', custom);
+    closeModal('delModal');
+    renderAll();
+    toast('🗑️ 已删除');
+  };
 }
 
 // ============ TASKS ============
@@ -1058,27 +1235,101 @@ function renderWater(){
 }
 function setWater(n){S('water_'+todayKey(),n);renderAll();if(n>=8) toast('💧 喝水目标完成！');}
 
-// ============ JOURNAL ============
+// ============ JOURNAL (now in summary tab) ============
 function renderJournal(){
   const dk=todayKey(),j=getS('journal_'+dk,{text:'',mood:''}),dn=getDayNum();
   document.getElementById('jPrompt').textContent=JOURNAL_PROMPTS[(dn-1)%JOURNAL_PROMPTS.length];
   document.getElementById('jText').value=j.text;
-  document.getElementById('jBadge').textContent=j.text.trim()?'✅ 已写':'未写';
-  document.getElementById('jBadge').style.background=j.text.trim()?'var(--suc)':'var(--pri)';
   document.getElementById('jSaved').textContent=j.text.trim()?'已自动保存':'';
   document.getElementById('jMoods').innerHTML=MOODS.map(m=>`<button class="mbtn2${j.mood===m?' sel':''}" onclick="setMood('${m}')">${m}</button>`).join('');
   document.getElementById('jText').oninput=()=>{clearTimeout(jSaveTimer);jSaveTimer=setTimeout(()=>{
     const jj={text:document.getElementById('jText').value,mood:getS('journal_'+todayKey(),{}).mood||''};
     S('journal_'+todayKey(),jj);document.getElementById('jSaved').textContent='✓ 已保存';
     setTimeout(()=>document.getElementById('jSaved').textContent='已自动保存',1500);
-    document.getElementById('jBadge').textContent=jj.text.trim()?'✅ 已写':'未写';
-    document.getElementById('jBadge').style.background=jj.text.trim()?'var(--suc)':'var(--pri)';
   },800);};
 }
 function setMood(m){const dk=todayKey(),j=getS('journal_'+dk,{text:'',mood:''});j.mood=m;S('journal_'+dk,j);renderJournal();}
 function toggleJHist(){const el=document.getElementById('jHist'),btn=event.target;if(el.style.display==='none'){el.style.display='block';btn.textContent='📖 收起 ▴';let h='';for(let i=1;i<=30;i++){const d=new Date();d.setDate(d.getDate()-i);const k=fmtDate(d),j=getS('journal_'+k);if(j&&j.text.trim()) h+=`<div class="jentry"><span class="jentry-date">${k} ${j.mood||''}</span><div class="jentry-text">${j.text.replace(/</g,'&lt;')}</div></div>`;}el.innerHTML=h||'<div style="text-align:center;padding:16px;color:var(--muted);font-size:12px">暂无</div>';}else{el.style.display='none';btn.textContent='📖 历史心得 ▾';}}
 
-// ============ CALENDAR ============
+// ============ SUMMARY TAB ============
+function toggleSummary(id) {
+  document.getElementById(id).classList.toggle('open');
+}
+
+function renderSummary() {
+  const dk = todayKey();
+  // Journal
+  renderJournal();
+  // Kite summary
+  const kite = getS('kite_summary_'+dk, '');
+  const kiteEl = document.getElementById('kiteSummary');
+  kiteEl.textContent = kite || '';
+  kiteEl.className = 'summary-display' + (kite ? '' : ' empty');
+  kiteEl.textContent = kite || '暂无总结';
+  // Chat digest
+  const chat = getS('chat_digest_'+dk, '');
+  const chatEl = document.getElementById('chatDigest');
+  chatEl.textContent = chat || '';
+  chatEl.className = 'summary-display' + (chat ? '' : ' empty');
+  chatEl.textContent = chat || '暂无对话精华';
+  // Star todos
+  renderStarTodos();
+  // Memo
+  const memo = getS('memo_'+dk, '');
+  document.getElementById('memoText').value = memo;
+}
+
+// ============ STAR TODOS ============
+function getStarTodos() { return getS('star_todos', []); }
+
+function renderStarTodos() {
+  const todos = getStarTodos();
+  const el = document.getElementById('starTodoList');
+  el.innerHTML = todos.length ? todos.map((t, i) =>
+    `<div class="star-todo-item${t.done?' done':''}">
+      <span class="todo-check" onclick="toggleStarTodo(${i})">${t.done?'✅':'⬜'}</span>
+      <span class="todo-text">${t.text.replace(/</g,'&lt;')}</span>
+      <button class="todo-del" onclick="delStarTodo(${i})">🗑️</button>
+    </div>`
+  ).join('') : '<div style="text-align:center;padding:12px;color:var(--muted);font-size:13px">暂无标星待办</div>';
+}
+
+function addStarTodo() {
+  const input = document.getElementById('starTodoInput');
+  const text = input.value.trim();
+  if (!text) return;
+  const todos = getStarTodos();
+  todos.push({ text, done: false });
+  S('star_todos', todos);
+  input.value = '';
+  renderStarTodos();
+}
+
+function toggleStarTodo(i) {
+  const todos = getStarTodos();
+  if (todos[i]) { todos[i].done = !todos[i].done; S('star_todos', todos); renderStarTodos(); }
+}
+
+function delStarTodo(i) {
+  const todos = getStarTodos();
+  todos.splice(i, 1);
+  S('star_todos', todos);
+  renderStarTodos();
+}
+
+// ============ MEMO ============
+function saveMemo() {
+  const dk = todayKey();
+  S('memo_' + dk, document.getElementById('memoText').value);
+}
+
+// ============ CALENDAR MODAL (popup from lunar-line) ============
+function openCalModal() {
+  initCal();
+  renderCal();
+  openModal('calModal');
+}
+
 function initCal(){const n=new Date();calYear=n.getFullYear();calMonth=n.getMonth();}
 function calNav(dir){calMonth+=dir;if(calMonth<0){calMonth=11;calYear--;}if(calMonth>11){calMonth=0;calYear++;}renderCal();}
 function renderCal(){
@@ -1096,8 +1347,8 @@ function renderCal(){
   const totalCells=startDow+lastDay;const remain=totalCells%7===0?0:7-totalCells%7;
   for(let d=1;d<=remain;d++){const dt=new Date(calYear,calMonth+1,d);const ls=getLunarShort(dt);h+=`<div class="cal-day other-month"><span>${d}</span><span class="lunar ${ls.cls}">${ls.text}</span></div>`;}
   document.getElementById('calDays').innerHTML=h;
-  renderHeatmap();
 }
+
 function renderHeatmap(){
   const start=getStart(),total=getTotalDays();
   document.getElementById('heatmapTitle').textContent=`📅 ${total}天打卡热力图`;
@@ -1108,44 +1359,61 @@ function renderHeatmap(){
   document.getElementById('heatmap').innerHTML=h;
 }
 
-// ============ POMODORO ============
-function renderPomo(){
-  const modes=POMO_MODES;document.getElementById('pomoModes').innerHTML=modes.map((m,i)=>`<button class="pomo-mode${i===pomoMode?' active':''}" onclick="setPomoMode(${i})">${m.label}</button>`).join('');
-  renderPomoTime();renderPomoStats();
-}
-function setPomoMode(i){if(pomoRunning)return;pomoMode=i;pomoSec=POMO_MODES[i].work*60;renderPomo();}
-function renderPomoTime(){const m=Math.floor(pomoSec/60),s=pomoSec%60;document.getElementById('pomoTime').textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;}
+// ============ POMODORO (merged into habits) ============
 function renderPomoStats(){
   const dk=todayKey(),hist=getS('pomo_'+dk,[]);
   document.getElementById('pomoToday').textContent=hist.length;
   let total=0,mins=0;for(let i=0;i<365;i++){const d=new Date();d.setDate(d.getDate()-i);const h=getS('pomo_'+fmtDate(d),[]);total+=h.length;mins+=h.reduce((a,b)=>a+b.mins,0);}
   document.getElementById('pomoTotal').textContent=total;document.getElementById('pomoMins').textContent=mins;
-  document.getElementById('pomoHist').innerHTML=hist.length?hist.map(h=>`<div style="font-size:11px;color:var(--muted);padding:4px 0">${h.time} · ${h.mins}分钟 ${h.type==='work'?'🍅':'🌿'}</div>`).join(''):'<div style="font-size:11px;color:var(--muted);padding:8px">暂无记录</div>';
 }
-function pomoStart(){
-  if(pomoRunning){pomoRunning=false;clearInterval(pomoTimer);document.getElementById('pomoBtns').innerHTML='<button class="pomo-btn start" onclick="pomoStart()">▶ 继续</button><button class="pomo-btn reset" onclick="pomoReset()">↺ 重置</button>';return;}
-  if(pomoSec<=0)pomoSec=POMO_MODES[pomoMode].work*60;
-  pomoRunning=true;
-  const isWork=pomoSec>0&&document.getElementById('pomoLabel').textContent==='专注模式';
-  document.getElementById('pomoCircle').className='pomo-circle'+(isWork?' running':' resting');
-  document.getElementById('pomoBtns').innerHTML='<button class="pomo-btn pause" onclick="pomoStart()">⏸ 暂停</button><button class="pomo-btn reset" onclick="pomoReset()">↺ 重置</button>';
-  pomoTimer=setInterval(()=>{
-    pomoSec--;renderPomoTime();
-    if(pomoSec<=0){clearInterval(pomoTimer);pomoRunning=false;
+
+function startHabitPomo(idx) {
+  if (pomoRunning) { toast('⚠️ 已有番茄钟在运行'); return; }
+  activePomoHabitIdx = idx;
+  pomoMode = 1; // 25 minutes
+  pomoSec = POMO_MODES[1].work * 60;
+  pomoRunning = true;
+  toast(`🍅 习惯「${getS('habits',[])[idx].name}」番茄钟开始！25分钟`);
+  renderHabits();
+  pomoTimer = setInterval(() => {
+    pomoSec--;
+    renderHabits();
+    if (pomoSec <= 0) {
+      clearInterval(pomoTimer);
+      pomoRunning = false;
+      // Record pomodoro
       const dk=todayKey(),hist=getS('pomo_'+dk,[]);
       const now=new Date();const time=`${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
-      const label=document.getElementById('pomoLabel').textContent;
-      if(label==='专注模式'){hist.push({time,mins:POMO_MODES[pomoMode].work,type:'work'});S('pomo_'+dk,hist);
-        toast('🍅 专注完成！休息5分钟');document.getElementById('pomoLabel').textContent='休息模式';pomoSec=POMO_MODES[pomoMode].rest*60;document.getElementById('pomoCircle').className='pomo-circle resting';
-      }else{hist.push({time,mins:POMO_MODES[pomoMode].rest,type:'rest'});S('pomo_'+dk,hist);
-        toast('🌿 休息结束！继续加油');document.getElementById('pomoLabel').textContent='专注模式';pomoSec=POMO_MODES[pomoMode].work*60;document.getElementById('pomoCircle').className='pomo-circle running';}
-      document.getElementById('pomoBtns').innerHTML='<button class="pomo-btn start" onclick="pomoStart()">▶ 开始</button><button class="pomo-btn reset" onclick="pomoReset()">↺ 重置</button>';
-      renderPomoStats();pomoStart();}
-  },1000);
+      hist.push({time,mins:25,type:'work'});
+      S('pomo_'+dk,hist);
+      // Auto check habit
+      const hc=getS('hcheck_'+dk,{});
+      hc[idx]=true;
+      S('hcheck_'+dk,hc);
+      activePomoHabitIdx = -1;
+      toast('🍅 番茄完成！已自动打卡');
+      renderAll();
+    }
+  }, 1000);
 }
-function pomoReset(){clearInterval(pomoTimer);pomoRunning=false;pomoSec=POMO_MODES[pomoMode].work*60;document.getElementById('pomoCircle').className='pomo-circle';document.getElementById('pomoLabel').textContent='专注模式';document.getElementById('pomoBtns').innerHTML='<button class="pomo-btn start" onclick="pomoStart()">▶ 开始</button><button class="pomo-btn reset" onclick="pomoReset()">↺ 重置</button>';renderPomoTime();}
 
-// ============ HABITS ============
+function cancelHabitPomo() {
+  if (pomoTimer) clearInterval(pomoTimer);
+  pomoRunning = false;
+  pomoSec = 0;
+  activePomoHabitIdx = -1;
+  toast('↺ 番茄钟已取消');
+  renderHabits();
+}
+
+function formatPomoTime(sec) {
+  const m = Math.floor(sec / 60), s = sec % 60;
+  return `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+}
+
+// ============ HABITS (on home page) ============
+let editHabitIdx = null;
+
 function renderHabits(){
   const habits=getS('habits',[]),dk=todayKey(),hc=getS('hcheck_'+dk,{});
   const hdone=Object.values(hc).filter(v=>v).length;
@@ -1153,13 +1421,39 @@ function renderHabits(){
   document.getElementById('habitList').innerHTML=habits.length ? habits.map((h,i)=>{
     const checked=hc[i];let streak=0;
     for(let d=0;d<365;d++){const dt=new Date();dt.setDate(dt.getDate()-d);const c=getS('hcheck_'+fmtDate(dt),{});if(c[i])streak++;else if(d===0)continue;else break;}
-    return `<div class="habit-card"><div class="habit-ck${checked?' checked':''}" onclick="toggleHabit(${i})">${checked?'✓':''}</div><div class="habit-info"><div class="habit-name">${h.icon||'🎯'} ${h.name}</div><div class="habit-streak">🔥 连续${streak}天</div></div><button class="habit-del" onclick="delHabit(${i})">🗑️</button></div>`;
+    const isActive = activePomoHabitIdx === i;
+    const pomoTimerHtml = isActive ? `<div class="habit-pomo-timer">⏱️ ${formatPomoTime(pomoSec)} <button style="background:none;border:none;color:var(--dng);font-size:12px;cursor:pointer" onclick="event.stopPropagation();cancelHabitPomo()">✕</button></div>` : '';
+    return `<div class="habit-card">
+      <div class="habit-ck${checked?' checked':''}" onclick="toggleHabit(${i})">${checked?'✓':''}</div>
+      <div class="habit-info">
+        <div class="habit-name">${h.icon||'🎯'} ${h.name}</div>
+        <div class="habit-streak">🔥 连续${streak}天</div>
+        ${pomoTimerHtml}
+      </div>
+      <div class="habit-acts">
+        ${!isActive?`<button class="habit-pomo-btn" onclick="startHabitPomo(${i})" title="番茄钟">⏱️</button>`:''}
+        <button class="habit-edit-btn" onclick="editHabit(${i})" title="编辑">✏️</button>
+        <button class="habit-del" onclick="delHabit(${i})" title="删除">🗑️</button>
+      </div>
+    </div>`;
   }).join('') : '<div style="text-align:center;padding:20px;color:var(--muted);font-size:13px">暂无习惯，点击下方添加</div>';
   renderHabitHeatmap();
+  renderPomoStats();
 }
 function toggleHabit(i){const dk=todayKey(),hc=getS('hcheck_'+dk,{});hc[i]=!hc[i];S('hcheck_'+dk,hc);renderAll();}
-function openAddHabit(){document.getElementById('hName').value='';document.getElementById('hIcon').value='🎯';openModal('habitModal');}
-function saveHabit(){const n=document.getElementById('hName').value.trim(),ic=document.getElementById('hIcon').value.trim()||'🎯';if(!n){toast('⚠️ 请输入名称');return;}const habits=getS('habits',[]);habits.push({name:n,icon:ic});S('habits',habits);closeModal('habitModal');renderAll();toast('✅ 已添加');}
+function openAddHabit(){editHabitIdx=null;document.getElementById('habitModalTitle').textContent='添加习惯';document.getElementById('hName').value='';document.getElementById('hIcon').value='🎯';openModal('habitModal');}
+function editHabit(i){const habits=getS('habits',[]);if(!habits[i])return;editHabitIdx=i;document.getElementById('habitModalTitle').textContent='编辑习惯';document.getElementById('hName').value=habits[i].name;document.getElementById('hIcon').value=habits[i].icon||'🎯';openModal('habitModal');}
+function saveHabit(){
+  const n=document.getElementById('hName').value.trim(),ic=document.getElementById('hIcon').value.trim()||'🎯';
+  if(!n){toast('⚠️ 请输入名称');return;}
+  const habits=getS('habits',[]);
+  if(editHabitIdx!==null){
+    if(habits[editHabitIdx]){habits[editHabitIdx].name=n;habits[editHabitIdx].icon=ic;}
+  }else{
+    habits.push({name:n,icon:ic});
+  }
+  S('habits',habits);closeModal('habitModal');renderAll();toast('✅ 已保存');
+}
 function delHabit(i){openModal('delModal');document.getElementById('delConfirm').onclick=()=>{const habits=getS('habits',[]);habits.splice(i,1);S('habits',habits);closeModal('delModal');renderAll();toast('🗑️ 已删除');};}
 function renderHabitHeatmap(){
   let h='';for(let i=29;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);const k=fmtDate(d);const hc=getS('hcheck_'+k,{});const habits=getS('habits',[]);const done=Object.values(hc).filter(v=>v).length;const total=habits.length;
@@ -1168,32 +1462,115 @@ function renderHabitHeatmap(){
   document.getElementById('habitHeatmap').innerHTML=h;
 }
 
-// ============ NOTES ============
-function renderNotes(){
-  const notes=getS('notes',[]),q=document.getElementById('noteSearch').value.toLowerCase();
-  document.getElementById('noteCats').innerHTML=NOTE_CATS.map((c,i)=>`<button class="note-cat-btn${i===noteCatFilter?' active':''}" onclick="noteCatFilter=${i};renderNotes()">${c}</button>`).join('');
-  let filtered=notes.filter(n=>{if(noteCatFilter>0&&n.cat!==NOTE_CATS[noteCatFilter])return false;if(q&&!n.text.toLowerCase().includes(q))return false;return true;});
-  filtered.sort((a,b)=>(b.pinned?1:0)-(a.pinned?1:0)||b.ts-a.ts);
-  document.getElementById('noteList').innerHTML=filtered.length?filtered.map(n=>`<div class="note-card${n.pinned?' pinned':''}">
-    <span class="note-cat">${n.cat}</span><span class="note-pin" onclick="pinNote('${n.id}')">${n.pinned?'📌':'📍'}</span>
-    <div class="note-text">${n.text.replace(/</g,'&lt;')}</div><div class="note-time">${new Date(n.ts).toLocaleString('zh-CN')}</div>
-    <div style="margin-top:6px"><button class="tbtn" onclick="editNote('${n.id}')">✏️</button><button class="tbtn" onclick="delNote('${n.id}')">🗑️</button></div></div>`).join('')
-    :'<div style="text-align:center;padding:30px;color:var(--muted);font-size:13px">暂无便签</div>';
+// ============ NEWS TAB ============
+async function fetchNewsWSJ() {
+  try {
+    const r = await fetch('https://api-one-wscn.awtmt.com/apiv1/content/lives?channel=global-channel&cursor=0&limit=20');
+    const d = await r.json();
+    if (d && d.data && d.data.items) {
+      return d.data.items.map(it => ({
+        time: it.display_time ? new Date(it.display_time * 1000).toLocaleString('zh-CN',{hour:'2-digit',minute:'2-digit'}) : '',
+        title: it.title || it.content_text || '',
+        summary: it.content_text || ''
+      }));
+    }
+    return [];
+  } catch(e) { console.error('WSJ fetch error', e); return []; }
 }
-function openAddNote(){editNoteId=null;document.getElementById('noteModalTitle').textContent='新建便签';document.getElementById('nText').value='';document.getElementById('nCat').selectedIndex=0;openModal('noteModal');}
-function editNote(id){const notes=getS('notes',[]),n=notes.find(x=>x.id===id);if(!n)return;editNoteId=id;document.getElementById('noteModalTitle').textContent='编辑便签';document.getElementById('nText').value=n.text;document.getElementById('nCat').value=n.cat;openModal('noteModal');}
-function saveNote(){const t=document.getElementById('nText').value.trim(),c=document.getElementById('nCat').value;if(!t){toast('⚠️ 请输入内容');return;}const notes=getS('notes',[]);if(editNoteId){const n=notes.find(x=>x.id===editNoteId);if(n){n.text=t;n.cat=c;n.ts=Date.now();}}else{notes.push({id:'n_'+Date.now(),text:t,cat:c,ts:Date.now(),pinned:false});}S('notes',notes);closeModal('noteModal');renderAll();toast('✅ 已保存');}
-function delNote(id){openModal('delModal');document.getElementById('delConfirm').onclick=()=>{let notes=getS('notes',[]);notes=notes.filter(x=>x.id!==id);S('notes',notes);closeModal('delModal');renderAll();toast('🗑️ 已删除');};}
-function pinNote(id){const notes=getS('notes',[]),n=notes.find(x=>x.id===id);if(n){n.pinned=!n.pinned;S('notes',notes);renderNotes();}}
 
-// ============ SETTINGS ============
-function openSettings(){
-  const s=getSettings();
-  document.getElementById('sName').value=s.appName||'我的打卡';
-  document.getElementById('sStart').value=s.startDate;
-  document.getElementById('sEnd').value=s.endDate;
-  document.getElementById('sExam').value=s.examDate||'';
-  document.getElementById('sReg').value=s.regDate||'';
+async function fetchNewsSina() {
+  try {
+    const r = await fetch('https://feed.mix.sina.com.cn/api/roll/get?pageid=153&lid=2516&num=20');
+    const d = await r.json();
+    if (d && d.result && d.result.data) {
+      return d.result.data.map(it => ({
+        time: it.ctime || '',
+        title: it.title || '',
+        summary: it.intro || ''
+      }));
+    }
+    return [];
+  } catch(e) { console.error('Sina fetch error', e); return []; }
+}
+
+async function fetchNewsXinhua() {
+  try {
+    const r = await fetch('http://www.xinhuanet.com/finance/');
+    const t = await r.text();
+    // Simple extraction of titles from HTML
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(t, 'text/html');
+    const links = doc.querySelectorAll('a');
+    const items = [];
+    links.forEach(a => {
+      const text = a.textContent.trim();
+      if (text.length > 8 && text.length < 80 && !text.includes('新华') && !text.includes('登录') && !text.includes('注册')) {
+        items.push({ time: '', title: text, summary: '' });
+      }
+    });
+    return items.slice(0, 20);
+  } catch(e) { console.error('Xinhua fetch error', e); return []; }
+}
+
+async function refreshNews() {
+  const btn = document.getElementById('newsRefreshBtn');
+  btn.disabled = true;
+  btn.textContent = '⏳ 加载中...';
+  newsLoading = true;
+
+  try {
+    const fetchers = [fetchNewsWSJ, fetchNewsSina, fetchNewsXinhua];
+    newsCache[currentNewsSource] = await fetchers[currentNewsSource]();
+  } catch(e) {
+    console.error('News fetch error', e);
+  }
+
+  newsLoading = false;
+  btn.disabled = false;
+  btn.textContent = '🔄 刷新';
+  document.getElementById('newsUpdateTime').textContent = '上次更新：' + new Date().toLocaleTimeString('zh-CN');
+  renderNews();
+}
+
+function switchNewsSource(idx, btn) {
+  currentNewsSource = idx;
+  document.querySelectorAll('.news-source-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  if (newsCache[idx]) {
+    renderNews();
+  } else {
+    refreshNews();
+  }
+}
+
+function renderNews() {
+  const data = newsCache[currentNewsSource];
+  const container = document.getElementById('newsContent');
+  if (!data) {
+    container.innerHTML = '<div class="news-loading">点击刷新获取最新资讯</div>';
+    return;
+  }
+  if (data.length === 0) {
+    container.innerHTML = '<div class="news-error">暂无数据，请稍后刷新重试</div>';
+    return;
+  }
+  container.innerHTML = '<div class="news-list">' + data.map((it, i) =>
+    `<div class="news-item" onclick="this.classList.toggle('expanded')">
+      <div class="news-item-header"><span class="news-item-time">${it.time}</span></div>
+      <div class="news-item-title">${it.title.replace(/</g,'&lt;')}</div>
+      ${it.summary ? `<div class="news-item-summary">${it.summary.replace(/</g,'&lt;')}</div>` : ''}
+    </div>`
+  ).join('') + '</div>';
+}
+
+// ============ SETTINGS PAGE ============
+function renderSettingsPage() {
+  const s = getSettings();
+  document.getElementById('sName').value = s.appName || '卷王日记';
+  document.getElementById('sStart').value = s.startDate;
+  document.getElementById('sEnd').value = s.endDate;
+  document.getElementById('sExam').value = s.examDate || '';
+  document.getElementById('sReg').value = s.regDate || '';
   // City dropdown
   const citySel = document.getElementById('sCity');
   const cityOpts = document.getElementById('wCity').innerHTML;
@@ -1205,11 +1582,11 @@ function openSettings(){
   // Pattern grid
   selectedPattern = s.pattern || 'none';
   renderPatternGrid('sPatternGrid');
-  openModal('settingsModal');
 }
+
 function saveSettings(){
   const s = {
-    appName: document.getElementById('sName').value.trim() || '我的打卡',
+    appName: document.getElementById('sName').value.trim() || '卷王日记',
     city: document.getElementById('sCity').value,
     startDate: document.getElementById('sStart').value,
     endDate: document.getElementById('sEnd').value,
@@ -1224,6 +1601,16 @@ function saveSettings(){
   renderAll();
 }
 
+function resetData() {
+  openModal('resetModal');
+}
+
+function confirmResetData() {
+  localStorage.clear();
+  closeModal('resetModal');
+  location.reload();
+}
+
 // ============ NOTIFICATIONS ============
 function checkNotif(){if('Notification' in window && Notification.permission==='default') document.getElementById('notifBanner').style.display='block';}
 function reqNotif(){if('Notification' in window) Notification.requestPermission().then(p=>{document.getElementById('notifBanner').style.display='none';if(p==='granted') toast('🔔 提醒已开启！');});}
@@ -1235,17 +1622,25 @@ function setupReminders(){reminderTimers.forEach(t=>clearTimeout(t));reminderTim
 }
 
 // ============ TABS ============
-function switchTab(name,btn){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.getElementById('pg-'+name).classList.add('active');btn.classList.add('active');if(name==='cal'){initCal();renderCal();}if(name==='pomo')renderPomo();if(name==='habit')renderHabits();if(name==='note')renderNotes();}
+function switchTab(name,btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('pg-'+name).classList.add('active');
+  btn.classList.add('active');
+  if(name==='summary') renderSummary();
+  if(name==='news') { if(!newsCache[currentNewsSource]) refreshNews(); else renderNews(); }
+  if(name==='settings') renderSettingsPage();
+}
 
 // ============ MODAL ============
 function openModal(id){document.getElementById(id).classList.add('active');}
-function closeModal(id){document.getElementById(id).classList.remove('active');editTaskId=null;editNoteId=null;}
+function closeModal(id){document.getElementById(id).classList.remove('active');editTaskId=null;editNoteId=null;editHabitIdx=null;}
 
 // ============ TOAST ============
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
 
 // ============ RENDER ALL ============
-function renderAll(){renderHeader();renderStats();renderCountdown();renderTasks();renderTpls();renderWater();renderJournal();renderPomo();renderHabits();renderNotes();checkNotif();}
+function renderAll(){renderHeader();renderStats();renderCountdown();renderTasks();renderTpls();renderWater();renderHabits();renderHeatmap();checkNotif();}
 
 // ============ INIT ============
 applyAllTheme();
