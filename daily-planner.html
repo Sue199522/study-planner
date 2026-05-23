@@ -1746,8 +1746,21 @@ setInterval(checkImportantNews, 300000);
 // First check after 30 seconds
 setTimeout(checkImportantNews, 30000);
 
-// PWA
-if('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js').catch(()=>{});
+// PWA auto-update
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('./sw.js').then(reg=>{
+    setInterval(()=>reg.update(),1800000);
+    reg.addEventListener('updatefound',()=>{
+      const nw=reg.installing;
+      nw.addEventListener('statechange',()=>{
+        if(nw.state==='activated'){location.reload();}
+      });
+    });
+  }).catch(()=>{});
+  navigator.serviceWorker.addEventListener('controllerchange',()=>{location.reload();});
+}
+let deferredPrompt=null;
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;});
 let deferredPrompt=null;
 window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;});
 </script>
