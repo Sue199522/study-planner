@@ -1746,21 +1746,34 @@ setInterval(checkImportantNews, 300000);
 // First check after 30 seconds
 setTimeout(checkImportantNews, 30000);
 
-// PWA auto-update
+// PWA with update detection
+const APP_VER='2.6';
 if('serviceWorker' in navigator){
   navigator.serviceWorker.register('./sw.js').then(reg=>{
+    // Check for SW updates every 30 minutes
     setInterval(()=>reg.update(),1800000);
+    // When new SW is found and activated, reload page
     reg.addEventListener('updatefound',()=>{
       const nw=reg.installing;
       nw.addEventListener('statechange',()=>{
-        if(nw.state==='activated'){location.reload();}
+        if(nw.state==='activated'){
+          // New SW activated - force reload to get latest content
+          console.log('[SW] New version activated, reloading...');
+          location.reload();
+        }
       });
     });
+    // If there's already a waiting SW, force it to activate
+    if(reg.waiting){
+      reg.waiting.postMessage({type:'SKIP_WAITING'});
+    }
   }).catch(()=>{});
-  navigator.serviceWorker.addEventListener('controllerchange',()=>{location.reload();});
+  // When current SW gets replaced by new one, reload
+  navigator.serviceWorker.addEventListener('controllerchange',()=>{
+    console.log('[SW] Controller changed, reloading...');
+    location.reload();
+  });
 }
-let deferredPrompt=null;
-window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;});
 let deferredPrompt=null;
 window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;});
 </script>
