@@ -168,6 +168,7 @@ body.pattern-none{background-image:none}
 .summary-textarea::placeholder{color:var(--muted)}
 .summary-display{background:var(--bg);border-radius:10px;padding:12px;font-size:14px;line-height:1.7;color:var(--text);min-height:40px;white-space:pre-wrap}
 .summary-display.empty{color:var(--muted);font-style:italic}
+.summary-date-nav{display:flex;align-items:center;gap:6px;margin-bottom:12px;justify-content:center}
 
 /* Star Todos */
 .star-todo-list{display:flex;flex-direction:column;gap:6px}
@@ -463,6 +464,12 @@ body.pattern-none{background-image:none}
 <div class="page" id="pg-summary">
   <div class="sec">
     <div class="sec-title">📝 每日总结</div>
+    <div class="summary-date-nav">
+      <button onclick="shiftSummaryDate(-1)" style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:6px 12px;cursor:pointer;font-size:14px">◀</button>
+      <span id="summaryDateLabel" style="font-size:15px;font-weight:600"></span>
+      <button onclick="shiftSummaryDate(1)" style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:6px 12px;cursor:pointer;font-size:14px">▶</button>
+      <button onclick="shiftSummaryDate(0)" style="background:var(--pri);color:white;border:none;border-radius:8px;padding:6px 12px;cursor:pointer;font-size:13px;margin-left:6px">今天</button>
+    </div>
   </div>
 
   <!-- 我的心得 -->
@@ -1256,14 +1263,14 @@ function loadPreset(key) {
 
 // ============ JOURNAL (now in summary tab) ============ (now in summary tab) ============
 function renderJournal(){
-  const dk=todayKey(),j=getS('journal_'+dk,{text:'',mood:''}),dn=getDayNum();
+  const dk=getSummaryDateKey(),j=getS('journal_'+dk,{text:'',mood:''}),dn=getDayNum();
   document.getElementById('jPrompt').textContent=JOURNAL_PROMPTS[(dn-1)%JOURNAL_PROMPTS.length];
   document.getElementById('jText').value=j.text;
   document.getElementById('jSaved').textContent=j.text.trim()?'已自动保存':'';
   document.getElementById('jMoods').innerHTML=MOODS.map(m=>`<button class="mbtn2${j.mood===m?' sel':''}" onclick="setMood('${m}')">${m}</button>`).join('');
   document.getElementById('jText').oninput=()=>{clearTimeout(jSaveTimer);jSaveTimer=setTimeout(()=>{
-    const jj={text:document.getElementById('jText').value,mood:getS('journal_'+todayKey(),{}).mood||''};
-    S('journal_'+todayKey(),jj);document.getElementById('jSaved').textContent='✓ 已保存';
+    const jj={text:document.getElementById('jText').value,mood:getS('journal_'+getSummaryDateKey(),{}).mood||''};
+    S('journal_'+getSummaryDateKey(),jj);document.getElementById('jSaved').textContent='✓ 已保存';
     setTimeout(()=>document.getElementById('jSaved').textContent='已自动保存',1500);
   },800);};
 }
@@ -1275,8 +1282,25 @@ function toggleSummary(id) {
   document.getElementById(id).classList.toggle('open');
 }
 
+let summaryDate = null; // null = today
+function shiftSummaryDate(dir) {
+  if (dir === 0) { summaryDate = null; }
+  else {
+    const base = summaryDate ? new Date(summaryDate + 'T00:00:00') : new Date();
+    base.setDate(base.getDate() + dir);
+    summaryDate = fmtDate(base);
+  }
+  renderSummary();
+}
+function getSummaryDateKey() { return summaryDate || todayKey(); }
+
 function renderSummary() {
-  const dk = todayKey();
+  const dk = getSummaryDateKey();
+  const isToday = dk === todayKey();
+  // Date label
+  const d = new Date(dk + 'T00:00:00');
+  const wd = ['日','一','二','三','四','五','六'];
+  document.getElementById('summaryDateLabel').textContent = isToday ? '今天' : `${d.getMonth()+1}/${d.getDate()} 周${wd[d.getDay()]}`;
   // Journal
   renderJournal();
   // 虾皮 summary
@@ -1338,7 +1362,7 @@ function delStarTodo(i) {
 
 // ============ MEMO ============
 function saveMemo() {
-  const dk = todayKey();
+  const dk = getSummaryDateKey();
   S('memo_' + dk, document.getElementById('memoText').value);
 }
 
